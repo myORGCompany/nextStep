@@ -36,10 +36,11 @@ class HomePagesController extends AppController {
 		}
 		$userData = $this->Session->read('User');
 		$this->layout="default";
-		$HelpData['bank'] = $this->UserBank->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
+		$HelpData['bank'] = $this->UserBank->find('first', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
 		$HelpData['giveHelpData'] = $this->GiveHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
 		$HelpData['getHelpData'] = $this->GetHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
 		$HelpData['userData'] = $this->User->find('all', array( 'conditions' => array('status' => 1,'id' =>$userData['UserId'])));
+		
 		$this->set('HelpData',$HelpData);
 	}
 	function registration() {
@@ -52,6 +53,8 @@ class HomePagesController extends AppController {
 		} else {
 			$data['email'] = $this->data['email'];
 			$data['password'] = md5($this->data['password']);
+			$data['name'] = $this->data['Name'];
+			$data['mobile'] = $this->data['mobile'];
 			$this->Session->write('User',$data);
 			$data1 = $User->save($data);
 			$data['UserId'] = $data1['User']['id'];
@@ -64,7 +67,7 @@ class HomePagesController extends AppController {
 		$this->autoRender = false;
 	    $this->layout = "";
 		$User = $this->_import("User");
-		$login_detail = $User->find('first', array( 'conditions' => array('email' => $this->data['email'])));
+		$login_detail = $User->find('first', array( 'conditions' => array('email' => $this->data['email'],'status' =>1)));
 		if(empty($login_detail)) {
 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=2' ) );
 		} else {

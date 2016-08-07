@@ -31,9 +31,9 @@ for($i=0; $i<$cnt;$i++) { ?>
                         <div class="m-l-3 pull-left">
                             <table>
                                 <tr><td><h4><?php echo $HelpData['giveHelpData'][$i]['GiveHelp']['amount'] ;?></h4></td></tr>
-                                <tr> <td>Bank : &nbsp;<?php echo $HelpData['bank']['0']['UserBank']['bank_name'] ;?></td></tr>
-                                <tr><td>acct : &nbsp;<?php echo $HelpData['bank']['0']['UserBank']['account_number'] ;?></td></tr>
-                                <tr><td>Ifsc :&nbsp;<?php echo $HelpData['bank']['0']['UserBank']['ifsc_code'] ;?></td></tr>
+                                <tr> <td>Bank : &nbsp;<?php echo $HelpData['bank']['UserBank']['bank_name'] ;?></td></tr>
+                                <tr><td>acct : &nbsp;<?php echo $HelpData['bank']['UserBank']['account_number'] ;?></td></tr>
+                                <tr><td>Ifsc :&nbsp;<?php echo $HelpData['bank']['UserBank']['ifsc_code'] ;?></td></tr>
                             </table>
                         </div>
                         <div class="pull-right ">
@@ -42,7 +42,7 @@ for($i=0; $i<$cnt;$i++) { ?>
                                 <tr><td>Mobile :&nbsp;<?php echo $HelpData['userData']['0']['User']['mobile'] ;?></td></tr>
                                 <tr><td>Attatch Reciept:<input type="file" name="file" value=""></td></tr>
                             </table>
-                            <div class="m-r-10 "><a href="#" class="btn btn-primary pull-right border-radius" role="button">Submit</a></div>
+                            <div class="m-r-10 "><a href="javascript:void(0);" id="<?php echo $HelpData['giveHelpData'][$i]['GiveHelp']['id'] ;?>" class="btn btn-primary pull-right border-radius" onclick="submitReq(this.id);" role="button">Submit</a></div>
                             
                         </div>
                     </div>
@@ -68,7 +68,7 @@ if(!empty($HelpData['getHelpData'][$i]['GetHelp']['amount'])) { ?>
                         </div>
                     </div>
                     <div class="caption m-b-6">
-                            <a href="#" class="btn btn-primary pull-right border-radius" role="button">Accept</a>
+                            <a href="javascript:void(0);" class="btn btn-primary pull-right border-radius" id="<?php echo $HelpData['getHelpData'][$i]['GetHelp']['id'] ;?>" role="button" onclick="acceptReq(this.id);">Accept</a>
                             <button class="btn btn-primary pull-left border-radius">View Reciept</button>
                     </div>
               </div>
@@ -254,13 +254,39 @@ if(!empty($HelpData['getHelpData'][$i]['GetHelp']['amount'])) { ?>
             }
         });
     }
-
-
+    function acceptReq(id){
+        $.ajax({
+            url:'<?php echo ABSOLUTE_URL;?>/desh_board/acceptGetHelp',
+            method:'post',
+            data: {id: id},
+            success: function (data) {
+                alert("Accepted successfully");
+                window.location.reload();
+            },
+            error: function (){
+                alert('Something went wrong..');
+            }
+        });
+    }
+    function submitReq(id){
+        $.ajax({
+            url:'<?php echo ABSOLUTE_URL;?>/desh_board/submitGiveHelp',
+            method:'post',
+            data: {id: id},
+            success: function (data) {
+                alert("Accepted successfully");
+                window.location.reload();
+            },
+            error: function (){
+                alert('Something went wrong..');
+            }
+        });
+    }
 
 </script>
  <?php if (isset($this->params['url']['bankDetails']) && $this->params['url']['bankDetails'] == 1) { ?>
   <script>
           alert("Thanks to update your bank details");
-          window.location = '"<?php echo ABSOLUTE_URL?>"/home_pages/deshBoard/';</script>
+          window.location = "<?php echo ABSOLUTE_URL.'/home_pages/deshBoard/'?>";</script>
      
     <?php } ?>

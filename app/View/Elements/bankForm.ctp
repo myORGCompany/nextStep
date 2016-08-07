@@ -40,10 +40,10 @@
                                   <div class="col-xs-3  text-center"><label class="control-label">Branch</label></div>
                                   <div class="col-xs-3  text-center"><label class="control-label">Ifsc</label></div>
                                 <div class="clearfix"></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['0']['UserBank']['bank_name'] ?></label></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['0']['UserBank']['account_number'] ?></label></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['0']['UserBank']['branch'] ?></label></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['0']['UserBank']['ifsc_code'] ?></label></div>
+                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['UserBank']['bank_name'] ?></label></div>
+                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['UserBank']['account_number'] ?></label></div>
+                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['UserBank']['branch'] ?></label></div>
+                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['UserBank']['ifsc_code'] ?></label></div>
                                   <div class="clearfix"></div>
                              <?php } ?>
                       </div>

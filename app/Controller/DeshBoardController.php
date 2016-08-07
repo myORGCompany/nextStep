@@ -67,6 +67,7 @@ class DeshBoardController extends AppController {
 			$data['ifsc_code'] = $this->data['ifsc'];
 			$data['branch'] = $this->data['branch'];
 			$data['is_active'] = 1;
+			$this->UserBank->updateAll(array("is_active"=>0),array("user_id"=>$userData['UserId']));
 			$this->UserBank->save($data);
 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard?bankDetails=1' ) );
 		}
@@ -82,5 +83,25 @@ class DeshBoardController extends AppController {
                     array('table'=>'users','alias'=>'User','type'=>'inner','conditions'=>array('GetHelp.user_id = User.id'))
                 )));
 		$this->set('HelpRecords',$data);
+	}
+	function acceptGetHelp() {
+		$this->autoRender = false;
+	    $this->layout = "";
+		if(!empty($this->data['id'])) {
+			$this->GetHelp->updateAll(array("is_active"=>0,"is_accepted" =>1),array("id"=>$this->data['id']));
+			return true;
+		} else {
+			return false;
+		}
+	}
+	function submitGiveHelp() {
+		$this->autoRender = false;
+	    $this->layout = "";
+		if(!empty($this->data['id'])) {
+			$this->GiveHelp->updateAll(array("is_active"=>0,"status" =>1),array("id"=>$this->data['id']));
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
