@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/jquery.validate.js"></script>
+<script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/bootstrapValidator.min.js"></script>
 <div class="templatemo-top-bar" id="templatemo-top">
             <div class="container">
                 <div class="subheader">
@@ -77,17 +79,19 @@
               <div class="row">
                   <div class="col-xs-6">
                       <div class="well">
-                          <form id="loginForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/home_pages/logins/" data-toggle="validator" >
-                              <div class="form-group control-group">
-                                  <label for="email" class="control-label" >Username</label>
-                                  <input type="text" class="form-control" id="email" name="email" title="Please enter you username" placeholder="example@gmail.com" required="">
+                          <form id="loginForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
+                              <div class="form-group control-group" id="emailid">
+                                  <label for="email" class="control-label" >Email</label>
+                                  <input type="text" class="form-control" id="email" name="email" title="Please enter a valid email" placeholder="example@gmail.com" required="">
+                                  
                                   <span class="help-block"></span>
                               </div>
-                              <div class="form-group control-group">
+                              <div class="form-group control-group" id="pass">
                                   <label for="password" class="control-label">Password</label>
-                                  <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password">
+                                  <input type="password" class="form-control" id="password" name="password" value="" required=" title="Please enter your password">
                                   <span class="help-block"></span>
                               </div>
+                              <div id="loginNotifications" class="alert alert-danger hide"  role="alert"></div>
                               <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
                               <div class="checkbox">
                                   <label>
@@ -116,35 +120,201 @@
           </div>
       </div>
   </div>
-  
-  <script type="text/javascript">
+  <input type="hidden" id="tempLoginVar" value="0" />
+<script type="text/javascript">
+    // $(document).ready(function () {
+    //      $("#loginForm").bootstrapValidator({
+    //         live: false,
+    //         trigger: 'blur',
+    //         fields: {
+    //             "email": {
+    //                 message: "Please Enter emailid",
+    //                 selector: "#email",
+    //                 validators: {
+    //                     notEmpty: {
+    //                         enabled: true,
+    //                         message: 'Please enter an E-mail address'
+    //                     },
+    //                     emailAddress: {
+    //                         message: 'Please enter a valid E-mail address'
+    //                     },
+    //                     remote: {
+    //                         message: "This email is already registered",
+    //                         url: "<?php echo ABSOLUTE_URL;?>/users/isRegisteredEmail",
+    //                         trigger: 'blur'
+    //                     }
+    //                 }
+    //             },
+    //             "password": {
+    //                 message: "Please enter a password with at least 7 chars",
+    //                 selector: "#password",
+    //                 validators: {
+    //                     notEmpty: {
+    //                         enabled: true,
+    //                         message: 'Please enter your password'
+    //                     },
+    //                     password: {
+    //                         message: 'The password is not valid'
+    //                     },
+    //                     stringLength: {
+    //                         enabled: true,
+    //                         min: 7,
+    //                         max: 20,
+    //                         message: 'Password should be at least 7 characters'
+    //                     },
+    //                 }
+    //             }
+    //         }
+    //     });
+    // });
+        //     $('#loginForm').validate({
+        //         rules: {
+        //              email: {
+        //                 message: "Please Enter emailid",
+        //                 selector: "#email",
+        //                 validators: {
+        //                     notEmpty: {
+        //                         enabled: true,
+        //                         message: 'Please enter an E-mail address'
+        //                     },
+        //                     emailAddress: {
+        //                         message: 'Please enter a valid E-mail address'
+        //                     },
+        //                     remote: {
+        //                         message: "This email is already registered",
+        //                         url: "<?php echo ABSOLUTE_URL;?>/users/isRegisteredEmail",
+        //                         trigger: 'blur'
+        //                     }
+        //                 }
+        //             },
+        //             Password: {
+        //                 minlength: 2,
+        //                 required: true,
+        //             }
+        //         },
+        //         highlight: function (element) {
+        //             $(element).closest('.controls').removeClass('success').addClass('text-danger');
+        //         },
+        //         success: function (element) {
+        //             element.addClass('valid')
+        //                 .closest('.controls').removeClass('error').addClass('success');
+        //         }
+        //     });
+        // });
+        /*
+         * @Function : ajax post request to post the data to backend php code and get responce
+         * @param : array Form data
+         * @Return : successMessage as responce
+         * @Author : Vikrant Agrawal
+         * @creted on : 2016-08-27
+         */
+        // function isRegisteredEmail(emailid){
+        //     $.ajax({
+        //             type: "POST",
+        //             url: "<?php echo ABSOLUTE_URL;?>/users/isRegisteredEmail",
+        //             data: {email:emailid},
+        //             success: function(data){
+        //                 if (data == 1) {
+        //                     $('#emailid').removeClass('has-error').addClass('has-success');
+        //                 } else {
+        //                     $('#emailid').removeClass('has-success').addClass('has-error');
+        //                 }
+        //             }, error: function (request, status, error) {
+        //                 alert("Something went wrong");
+        //             }
+        //         });
+        // }
+        
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    var ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";
+        var loginForm = $("#loginForm");
 
-$(document).ready(function(){
-     $('ul.nav li.dropdown').hover(function() {
-  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
-}, function() {
-  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-});
-   
-    $("#reg").click(function(){
-        $("#close").click();
-        setTimeout(show_reg, 1000));
-       
+        var loginFormValidationRules = {
+            fields: {
+                "email": {
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: 'The email address is required'
+                        },
+                        emailAddress: {
+                            enabled: true,
+                            message: 'This is not a valid email address'
+                        },
+                        remote: {
+                            message: "you are not registered please register first",
+                            url: ABSOLUTE_URL + "/desh_board/isRegistered",
+                            trigger: 'blur'
+                        }
+                    }
+                },
+                "password": {
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: 'Please enter password'
+                        }
+                    }
+                }
+            },
+            trigger: "blur",
+            live: false,
+
+        };
+        
+        var isFormValid = false;
+
+        /*
+         * instantiate validator
+         *
+         */
+        var validator = $(loginForm)
+                .bootstrapValidator(
+                    loginFormValidationRules
+                )
+                .on("success.form.bv", function (e, field, $field) {
+                    
+                    if (!isFormValid) {
+                        
+                        e.preventDefault();
+                        
+                        if ($('#tempLoginVar').val()=='0') {
+                            
+                            $('#tempLoginVar').val('1');
+                            $.ajax({
+                                dataType: "JSON",
+                                url: ABSOLUTE_URL + "/desh_board/ajaxLogin",
+                                data: loginForm.serialize(),
+                                type: "POST",
+                                success: function (res) {
+                                    
+                                    if (res.hasError === true) {
+                                        
+                                        $("#loginNotifications").html(res.messages).show().removeClass('hide');
+                                        $('#tempLoginVar').val('0');
+                                        
+                                    } else {
+                                        
+                                        if (res.redirect === false) {
+                                            //page reload
+                                            document.location.reload(true);
+                                        } else {
+                                            //redirect to given url
+                                            window.location.href = res.redirect;
+
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                            });
+                            
+                        }
+
+                    }
+                });
     });
 
-});
-
-function show_reg(){
-  alert("DDDDD");
-     $("#register").click();
-}
-
-
-
-
-// function hidepopup()
-// {
-//    $("#loginform").fadeOut();
-//    $("#loginform").css({"visibility":"hidden","display":"none"});
-// }
 </script>

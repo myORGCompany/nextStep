@@ -110,4 +110,3 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
-Configure::write('default_css_jobseeker', array('bootstrap', 'hh-theme'));

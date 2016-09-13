@@ -16,16 +16,23 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $uses = array();
+	public $uses = array('User');
 
 /**
  * Displays a view
- *
  * @return void
  * @throws NotFoundException When the view file could not be found
  *	or MissingViewException in debug mode.
  */
-function registration() {
-
-}
+	function isRegisteredEmail() {
+		//Configure::write('debug', 02);
+		$this->autoRender = false;
+		$this->layout = "";
+		$email = $this->User->find('first', array( 'conditions' => array('email' =>$this->data['email'],'status' =>1),'fields' =>array('email')));
+		if($email['User']['email']){
+			return true;
+		} else {
+			return false;
+		}	
+	}
 }

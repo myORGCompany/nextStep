@@ -30,7 +30,8 @@
  * ...and connect the rest of 'Pages' controller's URLs.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
-
+	Router::connect('/deshBoard', array('controller' => 'home_pages', 'action' => 'deshBoard'));
+	Router::connect('/adminLogin', array('controller' => 'desh_board', 'action' => 'adminLogin'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

@@ -9,7 +9,7 @@ http://www.templatemo.com/tm-395-urbanic
 body, html { overflow-x:hidden; }
 
 body {
-    background-color: #ffffff;
+    
     font-family:  'Open Sans', Arial, Helvetice Neue, sans-serif;
     font-size: 12px;
 	
@@ -658,7 +658,7 @@ ul.templatemo-project-gallery  li  a img:hover {
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 100%) {
   .navbar-nav > li > a {
     padding-top: 9px;
     padding-bottom: 9px;

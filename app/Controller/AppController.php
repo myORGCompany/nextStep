@@ -33,6 +33,7 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 	//public $components = array('DebugKit.Toolbar');
   var $isLogin = false;
+
 	function _import($model, $constructor = null) {
       try {
         if (!$this->loadModel($model)) {
@@ -51,6 +52,7 @@ class AppController extends Controller {
       }
     }
     function _checkLogin() {
+        
         if($this->Session->read('User')) {
            $isLogin =1;
            $this->Session->write('isLogin' , 1);
@@ -58,5 +60,13 @@ class AppController extends Controller {
         } else {
             return false;
         }
+    }
+    function setProductPrice(){
+        $Product = $this->_import('Product');
+        $productData = $Product->find('list', array(
+            'conditions' => array('is_expaire' =>0 ,'is_saled' =>0,'status' =>1),
+            'fields' => 'price'
+        ));
+        $this->set('productsPrice' , $productData);
     }
 }
