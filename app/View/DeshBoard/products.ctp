@@ -4,6 +4,22 @@
  <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/bootstrap-datetimepicker.min.js"></script>
  <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/jquery.validate.js"></script>
   <link rel="stylesheet" href="<?php echo ABSOLUTE_URL;?>/css/bootstrap-datetimepicker.min.css" />
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.26/jquery.autocomplete.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+   
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+   <script>
+$(function() {
+    $('#input1').autocomplete({
+        source: '<?php echo ABSOLUTE_URL;?>/desh_board/seachAutoComplete',
+        select: function (event, ui) {
+            var id = this.id;
+            $("#" + id).val(ui.item.label); // display the selected text
+            putValue(ui.item);
+        }
+    });
+});
+</script>
 <body>
 	<div class="container well">
 		<div class="row">
@@ -52,10 +68,9 @@
 							<label for="input5" class="col-sm-2 control-label margin-right-100">Category</label>
 							<div class="col-sm-7">
 								<select class="form-control required" title="Please select product category" name="master_category_id" id="input5">
-								    <option>1</option>
-								    <option>2</option>
-								    <option>3</option>
-								    <option>4</option>
+								    <?php foreach ($data['category']  as $key => $value) {
+									echo '<option value="'.$value['MasterCategory']['id'].'">'.$value['MasterCategory']['name'].'</option>';
+								} ?>
 								</select>
 							</div>
 						</div>
@@ -63,10 +78,9 @@
 							<label for="input6" class="col-sm-2 control-label margin-right-100">Product Group</label>
 							<div class="col-sm-7">
 								<select class="form-control required" title="Please select product group" name="product_group_id" id="input6">
-								    <option>1</option>
-								    <option>2</option>
-								    <option>3</option>
-								    <option>4</option>
+								<?php foreach ($data['group']  as $key => $value) {
+									echo '<option value="'.$value['ProductGroup']['id'].'">'.$value['ProductGroup']['name'].'</option>';
+								} ?>
 								</select>
 							</div>
 						</div>
@@ -131,6 +145,12 @@
 	</div>
 </body>
 <script type="text/javascript">
+	function putValue(data){
+		$("#input4").val(data.brand);
+		$("#input5").val(data.categoryId);
+        $("#input6").val(data.groupId);
+        $("#input7").val(data.price);
+	}
     $(function () {
         $('#input8').datetimepicker({
             viewMode: 'years',
@@ -173,7 +193,6 @@ $(document).ready(function () {
                         required: true,
                     },
                     unit: {
-                        minlength: 2,
                         required: true,
                     },
                     brand: {

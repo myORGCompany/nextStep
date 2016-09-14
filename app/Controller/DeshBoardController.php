@@ -16,7 +16,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct');
+	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup');
 
 /**
  * Displays a view
@@ -105,7 +105,9 @@ class DeshBoardController extends AppController {
 		}
 	}
 	function products(){
-		
+		$data['category'] = $this->MasterCategory->find('all',array('fields' => array('id','name') ));
+        $data['group'] = $this->ProductGroup->find('all', array('fields' => array('id','name') ));
+        $this->set('data',$data);
 	}
 	function addProduct(){
 		//$userData = $this->Session->read('User');
@@ -291,35 +293,38 @@ class DeshBoardController extends AppController {
             echo $this->data['disVal'];
         }
     }
-    function seachAutoComplete(){    
-       
-            $this->layout = "";
+    function seachAutoComplete(){ 
+    //Configure::write('debug', 02);   
             $this->autoRender = false;
-            //$Product = $this->_import('Product');
 
             $value = $this->params['url']['q'];
-           
-#conditions
             $cond = array('OR' => array(
-                        'name LIKE' => '%' . $value . '%',
-                        'brand LIKE' => '%' . $value . '%',
-                        'id' => $value ,
-                        ));
+                    'Product.name LIKE' => '%' . $value . '%',
+                    'Product.brand LIKE' => '%' . $value . '%',
+                    ));
+        $option = array(array('table' => 'product_groups','alias'=> 'ProductGroup','type'=>'left','conditions'=>array( 'Product.product_group_id = ProductGroup.id')),
+            array('table' => 'master_categories','alias'=> 'MasterCategory','type'=>'left','conditions'=>array( 'Product.master_category_id = MasterCategory.id')));
 
-            $result = $this->Product->find('all', array('fields' => array('id', 'name', 'brand'),
-                        
-                        'conditions' => array('is_expaire' =>0 ,'is_saled' =>0,'status' =>1, 'AND' => $cond)));
-
+        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','ProductGroup.name','ProductGroup.id','MasterCategory.id'),         
+                    'conditions' => array('Product.is_expaire' =>0 ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
+                    'joins' =>$option));
             $send = array();
             $i = 0;
             foreach ($result as $rel) {
                 $array[] = array (
-                    'label' => $rel['Product']['name'].$rel['Product']['brand'],
+                    'label' => $rel['Product']['name'],
                     'id' => $rel['Product']['id'],
+                    'category' => $rel['MasterCategory']['name'],
+                    'group' => $rel['ProductGroup']['name'],
+                    'groupId' => $rel['ProductGroup']['id'],
+                    'categoryId' => $rel['MasterCategory']['id'],
+                    'brand' => $rel['Product']['brand'],
+                    'price' => $rel['Product']['price'],
                 );
             }
+
             echo json_encode($array);
+
             exit();
-        
     }
 }

@@ -58,7 +58,7 @@ $(function() {
 
 						    </div>
 						    <div class="col-sm-2" id="div<?php echo $newRow;?>quanity">
-						        <input name="quanity<?php echo $newRow;?>"  class="form-control  padding-right-0" id="quanity<?php echo $newRow;?>" value="1" onchange="quantity(this.value,$('#<?php echo $newRow;?>').attr('id'));">
+						        <input name="quanity<?php echo $newRow;?>"  class="form-control  padding-right-0" id="quanity<?php echo $newRow;?>" onchange="quantity(this.value,$('#<?php echo $newRow;?>').attr('id'));">
 						    </div>
 						    <div class="col-sm-2" id="div<?php echo $newRow;?>brand">
 						        <input name="brand<?php echo $newRow;?>" readonly class=" form-control input-group-addon padding-right-0" id="brand<?php echo $newRow;?>">
@@ -87,7 +87,10 @@ $(function() {
 
 			<div class="row pull-right margin-right-40">
 					<button type="submit" class="btn btn-default btn-lg" onclick="javascript:saleList();" >Submit</button>
-			</div>	
+			</div>
+      <div class="row pull-left margin-left-40">
+          <button type="submit" class="btn btn-default btn-lg" onclick="javascript:resetForm();" >Reset</button>
+      </div>	
 		</div>
 	</div>
 </body>
@@ -178,56 +181,16 @@ $(document).ready(function () {
         	if(!$.trim(discount[id])){
         		discount[id] = 0;
         	}
-        	alert(id);
         	if(val){
 				var totle = (val*product[id]['price'])-discount[id];
 				$( "#totel" + id).attr('value',totle);
 				quant[id] = val;
 			}
         }
+        function resetForm(){
+            //$('#productForm')[0].reset();
+            $('#productForm').trigger("reset");
+            $('input[readonly]').val("");
+            $('div').removeClass('has-success');
+        }
 </script>
-<script type="text/javascript">
-
-	 // $(document).ready(function() {
-	 // 	//$(this.target).find('input').autocomplete();
-  //               $("#<?php echo $newRow;?>").autocomplete('<?php echo ABSOLUTE_URL;?>/desh_board/seachAutoComplete/', {
-  //                   autoFill: false,
-  //                   minChars: 2,
-  //                   mustMatch: false,
-  //                   selectFirst: false,
-  //                   width: $('#<?php echo $newRow;?>').css('width'),
-  //                   dataType: "json",
-  //                   multiple: false,
-  //                   multipleSeparator: ", ",
-  //                   parse: function (data) {
-  //                       var rows = new Array();
-  //                       for (var i = 0; i < data.length; i++) {
-  //                           if (data[i].names) {
-  //                               rows[i] = {data: data[i], value: data[i].Name + " | " + data[i].Brand + " | " + data[i].names, result: data[i].Name};
-  //                           } else {
-  //                               rows[i] = {data: data[i], value: data[i].Name + " | " + data[i].Brand , result: data[i].Name};
-  //                           }
-                            
-  //                       }
-
-  //                       return rows;
-  //                   },
-  //                   formatItem: function (row, i, max, term) {
-  //                       return term;
-  //                   },
-  //                   formatResult: function (row) {
-  //                       return row;
-  //                   }
-  //               }).result(function (evt, row, formatted) {
-
-  //               });
-
-  //               jQuery.ui.autocomplete.prototype._resizeMenu = function () {
-  //                 var ul = this.menu.element;
-  //                 ul.outerWidth(this.element.outerWidth());
-  //               }
-
-  //           });
-
-</script>
-  
