@@ -36,9 +36,9 @@ class HomePagesController extends AppController {
 		}
 		$userData = $this->Session->read('User');
 		$this->layout="default";
-		$HelpData['bank'] = $this->UserBank->find('first', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
-		$HelpData['giveHelpData'] = $this->GiveHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
-		$HelpData['getHelpData'] = $this->GetHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
+		// $HelpData['bank'] = $this->UserBank->find('first', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
+		// $HelpData['giveHelpData'] = $this->GiveHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
+		// $HelpData['getHelpData'] = $this->GetHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
 		$HelpData['userData'] = $this->User->find('all', array( 'conditions' => array('status' => 1,'id' =>$userData['UserId'])));
 		
 		$this->set('HelpData',$HelpData);

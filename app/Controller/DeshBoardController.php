@@ -16,7 +16,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup');
+	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand');
 
 /**
  * Displays a view
@@ -326,5 +326,61 @@ class DeshBoardController extends AppController {
             echo json_encode($array);
 
             exit();
+    }
+    function ManageProducts(){
+        //Configure:: write('debug' , 02);
+    }
+    function addManageData(){
+        $this->autoRender = false;
+        Configure:: write('debug' , 02);
+        if($this->Session->read('User')) {
+            $userData = $this->Session->read('User');
+            $data['user_id'] = $userData['UserId'];
+        }
+        if(!empty($this->data['id'])){
+            if($this->data['id'] == 'category' && !empty($this->data['name'])){
+                $data['name'] = $this->data['name'];
+                if($this->MasterCategory->save($data)){
+                    echo "Added Successfully";
+                    exit();
+                } else {
+                    echo "Nothig saved try again";
+                    exit();
+                }
+            } else if($this->data['id'] == 'group' && !empty($this->data['name'])){
+                $data['name'] = $this->data['name'];
+                if($this->ProductGroup->save($data)){
+                    echo "Added Successfully";
+                    exit();
+                } else {
+                    echo "Nothig saved please try again";
+                    exit();
+                }
+            } else if($this->data['id'] == 'brand' && !empty($this->data['name'])){
+                $data['name'] = $this->data['name'];
+                if($this->MasterBrand->save($data)){
+                    echo "Added Successfully";
+                    exit();
+                } else {
+                    echo "Nothig saved please try again";
+                    exit();
+                }            
+            } else if($this->data['id'] == 'client' && !empty($this->data['name'])){
+                $data['name'] = $this->data['name'];
+                $data['address'] = $this->data['add'];
+                $data['phone'] = $this->data['phone'];
+                $data['email'] = $this->data['email'];
+                if($this->Client->save($data)){
+                    echo "Added Successfully";
+                    exit();
+                } else {
+                    echo "Nothig saved please try again";
+                    exit();
+                }
+            } else{
+                echo "Nothing saved please try again";
+                return false;
+            }
+        }
     }
 }

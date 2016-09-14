@@ -46,3 +46,16 @@ html, body { height: 100%; margin: 0px; padding: 0px; background:#fff; }
 .custom-lable{font-weight:bold !important;
 width:100% !important; }
 .bg-success{ background-color: #dff0d8 !important;}
+.cards{
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 7px !important;
+    display: block;
+    margin-bottom: 0.75rem;
+    position: relative;
+}
+.c-table{
+    max-width: 97%;
+    padding: 10px!important;
+    margin-left: 4px!important;
+}

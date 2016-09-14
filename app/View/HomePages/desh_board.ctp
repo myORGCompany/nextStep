@@ -25,10 +25,12 @@
 </div>
 
 <div class="container">
-	<div class="row">
-  	
-  </div>
-
+	<div class="col-md-12 well ">
+        <div class="">
+          	<?php echo $this->element('card-expairy'); ?>
+        </div>
+    </div>
+</div>
 <style type="text/css">
   .border-radius{
     border-radius:15px 50px !important;
@@ -64,8 +66,9 @@
     background: #e7e7e7 url("<?php echo ABSOLUTE_URL;?>/img/border-bg.jpg") repeat-x scroll left top;
     border-bottom: 1px solid #cbcbcb;
     color: #358a22;
-    height: 80px;
+    height: 70px;
     margin: 0 0 25px;
+    width: 90%;
     padding: 12px 0;
     position: relative;
 }
@@ -73,15 +76,14 @@
     padding: 0px 0px 0px;
 }
 .m-r-r-10{
-  margin-right: 10% !important;
+  margin-right: 10px !important;
 }
 .m-r-l-10{
-    margin-left: 10% !important;
+    margin-left: 10px !important;
 }
 
 .margin-bottom-10{
-  margin-bottom: 10%;
-  height: 10% !important;
+  margin-bottom: 10px!important;
 }
 .padding-top-10{
    margin-top: 20px;
@@ -98,5 +100,18 @@
 .cardType{
     box-shadow: 0 3px 5px #c9c9c9;
     border-radius: 20px !important;
+}
+.cards{
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 7px !important;
+    display: block;
+    margin-bottom: 0.75rem;
+    position: relative;
+}
+.c-table{
+    max-width: 97%;
+    padding: 10px!important;
+    margin-left: 4px!important;
 }
 </style>
