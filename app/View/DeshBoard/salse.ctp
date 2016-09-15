@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="<?php echo ABSOLUTE_URL;?>/css/bootstrap-datetimepicker.min.css" />
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.26/jquery.autocomplete.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
    <script>
 $(function() {
@@ -96,28 +95,29 @@ $(function() {
                         <div class="col-md-2 text-center">
                             <button type="submit" class="btn btn-default btn-lg margin-right-74" onclick="javascript:resetForm();" >Reset</button>
                         </div>
-                        <form id="shoperForm">
+                        <form id="shoperForm" action="javascript:saleList();">
                             <div class="col-md-2 ">
                                 <label for="input1" class="control-label">Shoper Name</label>
-                                <input type="text" class="form-control shoper  padding-right-0" name="shoperName" id="shoperName">
-                                <input type="text" class="form-control hidden  padding-right-0" name="shoperId" id="shoperId">
+                                <input type="text" class="form-control shoper required padding-right-0" name="shoperName" id="shoperName">
+                                <input type="text" class="form-control hidden required padding-right-0" name="shoperId" id="shoperId">
                             </div>
                             <div class="col-md-2 ">
                                 <label for="input1" class="control-label">Ammount Paid</label>
-                                <input type="text" class="form-control  padding-right-0" name="paidAmmount" id="paidAmmount">
+                                <input type="text" class="form-control requiredrequired padding-right-0" name="paidAmmount" id="paidAmmount">
                             </div>
                             <div class="col-md-2 ">
                                 <label for="input1" class="control-label">Ammount Remaining</label>
-                                <input type="text" class="form-control  padding-right-0" name="creaditAmmount" id="creaditAmmount">
+                                <input type="text" class="form-control required padding-right-0" name="creaditAmmount" id="creaditAmmount">
                             </div>
                             <div class="col-md-2">
                                 <label for="input1" class="control-label">Bill Number</label>
                                 <input type="text" class="form-control" name="billNo" id="billNo">
                             </div>
-                        </form>
-                        <div class="col-md-2 text-center">
-                                <button type="submit" class="btn btn-default btn-lg margin-left-62" onclick="javascript:saleList();" >Submit</button>
+                        
+                        <div class="col-md-2 text-center form-group control-group">
+                                <button type="submit" class="btn btn-default btn-lg margin-left-62" >Submit</button>
                         </div>
+                        </form>
                     </div>
                 <?php } else {?>
                     <div class="row">
@@ -142,63 +142,20 @@ $(document).ready(function () {
 	discount = [];
 	quant = [];
 	});
-        /*
-         * @Function : ajax post request to post the data to backend php code and get responce
-         * @param : array Form data
-         * @Return : successMessage as responce
-         * @Author : Vikrant Agrawal
-         * @creted on : 2016-08-27
-         */
-        // function SubmitAndDetails(val,id){
-        //     $.ajax({
-        //             type: "POST",
-        //             url: "<?php echo ABSOLUTE_URL;?>/desh_board/getProductDetails",
-        //             data: {productId : val},
-        //             success: function(result){
-        //             	var data = $.trim(result);
-        //                     if(data === 'There is no data for this product Please add first'){
-        //         								//$( "#name"+ id).html(' ').addClass('has-error');
-        //         								$( "#brand"+ id).attr('value','N/A');
-        //         								$( "#price"+ id).attr('value','N/A');
-        //         								$( "#div"+ id + "brand").removeClass('has-success').addClass('has-error');
-        //         								$( "#div"+ id + "price").removeClass('has-success').addClass('has-error');
-        //                     } else {
-        //                     	product[id] = JSON.parse(data);
-        //                     	window.txt = JSON.parse(data);
-        //                     	for (var index in txt) {
-        //         									$( "#" +index + id).attr('value',txt[index]);
-        //         									if($("#div"+id+"quantity").val()){
-        //           										var totle = ($("#div"+id+"quantity").val())*txt['price'];
-        //           										$( "#totel" + id).attr('value',totle);
-        //         									} else {
-        //         										$( "#totel" + id).attr('value',txt['price']);
-        //         									}
-                									
-        //         									$( "#div" + id +index).removeClass('has-error').addClass('has-success');
-        //         								}
-        //         							$.ajax({
-        //         				                    type: "POST",
-        //         				                    url: "<?php echo ABSOLUTE_URL;?>/desh_board/createRow",
-        //         				                    data: {newrow : id},
-        //         				                    success: function(data){
-        //         				                    	$('#formDiv').append(data);
-        //         				                    }, error: function (request, status, error) {
-        //         				                        alert("Something went wrong");
-        //         				                    }
-        //         				                });
-        //                     }
-                            
-        //             }, error: function (request, status, error) {
-        //                 alert("Something went wrong");
-        //             }
-        //         });
-        // }
         function saleList(){
         	$.ajax({
                     type: "POST",
                     url: "<?php echo ABSOLUTE_URL;?>/desh_board/saleList",
                     data: $('#productForm,#shoperForm').serialize(true),
                     success: function(data){
+                        if(data === 'Nothing saled'){
+                            alert("Transaction failed please try again");
+                        } else if(data === 'Successfully'){
+                            alert("Transaction successful");
+                            resetForm();
+                        } else {
+                            return false;
+                        }
                     }, error: function (request, status, error) {
                         alert("Something went wrong");
                     }
@@ -236,7 +193,7 @@ $(document).ready(function () {
             $('input[readonly]').val("");
             $('div').removeClass('has-success');
         }
-        function arrengeData(data1,id){
+function arrengeData(data1,id){
     if (data1 == null) {
         alert("Please select product name");
         $("#" + id).val(null).removeClass('input-group-addon');
@@ -278,4 +235,34 @@ $(document).ready(function () {
         });
     }
 }
+$(document).ready(function () {
+            $('#shoperForm').validate({
+                rules: {
+                     shoperName: {
+                        minlength: 2,
+                        required: true
+                    },
+                    paidAmmount: {
+                        minlength: 2,
+                        required: true,
+                        number:true
+                    },
+                    creaditAmmount: {
+                        minlength: 2,
+                        required: true,
+                        number:true
+                    },
+                    billNo: {
+                        required: true,
+                    }
+                },
+                highlight: function (element) {
+                    $(element).closest('.controls').removeClass('success').addClass('text-danger');
+                },
+                success: function (element) {
+                    element.addClass('valid')
+                        .closest('.controls').removeClass('error').addClass('success');
+                }
+            });
+        });
 </script>

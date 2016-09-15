@@ -4,21 +4,11 @@
 <div class="container">
 	<div class="row navbar-collapse collapse well" >
         <ul class="nav nav-tabs">
-          <li ><a href="#templatemo-top">HOME</a></li>
-          <li role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/products">PRODUCTS</a></li>
-          <li role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/salse"">SALSE</a></li>
-          <li role="presentation" class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DROPDOWN <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-              <li><a class="text-info" href="#">Action</a></li>
-              <li><a class="text-info" href="#">Another action</a></li>
-              <li><a class="text-info" href="#">Something else here</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a class="text-info" href="#">Separated link</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a class="text-info" href="#">One more separated link</a></li>
-          </ul>
-          </li>
+          <li class="margin-bottom-10" ><a href="#templatemo-top">HOME</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/products">PRODUCTS</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/salse">SALSE</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/bulkSalse">BULK SALSE</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/ManageProducts"">MANAGE DATA</a></li>
         </ul>
     </div>
     

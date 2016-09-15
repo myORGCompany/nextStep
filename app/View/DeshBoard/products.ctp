@@ -39,11 +39,11 @@ $(function() {
 						<div class="form-group control-group controls " >
 							<label for="input2" class="col-sm-2 control-label margin-right-100">Quantity</label>
 							<div class="col-sm-2">
-								<input type="number" class="form-control required col-sm-6" title="Please mention the quantity" name="quantity" id="input2"  >
+								<input type="text" class="form-control required col-sm-6" title="Please mention the quantity" name="quantity" id="input2"  >
 							</div> 
 							<label for="input13" class="control-label pull-left "><span class="glyphicon glyphicon-scale " >&nbsp;Packing</span></label>
 							<div class="col-sm-2 ">
-								<input type="number" class="form-control required col-sm-6" title="Please mention the packing" name="packing" id="input13"  >
+								<input type="text" class="form-control required col-sm-6" title="Please mention the packing" name="packing" id="input13"  >
 							</div>
 							<label for="input2" class="control-label pull-left padding-right-0 padding-left-0"><span class="glyphicon glyphicon-scale " >&nbsp;Unit</span></label>
 							
@@ -61,16 +61,22 @@ $(function() {
 						<div class="form-group control-group controls">
 							<label for="input4" class="col-sm-2 control-label margin-right-100">Brand</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control required" title="Please mention the brand" name="brand" id="input4" >
+								<select class="form-control required" title="Please mention the brand" name="brand" id="input4">
+								<option value="0">Select Brand</option>
+								    <?php foreach ($data['brand']  as $key => $value) {
+										echo '<option value="'.$value['MasterBrand']['id'].'">'.$value['MasterBrand']['name'].'</option>';
+									} ?>
+								</select>
 							</div>
 						</div>
 						<div class="form-group control-group controls">
 							<label for="input5" class="col-sm-2 control-label margin-right-100">Category</label>
 							<div class="col-sm-7">
 								<select class="form-control required" title="Please select product category" name="master_category_id" id="input5">
+								<option value="0">Select Category</option>
 								    <?php foreach ($data['category']  as $key => $value) {
-									echo '<option value="'.$value['MasterCategory']['id'].'">'.$value['MasterCategory']['name'].'</option>';
-								} ?>
+										echo '<option value="'.$value['MasterCategory']['id'].'">'.$value['MasterCategory']['name'].'</option>';
+									} ?>
 								</select>
 							</div>
 						</div>
@@ -78,6 +84,7 @@ $(function() {
 							<label for="input6" class="col-sm-2 control-label margin-right-100">Product Group</label>
 							<div class="col-sm-7">
 								<select class="form-control required" title="Please select product group" name="product_group_id" id="input6">
+								<option value="0">Select Product Group</option>
 								<?php foreach ($data['group']  as $key => $value) {
 									echo '<option value="'.$value['ProductGroup']['id'].'">'.$value['ProductGroup']['name'].'</option>';
 								} ?>
@@ -87,7 +94,7 @@ $(function() {
 						<div class="form-group control-group controls">
 							<label for="input7" class="col-sm-2 control-label margin-right-100">Price per peice</label>
 							<div class="col-sm-7">
-								<input type="number" class="form-control required" title="Please Enter the price of each unit" name="price" id="input7" >
+								<input type="text" class="form-control required" title="Please Enter the price of each unit" name="price" id="input7" >
 							</div>
 						</div>
 						<div class="form-group control-group controls">
@@ -109,17 +116,17 @@ $(function() {
 							<label for="input10" class="col-sm-2 control-label margin-right-100">Client</label>
 							<div class="col-sm-7">
 								<select class="form-control required" title="Please select a client" name="client_id" id="input10">
-								    <option>1</option>
-								    <option>2</option>
-								    <option>3</option>
-								    <option>4</option>
+								<option value="0">Select Client</option>
+								    <?php foreach ($data['client']  as $key => $value) {
+									echo '<option value="'.$value['Client']['id'].'">'.$value['Client']['name'].'</option>';
+									} ?>
 								</select>
 							</div>
 						</div>
 						<div class="form-group control-group controls">
 							<label for="input11" class="col-sm-2 control-label margin-right-100">Max Discount</label>
 							<div class="col-sm-7">
-								<input type="number" class="form-control digits" title="Please Enter the maximum discount" name="max_discount" id="input11" >
+								<input type="text" class="form-control digits" title="Please Enter the maximum discount" name="max_discount" id="input11" >
 							</div>
 						</div>
 						
@@ -146,10 +153,11 @@ $(function() {
 </body>
 <script type="text/javascript">
 	function putValue(data){
-		$("#input4").val(data.brand);
+		$("#input4").val(data.brandId);
 		$("#input5").val(data.categoryId);
         $("#input6").val(data.groupId);
         $("#input7").val(data.price);
+        $("#input10").val(data.clientId);
 	}
     $(function () {
         $('#input8').datetimepicker({

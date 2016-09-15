@@ -16,7 +16,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse');
+	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse','Transaction','Shoper');
 
 /**
  * Displays a view
@@ -107,6 +107,8 @@ class DeshBoardController extends AppController {
 	function products(){
 		$data['category'] = $this->MasterCategory->find('all',array('fields' => array('id','name') ));
         $data['group'] = $this->ProductGroup->find('all', array('fields' => array('id','name') ));
+        $data['brand'] = $this->MasterBrand->find('all', array('fields' => array('id','name') ));
+        $data['client'] = $this->Client->find('all', array('fields' => array('id','name') ));
         $this->set('data',$data);
 	}
 	function addProduct(){
@@ -277,6 +279,7 @@ class DeshBoardController extends AppController {
             foreach ($arr as $key => $value) { 
                 $i = $key+1;
                 if(!empty($value['name'.$i])){
+                    $salseData['productId'][] = trim($value['id'.$i]) ;
                     $prSalse[$key]['Salse']['actual_price'] = (trim($value['totel'.$i])/trim($value['quanity'.$i])) ;
                     $prSalse[$key]['Salse']['quantity'] = trim($value['quantity'.$i]) ;
                     if($this->data['shoperId']){
@@ -297,6 +300,7 @@ class DeshBoardController extends AppController {
                 try{
                     $this->Salse->create();
                     if($this->Salse->save($value)){
+                        $salseData['salse_id'][] = $this->Salse->getLastInsertID(); ;
                         echo "Successfully";
                     } else {
                         echo "not saved";
@@ -304,7 +308,14 @@ class DeshBoardController extends AppController {
                 } catch(Exception $e){
                     echo $e->getMessage(); die("DDDDD");
                 }
-            }    
+            }  
+            $txt['salse_ids'] = implode(",", $salseData['salse_id']);
+            $txt['product_ids'] = implode(",", $salseData['productId']);
+            $txt['is_salse'] = 1;
+            $txt['invoice_number'] = 'TxS-'.$txt['salse_ids'].'-'.ceil(microtime()*1000);
+            $this->Transaction->create();
+            $this->Transaction->save($txt);
+            return "Successfully";
         } else{
             die("Nothing saled");
         }
@@ -318,9 +329,9 @@ class DeshBoardController extends AppController {
                 ));
         $option = array(array('table' => 'product_groups','alias'=> 'ProductGroup','type'=>'left','conditions'=>array( 'Product.product_group_id = ProductGroup.id')),
             array('table' => 'master_categories','alias'=> 'MasterCategory','type'=>'left','conditions'=>array( 'Product.master_category_id = MasterCategory.id')),
-            array('table' => 'master_brands','alias'=> 'MasterBrand','type'=>'left','conditions'=>array( 'Product.brand = MasterBrand.id')));
-
-        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','ProductGroup.id','MasterCategory.id'),         
+            array('table' => 'master_brands','alias'=> 'MasterBrand','type'=>'left','conditions'=>array( 'Product.brand = MasterBrand.id')),
+            array('table' => 'clients','alias'=> 'Client','type'=>'left','conditions'=>array( 'Product.client_id = Client.id')));
+        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','MasterBrand.id','Client.id','Client.name','ProductGroup.id','MasterCategory.id'),         
                     'conditions' => array('Product.is_expaire' =>0 ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
                     'joins' =>$option));
             $send = array();
@@ -334,6 +345,9 @@ class DeshBoardController extends AppController {
                     'groupId' => $rel['ProductGroup']['id'],
                     'categoryId' => $rel['MasterCategory']['id'],
                     'brand' => $rel['MasterBrand']['name'],
+                    'brandId' => $rel['MasterBrand']['id'],
+                    'client' => $rel['Client']['name'],
+                    'clientId' => $rel['Client']['id'],
                     'price' => $rel['Product']['price'],
                     'max_discount' => $rel['Product']['max_discount'],
                 );
@@ -390,7 +404,23 @@ class DeshBoardController extends AppController {
                     echo "Nothig saved please try again";
                     exit();
                 }
-            } else{
+            } else if($this->data['id'] == 'shoper' && !empty($this->data['name'])){
+                $data['name'] = $this->data['name'];
+                $data['address'] = $this->data['add'];
+                if(strlen( $this->data['phone'] ) == 10){
+                    $data['mobile'] = $this->data['phone'];
+                } else {
+                    $data['phone'] = $this->data['phone'];
+                }
+                $data['email'] = $this->data['email'];
+                if($this->Shoper->save($data)){
+                    echo "Added Successfully";
+                    exit();
+                } else {
+                    echo "Nothig saved please try again";
+                    exit();
+                }
+            } else {
                 echo "Nothing saved please try again";
                 return false;
             }

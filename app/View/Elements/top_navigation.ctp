@@ -17,7 +17,7 @@
         <div class="templatemo-top-menu">
             <div class="container">
                 <!-- Static navbar -->
-                <div class="navbar navbar-default" role="navigation">
+                <div class="navbar navbar-default row" role="navigation">
                     <div class="container">
                         <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,7 +32,7 @@
                             
                             <?php if ($this->params['controller'] == 'home_pages' && $this->action != 'deshBoard') { ?> 
                               <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
-                                <li class="active"><a href="#templatemo-top">HOME</a></li>
+                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard">HOME</a></li>
                                 <li><a href="#templatemo-about">ABOUT</a></li>
                                 <li><a href="#templatemo-portfolio">PORTFOLIO</a></li>
                                 <li><a href="#templatemo-blog">BLOG</a></li>
@@ -42,24 +42,13 @@
                                         class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
                                 <li><a href="#templatemo-contact">CONTACT</a></li></ul>
                                 <?php } else {  ?>
-                                  <ul class="nav navbar-nav navbar-right active" style="margin-top: 40px;">
-                                    <li class="dropdown">
-                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">One more separated link</a></li>
-                                      </ul>
-                                    </li>
-                                  </ul>
                                   <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
-                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li> </ul>
-                                <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;"><li class="active"><a id="bank"  
-                                        data-toggle="modal" data-target="#bankForm" >Bank Details</a></li></ul>
+
+                               <li class="active" ><a id="bank"  
+                                        href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard">Home</a></li>
+                                        <li class="active">&nbsp;&nbsp;</li> 
+                                <li class="active margin-left-10"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li>
+                                </ul>
 
                                <?php } ?>
                             
