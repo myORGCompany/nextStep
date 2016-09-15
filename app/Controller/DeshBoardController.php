@@ -16,7 +16,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand');
+	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse');
 
 /**
  * Displays a view
@@ -256,7 +256,6 @@ class DeshBoardController extends AppController {
     	$this->layout = null;
         $this->autoRender = false;
     	$newRow = $this->data['newrow'] +1;
-
     	$row = $this->Session->read('billFormRow');
     	if (in_array($this->data['newrow'], $row['id'])){
     		exit;
@@ -273,39 +272,55 @@ class DeshBoardController extends AppController {
     function saleList() {
     	$this->layout = null;
         $this->autoRender = false;
-    	echo count($this->data);die('ddddddd');
-    }
-    function varifieDiscount(){
-        $this->layout = null;
-        $this->autoRender = false;
-        $productDiscount = $this->Product->find('first', array(
-            'conditions' => array('id' => $this->data['productId'],'is_expaire' =>0 ,'is_saled' =>0,'status' =>1),
-            'fields' =>array('max_discount')
-        ));
-        if(!empty($this->data['quanity'])){
-            $dis = $this->data['disVal']/$this->data['quanity'];
+    	if(!empty($this->data)){
+            $arr = array_chunk($this->data, 7,true);
+            foreach ($arr as $key => $value) { 
+                $i = $key+1;
+                if(!empty($value['name'.$i])){
+                    $prSalse[$key]['Salse']['actual_price'] = (trim($value['totel'.$i])/trim($value['quanity'.$i])) ;
+                    $prSalse[$key]['Salse']['quantity'] = trim($value['quantity'.$i]) ;
+                    if($this->data['shoperId']){
+                        $prSalse[$key]['Salse']['shoper_id'] = $this->data['shoperId'];
+                        $prSalse[$key]['Salse']['to_shoper'] = 1;
+                    }
+                }
+            }
+            $option = array(array('table' => 'master_products','alias'=> 'MasterProduct','type'=>'inner','conditions'=>array( 'MasterProduct.id = Product.master_product_id')));
+            $result = $this->Product->find('list', array('fields' => array('Product.id','MasterProduct.id'),
+                    'conditions' => array('Product.id'=>$salseData['productId']),
+                    'joins' =>$option));
+            foreach ($salseData['productId'] as $key => $prId) {
+               $prSalse[$key]['Salse']['product_id'] = $prId;
+               $prSalse[$key]['Salse']['master_product_id'] = $result[$prId];
+            }
+            foreach ($prSalse as $key => $value) {
+                try{
+                    $this->Salse->create();
+                    if($this->Salse->save($value)){
+                        echo "Successfully";
+                    } else {
+                        echo "not saved";
+                    }
+                } catch(Exception $e){
+                    echo $e->getMessage(); die("DDDDD");
+                }
+            }    
         } else{
-           $dis =   $this->data['disVal'];
-        }
-        if($dis > $productDiscount['Product']['max_discount']){
-            echo "Discount could not possible maximum per piece discount can be ".$productDiscount['Product']['max_discount'];
-        } else {
-            echo $this->data['disVal'];
+            die("Nothing saled");
         }
     }
-    function seachAutoComplete(){ 
-    //Configure::write('debug', 02);   
-            $this->autoRender = false;
-
-            $value = $this->params['url']['q'];
-            $cond = array('OR' => array(
-                    'Product.name LIKE' => '%' . $value . '%',
-                    'Product.brand LIKE' => '%' . $value . '%',
-                    ));
+    function seachAutoComplete(){  
+        $this->autoRender = false;
+        $value = $this->params['url']['term'];
+        $cond = array('OR' => array(
+                'Product.name LIKE' => '%' . $value . '%',
+                'Product.brand LIKE' => '%' . $value . '%',
+                ));
         $option = array(array('table' => 'product_groups','alias'=> 'ProductGroup','type'=>'left','conditions'=>array( 'Product.product_group_id = ProductGroup.id')),
-            array('table' => 'master_categories','alias'=> 'MasterCategory','type'=>'left','conditions'=>array( 'Product.master_category_id = MasterCategory.id')));
+            array('table' => 'master_categories','alias'=> 'MasterCategory','type'=>'left','conditions'=>array( 'Product.master_category_id = MasterCategory.id')),
+            array('table' => 'master_brands','alias'=> 'MasterBrand','type'=>'left','conditions'=>array( 'Product.brand = MasterBrand.id')));
 
-        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','ProductGroup.name','ProductGroup.id','MasterCategory.id'),         
+        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','ProductGroup.id','MasterCategory.id'),         
                     'conditions' => array('Product.is_expaire' =>0 ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
                     'joins' =>$option));
             $send = array();
@@ -318,13 +333,12 @@ class DeshBoardController extends AppController {
                     'group' => $rel['ProductGroup']['name'],
                     'groupId' => $rel['ProductGroup']['id'],
                     'categoryId' => $rel['MasterCategory']['id'],
-                    'brand' => $rel['Product']['brand'],
+                    'brand' => $rel['MasterBrand']['name'],
                     'price' => $rel['Product']['price'],
+                    'max_discount' => $rel['Product']['max_discount'],
                 );
             }
-
             echo json_encode($array);
-
             exit();
     }
     function ManageProducts(){
@@ -332,7 +346,6 @@ class DeshBoardController extends AppController {
     }
     function addManageData(){
         $this->autoRender = false;
-        Configure:: write('debug' , 02);
         if($this->Session->read('User')) {
             $userData = $this->Session->read('User');
             $data['user_id'] = $userData['UserId'];
@@ -382,5 +395,13 @@ class DeshBoardController extends AppController {
                 return false;
             }
         }
+    }
+    function bulkSalse(){
+        $this->autoRender = false;
+        $this->setProductPrice();
+        $this->set('newRow',1);
+        $this->Session->write('billFormRow','');
+        $this->set('bulkSalse',1);
+        $this->render('salse');
     }
 }

@@ -91,4 +91,28 @@ class HomePagesController extends AppController {
 		$this->Session->destroy();
 		$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index' ) );
 	}
+	function seachAutoComplete(){
+		$this->autoRender = false;
+		//Configure::write('debug', 02);
+		$value = $this->params['url']['term'];
+		$Shoper = $this->_import('Shoper');
+		$cond = array('OR' => array(
+                    'Shoper.name LIKE' => '%' . $value . '%',
+                    'Shoper.user LIKE' => '%' . $value . '%',
+                    ));
+
+		$result = $Shoper->find('all', array('fields' => array('Shoper.id','Shoper.name'),
+		 			'conditions' => array('is_deleted' =>0,'AND' => $cond)));
+        $send = array();
+        $i = 0;
+        foreach ($result as $rel) {
+            $array[] = array (
+                'label' => $rel['Shoper']['name'],
+                'shoperId' => $rel['Shoper']['id'],
+                'user' =>$rel['Shoper']['user'],
+            );
+        }
+        echo json_encode($array);
+        exit();
+	}
 }
