@@ -11,7 +11,7 @@ $(function() {
 </script>
 <div class="form-group control-group controls col-sm-12 col-md-12 " id="productRow">
     <div class="col-sm-2" id="div<?php echo $newRow;?>name">
-        <input  type="text" class="form-control selector required padding-right-0" title="Please Enter the name of product" value="" name="name<?php echo $newRow;?>" id="<?php echo $newRow;?>">
+        <input  type="text" class="form-control selector padding-right-0" title="Please Enter the name of product" value="" name="name<?php echo $newRow;?>" id="<?php echo $newRow;?>">
         <input  type="text" class="form-control hidden padding-right-0" title="Please Enter the name of product" value="" name="id<?php echo $newRow;?>" id="id<?php echo $newRow;?>" >
     </div>
     <div class="col-sm-2" id="div<?php echo $newRow;?>quantity">

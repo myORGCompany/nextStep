@@ -1,6 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
-
+App::import('Vendor','TCPDF',array('file' => 'dompdf/autoload.inc.php'));
+        use Dompdf\Dompdf;
 /**
  * Static content controller
  *
@@ -16,7 +17,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse','Transaction','Shoper');
+	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse','Transaction','Shoper','Stok');
 
 /**
  * Displays a view
@@ -115,24 +116,33 @@ class DeshBoardController extends AppController {
 		//$userData = $this->Session->read('User');
 		$this->autoRender = false;
 	    $this->layout = "";
-	    Configure::write('debug', 02);
+	    //Configure::write('debug', 02);
 	    if($this->data){
-	    	$stock['Product']['user_id'] = 4;
+	    	$stock['Product']['user_id'] = 3;
 	    	foreach ($this->data as $key => $value) {
 	    		$stock['Product'][$key] = $value;
-	    		$stock1['MasterProduct'][$key] = $value;
 	    	}
-	    	$stock['Product']['expairy_date'] = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $stock['Product']['expairy_date'])));
-	    	$stock['Product']['perchese_date'] = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $stock['Product']['perchese_date'])));
-	    	$productData = $this->MasterProduct->find('first', array(
-            'fields' => array("MasterProduct.id"),
-            'conditions' => array('MasterProduct.name' => $stock['Product']['name'],'MasterProduct.user_id'=> $stock['Product']['user_id'])
+	    	$stock['Product']['expairy_date'] = date('Y-m-d', strtotime(str_replace('/', '-', $stock['Product']['expairy_date'])));
+	    	$stock['Product']['perchese_date'] = date('Y-m-d', strtotime(str_replace('/','-',  $stock['Product']['perchese_date'])));
+	    	$productData = $this->Product->find('first', array(
+            'fields' => array('id','quantity'),
+            'conditions' => array('name' => trim($stock['Product']['name']),'user_id'=> $stock['Product']['user_id'],'packing' => $stock['Product']['packing'] ,'unit' => $stock['Product']['unit'],'brand' => $stock['Product']['brand'],'master_category_id' => $stock['Product']['master_category_id'],'product_group_id' => $stock['Product']['product_group_id'],'client_id' =>$stock['Product']['client_id'] )
         	));
 	    	if(empty($productData)){
-	    		$this->MasterProduct->save($stock1);
-	    	}
-	    	
-	    	$out = $this->Product->save($stock);
+	    	   $this->Product->save($stock);
+               $stock['Stok']['product_id'] = $this->Product->getLastInsertID();
+	    	} else {
+                $stock['Stok']['product_id'] = $productData['Product']['id'];
+                $qant = $productData['Product']['quantity'] + $stock['Product']['quantity'] ;
+                $this->Product->updateALL(array('quantity' => $qant),array('id' => $productData['Product']['id']));
+            }
+       
+	    	$stock['Stok']['expairy_date'] = $stock['Product']['expairy_date'];
+            $stock['Stok']['perchese_date'] = $stock['Product']['perchese_date'];
+            $stock['Stok']['quantity_added'] = $stock['Product']['quantity'];
+             print_r($stock['Stok']);
+            //die("dddddd");
+	    	$out = $this->Stok->save($stock);
 
 	    	print_r($out);
 	    	die("dddddd");
@@ -214,7 +224,6 @@ class DeshBoardController extends AppController {
                     "User.email" => $this->data['email'],
                     'User.password' => md5($this->data['password'])
                 );
-               
                 $LoginData = $this->User->find('first', array('conditions' => $conditions));
                 if ($LoginData) {
                 	$data['UserId'] = $LoginData['User']['id'];
@@ -265,15 +274,15 @@ class DeshBoardController extends AppController {
     		$row['id'][] = $this->data['newrow'];
     		$this->Session->write('billFormRow',$row);
     	}
-    	
+    	$invoice = array();
     	$this->Session->write('billFormRow',$row);
     	//$this->set('preId',$this->data['newrow']);
     	$this->set('newRow',$newRow);
     	$this->render('/Elements/form_row');
     }
     function saleList() {
-    	$this->layout = null;
-        $this->autoRender = false;
+    	 $this->layout = 'blank';
+     //    $this->autoRender = false;
     	if(!empty($this->data)){
             $arr = array_chunk($this->data, 7,true);
             foreach ($arr as $key => $value) { 
@@ -281,6 +290,7 @@ class DeshBoardController extends AppController {
                 if(!empty($value['name'.$i])){
                     $salseData['productId'][] = trim($value['id'.$i]) ;
                     $prSalse[$key]['Salse']['actual_price'] = (trim($value['totel'.$i])/trim($value['quanity'.$i])) ;
+                    $arr['TotleAm'] = $arr['servicetax'] + trim($value['totel'.$i]);
                     $prSalse[$key]['Salse']['quantity'] = trim($value['quantity'.$i]) ;
                     if($this->data['shoperId']){
                         $prSalse[$key]['Salse']['shoper_id'] = $this->data['shoperId'];
@@ -296,28 +306,35 @@ class DeshBoardController extends AppController {
                $prSalse[$key]['Salse']['product_id'] = $prId;
                $prSalse[$key]['Salse']['master_product_id'] = $result[$prId];
             }
-            foreach ($prSalse as $key => $value) {
-                try{
-                    $this->Salse->create();
-                    if($this->Salse->save($value)){
-                        $salseData['salse_id'][] = $this->Salse->getLastInsertID(); ;
-                        echo "Successfully";
-                    } else {
-                        echo "not saved";
+            if(!empty($prSalse[0]['Salse']['product_id'])){
+                foreach ($prSalse as $key => $value) {
+                    try{
+                        $this->Salse->create();
+                        if($this->Salse->save($value)){
+                            $salseData['salse_id'][] = $this->Salse->getLastInsertID();
+                        } else {
+                            echo "not saved";
+                        }
+                    } catch(Exception $e){
+                        echo $e->getMessage(); die("not saved");
                     }
-                } catch(Exception $e){
-                    echo $e->getMessage(); die("DDDDD");
-                }
-            }  
-            $txt['salse_ids'] = implode(",", $salseData['salse_id']);
-            $txt['product_ids'] = implode(",", $salseData['productId']);
-            $txt['is_salse'] = 1;
-            $txt['invoice_number'] = 'TxS-'.$txt['salse_ids'].'-'.ceil(microtime()*1000);
-            $this->Transaction->create();
-            $this->Transaction->save($txt);
-            return "Successfully";
+                }  
+                $txt['salse_ids'] = implode(",", $salseData['salse_id']);
+                $txt['product_ids'] = implode(",", $salseData['productId']);
+                $txt['is_salse'] = 1;
+                $txt['invoice_number'] = 'TxS-'.$txt['salse_ids'].'-'.ceil(microtime()*1000);
+                $this->Transaction->create();
+                $this->Transaction->save($txt);
+                $arr['servicetax'] = $arr['TotleAm'] * 0.15;
+                $arr['vattax'] = $arr['TotleAm'] * 0.045;
+                $arr['otherTax'] = $arr['TotleAm'] * 0.005;
+                $this->set('salse',$arr);
+                return "Successfully";
+            } else {
+                return "Nothing saled";
+            }
         } else{
-            die("Nothing saled");
+            //die("Nothing saled");
         }
     }
     function seachAutoComplete(){  
@@ -331,7 +348,7 @@ class DeshBoardController extends AppController {
             array('table' => 'master_categories','alias'=> 'MasterCategory','type'=>'left','conditions'=>array( 'Product.master_category_id = MasterCategory.id')),
             array('table' => 'master_brands','alias'=> 'MasterBrand','type'=>'left','conditions'=>array( 'Product.brand = MasterBrand.id')),
             array('table' => 'clients','alias'=> 'Client','type'=>'left','conditions'=>array( 'Product.client_id = Client.id')));
-        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','MasterBrand.id','Client.id','Client.name','ProductGroup.id','MasterCategory.id'),         
+        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','MasterBrand.id','Client.id','Client.name','ProductGroup.id','MasterCategory.id','Product.quantity'),         
                     'conditions' => array('Product.is_expaire' =>0 ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
                     'joins' =>$option));
             $send = array();
@@ -350,6 +367,7 @@ class DeshBoardController extends AppController {
                     'clientId' => $rel['Client']['id'],
                     'price' => $rel['Product']['price'],
                     'max_discount' => $rel['Product']['max_discount'],
+                    'quantity' => $rel['Product']['quantity'],
                 );
             }
             echo json_encode($array);
@@ -367,42 +385,90 @@ class DeshBoardController extends AppController {
         if(!empty($this->data['id'])){
             if($this->data['id'] == 'category' && !empty($this->data['name'])){
                 $data['name'] = $this->data['name'];
-                if($this->MasterCategory->save($data)){
-                    echo "Added Successfully";
+                $id = $this->MasterCategory->find('first' , array('fields' => 'id' , 'conditions' => array('name' => $data['name'])));
+                if(!empty($id)){
+                    $ret['message'] = "Already exist please select from menu";
+                    $ret['id'] = $id['MasterCategory']['id'] ;
+                     echo json_encode($ret);
                     exit();
-                } else {
-                    echo "Nothig saved try again";
+                } else{
+                    if($this->MasterCategory->save($data)){
+                    $ret['message'] = "Added Successfully";
+                    $ret['id'] =$this->MasterCategory->getLastInsertID();
+                    echo json_encode($ret);
                     exit();
-                }
+                    } else {
+                         $ret['message'] = "Nothig saved try again";
+                         echo json_encode($ret);
+                        exit();
+                    }
+                } 
+                
             } else if($this->data['id'] == 'group' && !empty($this->data['name'])){
                 $data['name'] = $this->data['name'];
-                if($this->ProductGroup->save($data)){
-                    echo "Added Successfully";
+                $id = $this->ProductGroup->find('first' , array('fields' => 'id' , 'conditions' => array('name' => $data['name'])));
+                if(!empty($id)){
+                    $ret['message'] = "Already exist please select from menu";
+                    $ret['id'] = $id['ProductGroup']['id'] ;
+                     echo json_encode($ret);
                     exit();
-                } else {
-                    echo "Nothig saved please try again";
-                    exit();
+                } else{
+                    if($this->ProductGroup->save($data)){
+                        $ret['message'] = "Added Successfully";
+                        $ret['id'] =$this->ProductGroup->getLastInsertID();
+                        echo json_encode($ret);
+                        exit();
+                        
+                    } else {
+                        $ret['message'] = "Nothig saved please try again";
+                        echo json_encode($ret);
+                        exit();
+                    }
                 }
             } else if($this->data['id'] == 'brand' && !empty($this->data['name'])){
                 $data['name'] = $this->data['name'];
-                if($this->MasterBrand->save($data)){
-                    echo "Added Successfully";
+                $id = $this->MasterBrand->find('first' , array('fields' => 'id' , 'conditions' => array('name' => $data['name'])));
+                if(!empty($id)){
+                    $ret['message'] = "Already exist please select from menu";
+                    $ret['id'] = $id['MasterBrand']['id'] ;
+                     echo json_encode($ret);
                     exit();
-                } else {
-                    echo "Nothig saved please try again";
-                    exit();
+                } else{
+                    if($this->MasterBrand->save($data)){
+                        $ret['message'] = "Added Successfully";
+                        $ret['id'] =$this->MasterBrand->getLastInsertID();
+                        echo json_encode($ret);
+                        exit();
+                        
+                    } else {
+                         $ret['message'] = "Nothig saved please try again";
+                        echo json_encode($ret);
+                        exit();
+                    }
                 }            
             } else if($this->data['id'] == 'client' && !empty($this->data['name'])){
                 $data['name'] = $this->data['name'];
                 $data['address'] = $this->data['add'];
                 $data['phone'] = $this->data['phone'];
                 $data['email'] = $this->data['email'];
-                if($this->Client->save($data)){
-                    echo "Added Successfully";
+                $id = $this->Client->find('first' , array('fields' => 'id' , 'conditions' => array('name' => $data['name'],'email' => $data['email'])));
+                if(!empty($id)){
+                    $ret['message'] = "Already exist please select from menu";
+                    $ret['id'] = $id['Client']['id'] ;
+                     echo json_encode($ret);
                     exit();
-                } else {
-                    echo "Nothig saved please try again";
-                    exit();
+                } else{
+                    if($this->Client->save($data)){
+                        $ret['message'] = "Added Successfully";
+                        $ret['id'] =$this->Client->getLastInsertID();
+                        echo json_encode($ret);
+                        exit();
+                        
+                    } else {
+                         $ret['message'] = "Nothig saved please try again";
+                        echo json_encode($ret);
+                        exit();
+                    }
                 }
             } else if($this->data['id'] == 'shoper' && !empty($this->data['name'])){
                 $data['name'] = $this->data['name'];
@@ -413,15 +479,28 @@ class DeshBoardController extends AppController {
                     $data['phone'] = $this->data['phone'];
                 }
                 $data['email'] = $this->data['email'];
-                if($this->Shoper->save($data)){
-                    echo "Added Successfully";
+                $id = $this->Shoper->find('first' , array('fields' => 'id' , 'conditions' => array('name' => $data['name'],'email' => $data['email'])));
+                if(!empty($id)){
+                    $ret['message'] = "Already exist please select from menu";
+                    $ret['id'] = $id['Shoper']['id'] ;
+                     echo json_encode($ret);
                     exit();
-                } else {
-                    echo "Nothig saved please try again";
-                    exit();
+                } else{
+                    if($this->Shoper->save($data)){
+                        $ret['message'] = "Added Successfully";
+                        $ret['id'] =$this->Shoper->getLastInsertID();
+                        echo json_encode($ret);
+                        exit();
+                        
+                    } else {
+                        $ret['message'] = "Nothig saved please try again";
+                        echo json_encode($ret);
+                        exit();
+                    }
                 }
             } else {
-                echo "Nothing saved please try again";
+                $ret['message'] = "Nothig saved please try again";
+                echo json_encode($ret);
                 return false;
             }
         }
@@ -433,5 +512,18 @@ class DeshBoardController extends AppController {
         $this->Session->write('billFormRow','');
         $this->set('bulkSalse',1);
         $this->render('salse');
+    }
+    function printPdf(){
+        $this->autoRender = false;
+        
+        $dompdf = new Dompdf();
+        
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render(ABSOLUTE_URL.'/desh_board/saleList');
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
     }
 }

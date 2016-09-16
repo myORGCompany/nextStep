@@ -35,7 +35,7 @@ $(function() {
 		<div class="clearfix"></div>
 			<div class=" border-2">
 				<div class="">
-					<form class="form-inline" action="javascript:void(0);" id="productForm">
+					<form class="form-inline" method="post" action="<?php echo ABSOLUTE_URL;?>/desh_board/saleList" id="productForm">
 					<div class="row" id="formDiv">
 					<div class="form-group control-group controls col-sm-12 col-md-12 padding-right-15" id="productRow">
 							<div class="col-sm-2 col-md-2">
@@ -61,12 +61,12 @@ $(function() {
 					    <div class="clearfix"></div> 
 						<div class="form-group control-group controls col-sm-12 col-md-12 " id="productRow">
 						    <div class="col-sm-2" id="div<?php echo $newRow;?>name">
-						        <input  type="text" class="form-control selector required padding-right-0" title="Please Enter the name of product" value="" name="name<?php echo $newRow;?>" id="<?php echo $newRow;?>" >
-                                <input  type="text" class="form-control hidden padding-right-0" title="Please Enter the name of product" value="" name="id<?php echo $newRow;?>" id="id<?php echo $newRow;?>" >
+						        <input  type="text" class="form-control controls selector required padding-right-0" title="Please Enter the name of product" value="" name="name<?php echo $newRow;?>" id="<?php echo $newRow;?>" >
+                                <input  type="text" class="form-control controls hidden padding-right-0" title="Please Enter the name of product" value="" name="id<?php echo $newRow;?>" id="id<?php echo $newRow;?>" >
 
 						    </div>
 						    <div class="col-sm-2" id="div<?php echo $newRow;?>quantity">
-						        <input name="quantity<?php echo $newRow;?>"  class="form-control  padding-right-0" id="quantity<?php echo $newRow;?>" onchange="quantity(this.value,$('#<?php echo $newRow;?>').attr('id'));">
+						        <input name="quantity<?php echo $newRow;?>"  class="form-control quantity controls  padding-right-0" id="quantity<?php echo $newRow;?>" onchange="quantity(this.value,$('#<?php echo $newRow;?>').attr('id'));">
 						    </div>
 						    <div class="col-sm-2" id="div<?php echo $newRow;?>brand">
 						        <input name="brand<?php echo $newRow;?>" readonly class=" form-control input-group-addon padding-right-0" id="brand<?php echo $newRow;?>">
@@ -88,14 +88,14 @@ $(function() {
 				       <br />
 						<div class="form-group control-group controls col-sm-12">
 						</div>
-					</form>
+					
                     <div class="clearfix"></div>
                     <?php if(isset($bulkSalse) && $bulkSalse ==1){ ?>
                     <div class="row">
                         <div class="col-md-2 text-center">
                             <button type="submit" class="btn btn-default btn-lg margin-right-74" onclick="javascript:resetForm();" >Reset</button>
                         </div>
-                        <form id="shoperForm" action="javascript:saleList();">
+                        <form id="shoperForm" action="javascript: saleList();">
                             <div class="col-md-2 ">
                                 <label for="input1" class="control-label">Shoper Name</label>
                                 <input type="text" class="form-control shoper required padding-right-0" name="shoperName" id="shoperName">
@@ -117,7 +117,7 @@ $(function() {
                         <div class="col-md-2 text-center form-group control-group">
                                 <button type="submit" class="btn btn-default btn-lg margin-left-62" >Submit</button>
                         </div>
-                        </form>
+                        </form> 
                     </div>
                 <?php } else {?>
                     <div class="row">
@@ -125,9 +125,10 @@ $(function() {
                             <button type="submit" class="btn btn-default btn-lg" onclick="javascript:resetForm();" >Reset</button>
                         </div>
                         <div class="pull-right margin-right-40">
-                                <button type="submit" class="btn btn-default btn-lg" onclick="javascript:saleList();" >Submit</button>
+                                <button type="submit" class="btn btn-default btn-lg" >Submit</button>
                         </div>
                     </div>
+                    </form>
                 <?php } ?>
 				</div>
 			</div>
@@ -148,9 +149,9 @@ $(document).ready(function () {
                     url: "<?php echo ABSOLUTE_URL;?>/desh_board/saleList",
                     data: $('#productForm,#shoperForm').serialize(true),
                     success: function(data){
-                        if(data === 'Nothing saled'){
+                        if($.trim(data) === 'Nothing saled'){
                             alert("Transaction failed please try again");
-                        } else if(data === 'Successfully'){
+                        } else if($.trim(data) === 'Successfully'){
                             alert("Transaction successful");
                             resetForm();
                         } else {
@@ -178,6 +179,11 @@ $(document).ready(function () {
             $( "#totel" + id).attr('value',newVal);
         }
         function quantity(val,id){
+            if(val > product[id].quantity){
+                alert(val+' Product Units are not available in stock '+'Maximum ' + product[id].quantity + ' units could be sold');
+                $("#quantity" + id).val(1);
+                val = 1;
+            }
         	if(!$.trim(discount[id])){
         		discount[id] = 0;
         	}
@@ -188,7 +194,7 @@ $(document).ready(function () {
 			}
         }
         function resetForm(){
-            //$('#productForm')[0].reset();
+            $(".quantity").val('');
             $('#productForm').trigger("reset");
             $('input[readonly]').val("");
             $('div').removeClass('has-success');
@@ -201,7 +207,6 @@ function arrengeData(data1,id){
         $( "#price" + id).val(null);
         $( "#totel" + id).val(null);
         $( "#id" + id).val(null);
-
         $( "#div" + id +'brand').removeClass('has-success').addClass('has-error');
         $( "#div" + id +'price').removeClass('has-success').addClass('has-error');
         $( "#div" + id +'name').removeClass('has-success').addClass('has-error');
@@ -212,6 +217,7 @@ function arrengeData(data1,id){
         $( "#brand" + id).attr('value',data1.brand);
         $( "#price" + id).attr('value',data1.price);
         $( "#totel" + id).attr('value',data1.price);
+        $( "#quantity" + id).attr('value',1);
         $( "#id" + id).attr('value',data1.id);
         $( "#div" + id +'brand').removeClass('has-error').addClass('has-success');
         $( "#div" + id +'price').removeClass('has-error').addClass('has-success');
@@ -256,6 +262,16 @@ $(document).ready(function () {
                         required: true,
                     }
                 },
+                highlight: function (element) {
+                    $(element).closest('.controls').removeClass('success').addClass('text-danger');
+                },
+                success: function (element) {
+                    element.addClass('valid')
+                        .closest('.controls').removeClass('error').addClass('success');
+                }
+            });
+
+            $('#productForm').validate({
                 highlight: function (element) {
                     $(element).closest('.controls').removeClass('success').addClass('text-danger');
                 },

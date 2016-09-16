@@ -215,7 +215,8 @@ function submitData(id){
 		url: "<?php echo ABSOLUTE_URL;?>/desh_board/addManageData",
 		data: {id:id,name:Name,add:Add,phone:Ph,email:Email},
 		success: function( data ){
-			alert(data);
+			txt = JSON.parse(data);
+			alert(txt['message']);
 			$('.cntclass').addClass('hidden');
 		}, error: function (request, status, error) {
             alert("Something went wrong");
