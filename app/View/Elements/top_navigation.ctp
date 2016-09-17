@@ -9,7 +9,7 @@
                     </div>
                     <div id="email" class="pull-right">
                             <img src="<?php echo ABSOLUTE_URL;?>/img/email.png" alt="email"/>
-                            info@company.com
+                            help@agrawalbeejbhandar.com
                     </div>
                 </div>
             </div>
@@ -26,7 +26,8 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 </button>
-                                <a href="#" class="navbar-brand"><img src="<?php echo ABSOLUTE_URL;?>/img/templatemo_logo.png" alt="Urbanic Template" title="Urbanic Template" /></a>
+
+                                <a href="#" class="navbar-brand"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px;" alt="Urbanic Template" title="Urbanic Template" /></a>
                         </div>
                         <div class="navbar-collapse collapse" id="templatemo-nav-bar">
                             
@@ -47,7 +48,7 @@
                                <li class="active" ><a id="bank"  
                                         href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard">Home</a></li>
                                         <li class="active">&nbsp;&nbsp;</li> 
-                                <li class="active margin-left-10"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li>
+                                <li class="active margin-left-10"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/logout">Logout</a></li>
                                 </ul>
 
                                <?php } ?>

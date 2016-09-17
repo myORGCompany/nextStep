@@ -16,7 +16,7 @@ class HomePagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('UserBank','GiveHelp','User','GetHelp');
+	public $uses = array('User');
 
 /**
  * Displays a view
@@ -31,23 +31,14 @@ class HomePagesController extends AppController {
 	}
 
 	function deshBoard() {
-		if(!$this->_checkLogin()) {
-			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index' ) );
-		}
+		$user_id = $this->_checkLogin();
 		$userData = $this->Session->read('User');
 		$this->layout="default";
-		// $HelpData['bank'] = $this->UserBank->find('first', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
-		// $HelpData['giveHelpData'] = $this->GiveHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
-		// $HelpData['getHelpData'] = $this->GetHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
-		$HelpData['userData'] = $this->User->find('all', array( 'conditions' => array('status' => 1,'id' =>$userData['UserId'])));
-		
-		$this->set('HelpData',$HelpData);
 	}
 	function registration() {
 		$this->autoRender = false;
 	    $this->layout = "";
-		$User = $this->_import("User");
-		$login_detail = $User->find('first', array( 'conditions' => array('email' => $this->data['email'])));
+		$login_detail = $this->User->find('first', array( 'conditions' => array('email' => $this->data['email'])));
 		if(!empty($login_detail)) {
 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=1' ) );
 		} else {
@@ -55,8 +46,9 @@ class HomePagesController extends AppController {
 			$data['password'] = md5($this->data['password']);
 			$data['name'] = $this->data['Name'];
 			$data['mobile'] = $this->data['mobile'];
+			$data['remember'] = $this->data['remember'];
 			$this->Session->write('User',$data);
-			$data1 = $User->save($data);
+			$data1 = $this->User->save($data);
 			$data['UserId'] = $data1['User']['id'];
 			$this->Session->write('User',$data);
 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
@@ -67,12 +59,12 @@ class HomePagesController extends AppController {
 		$this->autoRender = false;
 	    $this->layout = "";
 		$User = $this->_import("User");
-		$login_detail = $User->find('first', array( 'conditions' => array('email' => $this->data['email'],'status' =>1)));
+		$login_detail = $this->User->find('first', array( 'conditions' => array('email' => $this->data['email'],'status' =>1)));
 		if(empty($login_detail)) {
 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=2' ) );
 		} else {
 			if($login_detail['User']['email'] == $this->data['email'] && $login_detail['User']['password'] == md5($this->data['password'])) {
-				$data['UserId'] = $login_detail['User']['id'];
+				$data['user_id'] = $login_detail['User']['id'];
 				$data['email'] = $login_detail['User']['email'];
 				$data['password'] = $login_detail['User']['password'];
 				$this->Session->write('User',$data);
@@ -93,7 +85,6 @@ class HomePagesController extends AppController {
 	}
 	function seachAutoComplete(){
 		$this->autoRender = false;
-		//Configure::write('debug', 02);
 		$value = $this->params['url']['term'];
 		$Shoper = $this->_import('Shoper');
 		$cond = array('OR' => array(
@@ -115,4 +106,19 @@ class HomePagesController extends AppController {
         echo json_encode($array);
         exit();
 	}
+	// function loginSession(){
+	// 	if($this->request->data){
+	// 		$login_detail = $this->User->find('first', array( 'conditions' => array('email' => $this->data['email'],'status' =>1)));
+	// 		if(empty($login_detail)) {
+	// 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=2' ) );
+	// 			$this->Session->setFlash(__('This user is not exist Please provide a valid Email and password'));
+	// 		} else {
+	// 			$data['user_id'] = $login_detail['User']['id'];
+	// 			$data['email'] = $login_detail['User']['email'];
+	// 			$data['password'] = $login_detail['User']['password'];
+	// 			$this->session_cre
+	// 			$this->Session->write('User',$data);
+	// 		}
+	// 	}
+	// }
 }

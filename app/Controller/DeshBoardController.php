@@ -17,7 +17,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse','Transaction','Shoper','Stok');
+	public $uses = array('User','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse','Transaction','Shoper','Stok');
 
 /**
  * Displays a view
@@ -26,86 +26,8 @@ class DeshBoardController extends AppController {
  * @throws NotFoundException When the view file could not be found
  *	or MissingViewException in debug mode.
  */
-	function giveHelp() {
-		$this->autoRender = false;
-	    $this->layout = "";
-	     if($this->data){
-	    	$userData = $this->Session->read('User');
-	    	$helpData['amount'] = $this->data['amount'];
-	    	$helpData['email'] = $userData['username'];
-	    	$helpData['user_id'] = $userData['UserId'];
-	    	$helpData['start_time'] = date("Y-m-d h:i:s");
-	    	$helpData['is_active'] = 1;
-	    	$helpData['end_time'] = date('Y-m-d h:i:s', strtotime(' +2 day'));
-	    	$this->GiveHelp->save($helpData);
-	    } else {
-	    	return false;
-	    }
-	}
-	function getHelp() {
-		$this->autoRender = false;
-	    $this->layout = "";
-	    if($this->data){
-	    	$userData = $this->Session->read('User');
-	    	$helpData['amount'] = $this->data['amount'];
-	    	$helpData['email'] = $userData['username'];
-	    	$helpData['user_id'] = $userData['UserId'];
-	    	$helpData['start_time'] = date("Y-m-d h:i:s");
-	    	$helpData['end_time'] = date('Y-m-d h:i:s', strtotime(' +2 day'));
-	    	$this->GetHelp->save($helpData);
-	    } else {
-	    	return false;
-	    } 
-	}
-	function saveBankDetails() {
-		$this->autoRender = false;
-	    $this->layout = "";
-	    $userData = $this->Session->read('User');
-		$data['user_id'] = $userData['UserId'];
-		if($this->data){
-			$data['bank_name'] = $this->data['bankName'];
-			$data['account_number'] = $this->data['accountNumber'];
-			$data['ifsc_code'] = $this->data['ifsc'];
-			$data['branch'] = $this->data['branch'];
-			$data['is_active'] = 1;
-			$this->UserBank->updateAll(array("is_active"=>0),array("user_id"=>$userData['UserId']));
-			$this->UserBank->save($data);
-			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard?bankDetails=1' ) );
-		}
-	}
-	function adminLogin(){
-		$userData = $this->Session->read('User');
-		$data['giveHelp'] = $this->GiveHelp->find('all', array( 'fields' =>array('User.name','GiveHelp.user_id','GiveHelp.amount','GiveHelp.start_time','User.email'),'conditions' => array('GiveHelp.is_active' => 1),
-			'joins' => array(
-                    array('table'=>'users','alias'=>'User','type'=>'inner','conditions'=>array('GiveHelp.user_id = User.id'))
-                )));
-		$data['getHelp'] = $this->GetHelp->find('all', array( 'fields' =>array('User.name','GetHelp.user_id','GetHelp.amount','GetHelp.start_time','User.email'),'conditions' => array('GetHelp.is_active' => 1),
-			'joins' => array(
-                    array('table'=>'users','alias'=>'User','type'=>'inner','conditions'=>array('GetHelp.user_id = User.id'))
-                )));
-		$this->set('HelpRecords',$data);
-	}
-	function acceptGetHelp() {
-		$this->autoRender = false;
-	    $this->layout = "";
-		if(!empty($this->data['id'])) {
-			$this->GetHelp->updateAll(array("is_active"=>0,"is_accepted" =>1),array("id"=>$this->data['id']));
-			return true;
-		} else {
-			return false;
-		}
-	}
-	function submitGiveHelp() {
-		$this->autoRender = false;
-	    $this->layout = "";
-		if(!empty($this->data['id'])) {
-			$this->GiveHelp->updateAll(array("is_active"=>0,"status" =>1),array("id"=>$this->data['id']));
-			return true;
-		} else {
-			return false;
-		}
-	}
 	function products(){
+        $user_id = $this->_checkLogin();
 		$data['category'] = $this->MasterCategory->find('all',array('fields' => array('id','name') ));
         $data['group'] = $this->ProductGroup->find('all', array('fields' => array('id','name') ));
         $data['brand'] = $this->MasterBrand->find('all', array('fields' => array('id','name') ));
@@ -113,12 +35,13 @@ class DeshBoardController extends AppController {
         $this->set('data',$data);
 	}
 	function addProduct(){
-		//$userData = $this->Session->read('User');
+        if($userData =$this->Session->read('User')) {
+            $user_id = $userData['user_id'];
+        }
 		$this->autoRender = false;
 	    $this->layout = "";
-	    //Configure::write('debug', 02);
 	    if($this->data){
-	    	$stock['Product']['user_id'] = 3;
+	    	$stock['Product']['user_id'] = $user_id;
 	    	foreach ($this->data as $key => $value) {
 	    		$stock['Product'][$key] = $value;
 	    	}
@@ -136,20 +59,15 @@ class DeshBoardController extends AppController {
                 $qant = $productData['Product']['quantity'] + $stock['Product']['quantity'] ;
                 $this->Product->updateALL(array('quantity' => $qant),array('id' => $productData['Product']['id']));
             }
-       
+            $stock['Stok']['user_id'] = $user_id;
 	    	$stock['Stok']['expairy_date'] = $stock['Product']['expairy_date'];
             $stock['Stok']['perchese_date'] = $stock['Product']['perchese_date'];
             $stock['Stok']['quantity_added'] = $stock['Product']['quantity'];
-             print_r($stock['Stok']);
-            //die("dddddd");
 	    	$out = $this->Stok->save($stock);
-
-	    	print_r($out);
-	    	die("dddddd");
-	    	return true;
+	    	return "saved Successfully";
 	    } else {
-	    	echo "Something went wrong";
-	    	return false;
+	    	//echo "Something went wrong";
+	    	return "Something went wrong";
 	    }
 	}
 	function checkMemberShipByEmail($emailId = '') {
@@ -172,13 +90,36 @@ class DeshBoardController extends AppController {
 	        $message = 'This email is already registered.';
 	        $isAvailbale = false;
             
-        } else {
+        } 
+        echo json_encode(array('valid' => $isAvailbale, 'message' => $message));
+        exit;
+    }
+    function checkMemberShipByMobile($mobile = '') {
+        $isAvailbale = true;
+        $message = false;
+        $this->autoRender = false;
+        $this->layout = null;
+
+        if (trim($mobile) == '')
+            $mobile = $this->data['User']['mobile'];
+
+        // condition added if mobile number is changed from profile page
+        if ($mobile == "") {
+            $mobile = $this->data['mobile'];
+        }
+        $replace_str = array(" ", "(", ")", "-", "+");
+        $mobile = str_replace($replace_str, "", $mobile);
+
+        //check if already registered
+        $UserId = $this->User->checkMemberShipByMobile($mobile);
+        if ((int) $UserId) {
             $isAvailbale = false;
-            $message = 'Please enter a valid emailid';
+            $message = 'This mobile number is already registered';
         }
         echo json_encode(array('valid' => $isAvailbale, 'message' => $message));
         exit;
     }
+
     function checkMemberShipEmail($emailid){
     	$this->autoRender = false;
         $this->layout = null;
@@ -209,24 +150,21 @@ class DeshBoardController extends AppController {
 	 function ajaxLogin() {
         $this->layout = null;
         $this->autoRender = false;
-
         $response = array(
             'hasError' => true,
             'messages' => "Either email or password is incorrect!",
             'redirect' => false
         );
         if ($this->data) {
-
             if ($this->data['email']) {
-                 $returnUrl=false;
-
+                $returnUrl=false;
                 $conditions = array(
                     "User.email" => $this->data['email'],
                     'User.password' => md5($this->data['password'])
                 );
                 $LoginData = $this->User->find('first', array('conditions' => $conditions));
                 if ($LoginData) {
-                	$data['UserId'] = $LoginData['User']['id'];
+                	$data['user_id'] = $LoginData['User']['id'];
 					$data['email'] = $LoginData['User']['email'];
 					$data['password'] = $LoginData['User']['password'];
 					$this->Session->write('User',$data);
@@ -243,6 +181,7 @@ class DeshBoardController extends AppController {
         exit;
     }
     function salse(){
+        $user_id = $this->_checkLogin();
         $this->setProductPrice();
     	$this->set('newRow',1);
     	$this->Session->write('billFormRow','');
@@ -281,13 +220,16 @@ class DeshBoardController extends AppController {
     	$this->render('/Elements/form_row');
     }
     function saleList() {
-    	 $this->layout = 'blank';
-     //    $this->autoRender = false;
+    	$this->layout = 'blank';
+        if($userData =$this->Session->read('User')) {
+            $user_id = $userData['user_id'];
+        }
     	if(!empty($this->data)){
             $arr = array_chunk($this->data, 7,true);
             foreach ($arr as $key => $value) { 
                 $i = $key+1;
                 if(!empty($value['name'.$i])){
+                    $prSalse[$key]['Salse']['user_id'] = $user_id ;
                     $salseData['productId'][] = trim($value['id'.$i]) ;
                     $prSalse[$key]['Salse']['actual_price'] = (trim($value['totel'.$i])/trim($value['quanity'.$i])) ;
                     $arr['TotleAm'] = $arr['servicetax'] + trim($value['totel'.$i]);
@@ -298,13 +240,12 @@ class DeshBoardController extends AppController {
                     }
                 }
             }
-            $option = array(array('table' => 'master_products','alias'=> 'MasterProduct','type'=>'inner','conditions'=>array( 'MasterProduct.id = Product.master_product_id')));
-            $result = $this->Product->find('list', array('fields' => array('Product.id','MasterProduct.id'),
-                    'conditions' => array('Product.id'=>$salseData['productId']),
-                    'joins' =>$option));
+            //$option = array(array('table' => 'master_products','alias'=> 'MasterProduct','type'=>'inner','conditions'=>array( 'MasterProduct.id = Product.master_product_id')));
+            $result = $this->Product->find('list', array('fields' => array('Product.id','Product.quantity'),
+                    'conditions' => array('Product.id'=>$salseData['productId'])));
             foreach ($salseData['productId'] as $key => $prId) {
                $prSalse[$key]['Salse']['product_id'] = $prId;
-               $prSalse[$key]['Salse']['master_product_id'] = $result[$prId];
+               //$prSalse[$key]['Salse']['master_product_id'] = $result[$prId];
             }
             if(!empty($prSalse[0]['Salse']['product_id'])){
                 foreach ($prSalse as $key => $value) {
@@ -312,6 +253,8 @@ class DeshBoardController extends AppController {
                         $this->Salse->create();
                         if($this->Salse->save($value)){
                             $salseData['salse_id'][] = $this->Salse->getLastInsertID();
+                            $qant = $result[$value['Salse']['product_id']] - $value['Salse']['quantity'] ;
+                            $this->Product->updateALL(array('quantity' => $qant),array('id' => $value['Salse']['product_id']));
                         } else {
                             echo "not saved";
                         }
@@ -322,6 +265,7 @@ class DeshBoardController extends AppController {
                 $txt['salse_ids'] = implode(",", $salseData['salse_id']);
                 $txt['product_ids'] = implode(",", $salseData['productId']);
                 $txt['is_salse'] = 1;
+                $txt['user_id'] = $user_id;
                 $txt['invoice_number'] = 'TxS-'.$txt['salse_ids'].'-'.ceil(microtime()*1000);
                 $this->Transaction->create();
                 $this->Transaction->save($txt);
@@ -334,7 +278,8 @@ class DeshBoardController extends AppController {
                 return "Nothing saled";
             }
         } else{
-            //die("Nothing saled");
+            echo ("Nothing saled");
+            return false;
         }
     }
     function seachAutoComplete(){  
@@ -374,13 +319,14 @@ class DeshBoardController extends AppController {
             exit();
     }
     function ManageProducts(){
-        //Configure:: write('debug' , 02);
+        $user_id = $this->_checkLogin();
     }
     function addManageData(){
+        $user_id = $this->_checkLogin();
         $this->autoRender = false;
         if($this->Session->read('User')) {
             $userData = $this->Session->read('User');
-            $data['user_id'] = $userData['UserId'];
+            $data['user_id'] = $userData['user_id'];
         }
         if(!empty($this->data['id'])){
             if($this->data['id'] == 'category' && !empty($this->data['name'])){
@@ -403,7 +349,6 @@ class DeshBoardController extends AppController {
                         exit();
                     }
                 } 
-                
             } else if($this->data['id'] == 'group' && !empty($this->data['name'])){
                 $data['name'] = $this->data['name'];
                 $id = $this->ProductGroup->find('first' , array('fields' => 'id' , 'conditions' => array('name' => $data['name'])));
@@ -506,6 +451,7 @@ class DeshBoardController extends AppController {
         }
     }
     function bulkSalse(){
+        $user_id = $this->_checkLogin();
         $this->autoRender = false;
         $this->setProductPrice();
         $this->set('newRow',1);
@@ -515,14 +461,10 @@ class DeshBoardController extends AppController {
     }
     function printPdf(){
         $this->autoRender = false;
-        
         $dompdf = new Dompdf();
-        
         $dompdf->setPaper('A4', 'landscape');
-
         // Render the HTML as PDF
         $dompdf->render(ABSOLUTE_URL.'/desh_board/saleList');
-
         // Output the generated PDF to Browser
         $dompdf->stream();
     }

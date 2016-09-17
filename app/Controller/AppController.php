@@ -52,13 +52,13 @@ class AppController extends Controller {
       }
     }
     function _checkLogin() {
-        
-        if($this->Session->read('User')) {
+        if( $user = $this->Session->read('User')) {
            $isLogin =1;
            $this->Session->write('isLogin' , 1);
-          return true;
+           $user_id = $user['user_id'];
+          return $user_id;
         } else {
-            return false;
+            $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=5' ) );
         }
     }
     function setProductPrice(){

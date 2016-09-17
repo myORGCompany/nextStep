@@ -24,6 +24,7 @@
 
 <script src="<?php echo ABSOLUTE_URL;?>/js/jquery.min.js"></script> <!-- or use local jquery -->
 <script src="<?php echo ABSOLUTE_URL;?>/js/jqBootstrapValidation.js"></script>
+<script src="<?php echo ABSOLUTE_URL;?>/js/bootstrap.min.js"  type="text/javascript"></script>
 
 
 <link href="<?php echo ABSOLUTE_URL;?>/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -41,11 +42,9 @@
         <link href="<?php echo ABSOLUTE_URL;?>/js/colorbox/colorbox.css"  rel='stylesheet' type='text/css'>
         <link href="<?php echo ABSOLUTE_URL;?>/css/style.css"  rel='stylesheet' type='text/css'>
         <link href="<?php echo ABSOLUTE_URL;?>/css/templatemo_style.css"  rel='stylesheet' type='text/css'>
-        <script src="<?php echo ABSOLUTE_URL;?>/js/jquery.min.js" type="text/javascript"></script>
-        <script src="<?php echo ABSOLUTE_URL;?>/js/bootstrap.min.js"  type="text/javascript"></script>
+        
         <script src="<?php echo ABSOLUTE_URL;?>/js/stickUp.min.js"  type="text/javascript"></script>
         <script src="<?php echo ABSOLUTE_URL;?>/js/colorbox/jquery.colorbox-min.js"  type="text/javascript"></script>
-        <script src="<?php echo ABSOLUTE_URL;?>/js/templatemo_script.js"  type="text/javascript"></script>
 
     </head> 
 <body>

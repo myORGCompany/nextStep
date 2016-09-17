@@ -267,6 +267,18 @@ $(document).ready(function () {
 			                }
 			            } 
                     },
+                    max_discount:{
+                    	required: {
+			                depends: function(element){
+			                	var rs = this.value;
+			                	var pr = $("#input7").val();
+			                    if(Number(rs) > Number(pr)){
+			                      this.value = '';
+			                    }
+			                    return true;    
+			                }
+			            }
+                    }
                 },
                 highlight: function (element) {
                     $(element).closest('.controls').removeClass('success').addClass('text-danger');
