@@ -11,7 +11,8 @@
    <script>
 $(function() {
     $('#input1').autocomplete({
-        source: '<?php echo ABSOLUTE_URL;?>/desh_board/seachAutoComplete',
+    	autoFocus: true,
+        source: '<?php echo ABSOLUTE_URL;?>/desh_board/seachAutoComplete?add=1',
         select: function (event, ui) {
             var id = this.id;
             $("#" + id).val(ui.item.label); // display the selected text
@@ -38,7 +39,7 @@ $(function() {
 						</div>
 						<div class="form-group control-group controls " >
 							<label for="input2" class="col-sm-2 control-label margin-right-100">Quantity</label>
-							<div class="col-sm-2">
+							<div class="col-sm-2" style="max-width:13%;">
 								<input type="text" class="form-control required col-sm-6" title="Please mention the quantity" name="quantity" id="input2"  >
 							</div> 
 							<label for="input13" class="control-label pull-left "><span class="glyphicon glyphicon-scale " >&nbsp;Packing</span></label>
@@ -47,7 +48,7 @@ $(function() {
 							</div>
 							<label for="input2" class="control-label pull-left padding-right-0 padding-left-0"><span class="glyphicon glyphicon-scale " >&nbsp;Unit</span></label>
 							
-							<div class="col-sm-2 pull-left padding-right-57">
+							<div class="col-sm-2 pull-left ">
 								<select class="form-control required" title="Please select product packing unit" name="unit" id="input3">
 									<option value='0'>Select Unit</option>
 								    <option value='number'>Number</option>

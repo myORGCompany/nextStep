@@ -45,7 +45,6 @@
         <script src="<?php echo ABSOLUTE_URL;?>/js/bootstrap.min.js"  type="text/javascript"></script>
         <script src="<?php echo ABSOLUTE_URL;?>/js/stickUp.min.js"  type="text/javascript"></script>
         <script src="<?php echo ABSOLUTE_URL;?>/js/colorbox/jquery.colorbox-min.js"  type="text/javascript"></script>
-        <script src="<?php echo ABSOLUTE_URL;?>/js/templatemo_script.js"  type="text/javascript"></script>
 
     </head> 
 <body>

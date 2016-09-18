@@ -17,6 +17,7 @@ $(function() {
         }
     });
     $('.shoper').autocomplete({
+        autoFocus: true,
         source: '<?php echo ABSOLUTE_URL;?>/home_pages/seachAutoComplete',
         select: function (event, ui) {
             var id = this.id;
@@ -62,7 +63,8 @@ $(function() {
 						<div class="form-group control-group  col-sm-12 col-md-12 " id="productRow">
 						    <div class="col-sm-2 controls" id="div<?php echo $newRow;?>name">
 						        <input  type="text" class="form-control  selector required padding-right-0" title="Please Enter the name of product" value="" name="name<?php echo $newRow;?>" id="<?php echo $newRow;?>" >
-                                <input  type="text" class="form-control hidden padding-right-0" title="Please Enter the name of product" value="" name="id<?php echo $newRow;?>" id="id<?php echo $newRow;?>" >
+                                <input  type="text" class="form-control hidden padding-right-0" value="" name="id<?php echo $newRow;?>" id="id<?php echo $newRow;?>" >
+                                <input  type="text" class="form-control hidden padding-right-0" value="" name="stok_id<?php echo $newRow;?>" id="stok_id<?php echo $newRow;?>" >
 
 						    </div>
 						    <div class="col-sm-2 controls" id="div<?php echo $newRow;?>quantity">
@@ -179,7 +181,7 @@ $(document).ready(function () {
             $( "#totel" + id).attr('value',newVal);
         }
         function quantity(val,id){
-            if(val > product[id].quantity){
+            if(Number(val) > Number(product[id].quantity)){
                 alert(val+' Product Units are not available in stock '+'Maximum ' + product[id].quantity + ' units could be sold');
                 $("#quantity" + id).val(1);
                 val = 1;
@@ -200,6 +202,22 @@ $(document).ready(function () {
             $('div').removeClass('has-success');
         }
 function arrengeData(data1,id){
+    for (var index in product) {
+        if (Number(product[index].id) === Number(data1.id)) {
+            alert("You can not select same product again");
+            $("#" +id).val(null);
+            return false;
+        }
+    }
+        
+    // for (var i = 0, len = product.length; i < len; i++) {
+    //     console.log(product);
+    //     // var j = i+1;
+    //     // if (product[j]['id'] === id) {
+    //     //     alert(product[j]['id']);
+    //     //     return false;
+    //     // }
+    // }
     if (data1 == null) {
         alert("Please select product name");
         $("#" + id).val(null).removeClass('input-group-addon');
@@ -207,6 +225,7 @@ function arrengeData(data1,id){
         $( "#price" + id).val(null);
         $( "#totel" + id).val(null);
         $( "#id" + id).val(null);
+        $( "#stok_id" + id).val(null);
         $( "#div" + id +'brand').removeClass('has-success').addClass('has-error');
         $( "#div" + id +'price').removeClass('has-success').addClass('has-error');
         $( "#div" + id +'name').removeClass('has-success').addClass('has-error');
@@ -219,6 +238,7 @@ function arrengeData(data1,id){
         $( "#totel" + id).attr('value',data1.price);
         $( "#quantity" + id).attr('value',1);
         $( "#id" + id).attr('value',data1.id);
+        $( "#stok_id" + id).attr('value',data1.stok_id);
         $( "#div" + id +'brand').removeClass('has-error').addClass('has-success');
         $( "#div" + id +'price').removeClass('has-error').addClass('has-success');
         $( "#div" + id +'name').removeClass('has-error').addClass('has-success');

@@ -225,12 +225,14 @@ class DeshBoardController extends AppController {
             $user_id = $userData['user_id'];
         }
     	if(!empty($this->data)){
-            $arr = array_chunk($this->data, 7,true);
+            $arr = array_chunk($this->data, 8,true);
             foreach ($arr as $key => $value) { 
                 $i = $key+1;
                 if(!empty($value['name'.$i])){
                     $prSalse[$key]['Salse']['user_id'] = $user_id ;
                     $salseData['productId'][] = trim($value['id'.$i]) ;
+                    $salseData['stok_id'][] = trim($value['stok_id'.$i]) ;
+                    
                     $prSalse[$key]['Salse']['actual_price'] = (trim($value['totel'.$i])/trim($value['quanity'.$i])) ;
                     $arr['TotleAm'] = $arr['servicetax'] + trim($value['totel'.$i]);
                     $prSalse[$key]['Salse']['quantity'] = trim($value['quantity'.$i]) ;
@@ -240,12 +242,13 @@ class DeshBoardController extends AppController {
                     }
                 }
             }
-            //$option = array(array('table' => 'master_products','alias'=> 'MasterProduct','type'=>'inner','conditions'=>array( 'MasterProduct.id = Product.master_product_id')));
             $result = $this->Product->find('list', array('fields' => array('Product.id','Product.quantity'),
                     'conditions' => array('Product.id'=>$salseData['productId'])));
+            $stokResult = $this->Stok->find('list', array('fields' => array('Stok.id','Stok.quantity_added'),
+                    'conditions' => array('Stok.id'=>$salseData['stok_id'])));
             foreach ($salseData['productId'] as $key => $prId) {
                $prSalse[$key]['Salse']['product_id'] = $prId;
-               //$prSalse[$key]['Salse']['master_product_id'] = $result[$prId];
+               $prSalse[$key]['Stok']['id'] = $salseData['stok_id'][$key];
             }
             if(!empty($prSalse[0]['Salse']['product_id'])){
                 foreach ($prSalse as $key => $value) {
@@ -255,6 +258,9 @@ class DeshBoardController extends AppController {
                             $salseData['salse_id'][] = $this->Salse->getLastInsertID();
                             $qant = $result[$value['Salse']['product_id']] - $value['Salse']['quantity'] ;
                             $this->Product->updateALL(array('quantity' => $qant),array('id' => $value['Salse']['product_id']));
+                            $qantStok = $stokResult[$value['Stok']['id']] - $value['Salse']['quantity'] ;
+                            $this->Stok->updateALL(array('quantity_available' => $qantStok),array('id' => $value['Stok']['id'],'user_id' => $user_id));
+                            
                         } else {
                             echo "not saved";
                         }
@@ -275,7 +281,7 @@ class DeshBoardController extends AppController {
                 $this->set('salse',$arr);
                 return "Successfully";
             } else {
-                return "Nothing saled";
+                return false;
             }
         } else{
             echo ("Nothing saled");
@@ -285,22 +291,36 @@ class DeshBoardController extends AppController {
     function seachAutoComplete(){  
         $this->autoRender = false;
         $value = $this->params['url']['term'];
+        $paramCon = 0 ;
         $cond = array('OR' => array(
                 'Product.name LIKE' => '%' . $value . '%',
                 'Product.brand LIKE' => '%' . $value . '%',
                 ));
+
+        if ($this->params['url']['add'] == 1){
+           $paramCon = '';
+        } else {
+            $paramCon = 0 ;
+        }
+          //die($paramCon);
         $option = array(array('table' => 'product_groups','alias'=> 'ProductGroup','type'=>'left','conditions'=>array( 'Product.product_group_id = ProductGroup.id')),
             array('table' => 'master_categories','alias'=> 'MasterCategory','type'=>'left','conditions'=>array( 'Product.master_category_id = MasterCategory.id')),
             array('table' => 'master_brands','alias'=> 'MasterBrand','type'=>'left','conditions'=>array( 'Product.brand = MasterBrand.id')),
+            array('table' => 'stoks','alias'=> 'Stok','type'=>'inner','conditions'=>array( 'Product.id = Stok.product_id')),
             array('table' => 'clients','alias'=> 'Client','type'=>'left','conditions'=>array( 'Product.client_id = Client.id')));
-        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','MasterBrand.id','Client.id','Client.name','ProductGroup.id','MasterCategory.id','Product.quantity'),         
-                    'conditions' => array('Product.is_expaire' =>0 ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
+        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','MasterBrand.id','Client.id','Client.name','ProductGroup.id','MasterCategory.id','Product.quantity','DATE(Stok.expairy_date)','Stok.id'),         
+                    'conditions' => array('Product.is_expaire' =>0,'Product.quantity !=' => $paramCon ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
                     'joins' =>$option));
             $send = array();
             $i = 0;
             foreach ($result as $rel) {
+                if(!empty($paramCon)){
+                    $exp = 'Going to expaire on - '.$rel['0']['DATE(`Stok`.`expairy_date`)'];
+                } else {
+                    $exp = '';
+                }
                 $array[] = array (
-                    'label' => $rel['Product']['name'],
+                    'label' => $rel['Product']['name'].$exp,
                     'id' => $rel['Product']['id'],
                     'category' => $rel['MasterCategory']['name'],
                     'group' => $rel['ProductGroup']['name'],
@@ -313,6 +333,8 @@ class DeshBoardController extends AppController {
                     'price' => $rel['Product']['price'],
                     'max_discount' => $rel['Product']['max_discount'],
                     'quantity' => $rel['Product']['quantity'],
+                    'expairy' => $rel['Stok']['expairy_date'],
+                    'stok_id' => $rel['Stok']['id'],
                 );
             }
             echo json_encode($array);
