@@ -16,7 +16,7 @@ class HomePagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('User');
+	public $uses = array('User','Salse','Product','Stok');
 
 /**
  * Displays a view
@@ -27,13 +27,21 @@ class HomePagesController extends AppController {
  */
 	function index() {
 		$this->layout="default";
-
 	}
-
 	function deshBoard() {
-		//$user_id = $this->_checkLogin();
+		$user_id = $this->_checkLogin();
 		$userData = $this->Session->read('User');
 		$this->layout="default";
+		//$Salse = $this->_import('Salse');
+		$report['dailyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('DATE(created)' =>date('y-m-d'))));
+		$report['monthlyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 month)')));
+		$report['YearlyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 year)')));
+		$report['dailyDataP'] = $this->Stok->find('first', array( 'fields' =>'Count(id)','conditions' => array('DATE(created)' =>date('y-m-d'))));
+		$report['monthlyDataP'] = $this->Stok->find('first', array( 'fields' =>'Count(id)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 month)')));
+		$report['YearlyDataP'] = $this->Stok->find('first', array( 'fields' =>'Count(id)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 year)')));
+		$report['expairy'] = $this->Product->find('all', array( 'fields' =>array('name','expairy_date'),'conditions' => array('expairy_date <= ' =>'date_add(CURDATE(),interval 1 day)')));
+		//print_r($report);die
+		$this->set('reports',$report);
 	}
 	function registration() {
 		$this->autoRender = false;

@@ -34,7 +34,7 @@ $(function() {
 						<div class="form-group control-group controls">
 							<label for="input1" class="col-sm-2 control-label margin-right-100">Name of product</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control required" title="Please Enter the name of product" name="name" id="input1" placeholder="Email">
+								<input type="text" class="form-control required" title="Please Enter the name of product" name="name" id="input1">
 							</div>
 						</div>
 						<div class="form-group control-group controls " >

@@ -9,6 +9,7 @@
           <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/salse">SALSE</a></li>
           <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/bulkSalse">BULK SALSE</a></li>
           <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/ManageProducts"">MANAGE DATA</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/viewList"">VIEW ALL</a></li>
         </ul>
     </div>
     

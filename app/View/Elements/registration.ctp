@@ -1,8 +1,11 @@
+<style type="text/css">
+  .text-bold{color:#000000 ;}
+</style>
 <div id="signUpForm"  class="modal fade" role="dialog">
       <div class="modal-content modal-dialog">
-          <div class="modal-header">
-              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title" id="myModalLabel">Register hare........</h4>
+          <div class="modal-header text-bold">
+              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true" ><b class="text-bold">X</b></span><span class="sr-only"><strong>Close</strong></span></button>
+              <strong><h4 class="modal-title" id="myModalLabel">Register hare........</h4></strong>
           </div>
           <div class="modal-body">
               <div class="row">

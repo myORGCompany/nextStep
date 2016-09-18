@@ -200,7 +200,6 @@ class DeshBoardController extends AppController {
         	echo "There is no data for this product Please add first";
         	return false;
         }
-
     }
     function createRow(){
     	$this->layout = null;
@@ -293,15 +292,18 @@ class DeshBoardController extends AppController {
         $this->autoRender = false;
         $value = $this->params['url']['term'];
         $paramCon = 0 ;
-        $cond = array('OR' => array(
+        if (empty($this->params['url']['productId'])){
+            $cond = array('OR' => array(
                 'Product.name LIKE' => '%' . $value . '%',
                 'Product.brand LIKE' => '%' . $value . '%',
                 ));
-
+        }
         if ($this->params['url']['add'] == 1){
            $paramCon = '';
+        } else if (!empty($this->params['url']['productId'])){
+            $paramCon = 'Product.id ='.$this->params['url']['productId'];
         } else {
-            $paramCon = 0 ;
+            $paramCon = 'Product.quantity != 0'; 
         }
           //die($paramCon);
         $option = array(array('table' => 'product_groups','alias'=> 'ProductGroup','type'=>'left','conditions'=>array( 'Product.product_group_id = ProductGroup.id')),
@@ -309,17 +311,19 @@ class DeshBoardController extends AppController {
             array('table' => 'master_brands','alias'=> 'MasterBrand','type'=>'left','conditions'=>array( 'Product.brand = MasterBrand.id')),
             array('table' => 'stoks','alias'=> 'Stok','type'=>'inner','conditions'=>array( 'Product.id = Stok.product_id')),
             array('table' => 'clients','alias'=> 'Client','type'=>'left','conditions'=>array( 'Product.client_id = Client.id')));
-        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','MasterBrand.id','Client.id','Client.name','ProductGroup.id','MasterCategory.id','Product.quantity','DATE(Stok.expairy_date)','Stok.id'),         
-                    'conditions' => array('Product.is_expaire' =>0,'Product.quantity !=' => $paramCon ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
-                    'joins' =>$option));
+        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','MasterBrand.id','Client.id','Client.name','ProductGroup.id','MasterCategory.id','Product.quantity','Product.bill_number','DATE(Stok.expairy_date)','Stok.id','Product.perchese_date','Product.unit','Product.packing'),         
+                    'conditions' => array('Product.is_expaire' =>0, $paramCon ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
+                    'joins' =>$option,
+                    'group' => 'Stok.id'));
             $send = array();
             $i = 0;
             foreach ($result as $rel) {
-                if(!empty($paramCon)){
+                if(!empty($paramCon) && $paramCon == 'Product.quantity != 0'){
                     $exp = 'Going to expaire on - '.$rel['0']['DATE(`Stok`.`expairy_date`)'];
                 } else {
                     $exp = '';
                 }
+                $rel['Product']['perchese_date'] =  str_replace('00:00:00','', $rel['Product']['perchese_date']) ;
                 $array[] = array (
                     'label' => $rel['Product']['name'].$exp,
                     'id' => $rel['Product']['id'],
@@ -334,8 +338,12 @@ class DeshBoardController extends AppController {
                     'price' => $rel['Product']['price'],
                     'max_discount' => $rel['Product']['max_discount'],
                     'quantity' => $rel['Product']['quantity'],
-                    'expairy' => $rel['Stok']['expairy_date'],
+                    'expairy' => $rel['0']['DATE(`Stok`.`expairy_date`)'],
                     'stok_id' => $rel['Stok']['id'],
+                    'bill' => $rel['Product']['bill_number'],
+                    'perchese_date' => $rel['Product']['perchese_date'],
+                    'packing' => $rel['Product']['packing'],
+                    'unit' => $rel['Product']['unit'],
                 );
             }
             echo json_encode($array);
@@ -490,5 +498,65 @@ class DeshBoardController extends AppController {
         $dompdf->render(ABSOLUTE_URL.'/desh_board/saleList');
         // Output the generated PDF to Browser
         $dompdf->stream();
+    }
+    function viewList(){
+        if ($maxPageNumber > $temMax) {
+            $maxPageNumber = $temMax + 1;
+        }
+        
+        $this->set('maxPageNumber', $maxPageNumber);
+        $this->set('start', $tempSeq);
+        $this->set('linkdata', $data);
+        if( !empty($this->params['url']['page'] )) {
+            $filt = $this->params['url']['page'];
+        } 
+        $option = array(array('table' => 'product_groups','alias'=> 'ProductGroup','type'=>'left','conditions'=>array( 'Product.product_group_id = ProductGroup.id')),
+            array('table' => 'master_categories','alias'=> 'MasterCategory','type'=>'left','conditions'=>array( 'Product.master_category_id = MasterCategory.id')),
+            array('table' => 'master_brands','alias'=> 'MasterBrand','type'=>'left','conditions'=>array( 'Product.brand = MasterBrand.id')),
+            array('table' => 'stoks','alias'=> 'Stok','type'=>'inner','conditions'=>array( 'Product.id = Stok.product_id')),
+            array('table' => 'clients','alias'=> 'Client','type'=>'left','conditions'=>array( 'Product.client_id = Client.id')));
+        $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','Client.name','Product.quantity','DATE(Stok.expairy_date)','Product.packing','Product.unit','ProductGroup.name'),         
+            'conditions' => array('Product.is_expaire' =>0,'Product.is_saled' =>0,'Product.status' =>1 ,'Product.name LIKE' =>"$filt%"),'joins' =>$option));
+        foreach ($result as $rel) {
+                if(!empty($paramCon)){
+                    $exp = 'Going to expaire on - '.$rel['0']['DATE(`Stok`.`expairy_date`)'];
+                } else {
+                    $exp = '';
+                }
+                $array[] = array (
+                    'name' => $rel['Product']['name'].$exp,
+                    'id' => $rel['Product']['id'],
+                    'category' => $rel['MasterCategory']['name'],
+                    'group' => $rel['ProductGroup']['name'],
+                    'brand' => $rel['MasterBrand']['name'],
+                    'client' => $rel['Client']['name'],
+                    'price' => $rel['Product']['price'],
+                    'max_discount' => $rel['Product']['max_discount'],
+                    'quantity' => $rel['Product']['quantity'],
+                    'expairy' => $rel['0']['DATE(`Stok`.`expairy_date`)'],
+                    'unit' => $rel['Product']['packing'].' - '.$rel['Product']['unit'],
+                );
+            }
+           // print_r($array);die;
+        $this->set('NameArray', $array);
+        $data['category'] = $this->MasterCategory->find('all',array('fields' => array('id','name') ));
+        $data['group'] = $this->ProductGroup->find('all', array('fields' => array('id','name') ));
+        $data['brand'] = $this->MasterBrand->find('all', array('fields' => array('id','name') ));
+        $data['client'] = $this->Client->find('all', array('fields' => array('id','name') ));
+        $this->set('data',$data);
+    }
+    function editSave(){
+        $this->autoRender = false;
+        if($this->data){
+            if($this->data){
+                if($this->Product->save($this->data)){
+                    return "Saved Successfully";
+                } else {
+                    return "Error ocur while saving the data please try again";
+                }
+            } else {
+                return "Nothig saved";
+            }
+        }
     }
 }

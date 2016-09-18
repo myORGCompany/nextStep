@@ -7,18 +7,18 @@
 				<table class="table table-bordered c-table">
 					<tr>
 						<td class="">
-							Salse
+							<b>Salse</b>
 						</td>
 						<td class="card-text">
-							sssssssssssssssssssss
+							<?php echo $reports['dailyData'][0]['SUM(actual_price)'];?>
 						</td>
 					</tr>
 					<tr>
 						<td class="">
-							Percheses
+							<b>Percheses</b>
 						</td>
 						<td class="card-text">
-							sssssssssssssssssssss
+							<?php echo $reports['dailyDataP'][0]['Count(id)'];?>
 						</td>
 					</tr>
 				</table>
@@ -34,18 +34,18 @@
 				<table class="table table-bordered c-table">
 					<tr>
 						<td class="">
-							Salse
+							<b>Salse</b>
 						</td>
 						<td class="card-text">
-							sssssssssssssssssssss
+							<?php echo $reports['monthlyData'][0]['SUM(actual_price)'];?>
 						</td>
 					</tr>
 					<tr>
 						<td class="">
-							Percheses
+							<b>Percheses</b>
 						</td>
 						<td class="card-text">
-							sssssssssssssssssssss
+							<?php echo $reports['monthlyDataP'][0]['Count(id)'];?>
 						</td>
 					</tr>
 				</table>
@@ -63,18 +63,18 @@
 				<table class="table table-bordered c-table">
 					<tr>
 						<td class="">
-							Salse
+							<b>Salse</b>
 						</td>
 						<td class="card-text">
-							sssssssssssssssssssss
+							<?php echo $reports['YearlyData'][0]['SUM(actual_price)'];?>
 						</td>
 					</tr>
 					<tr>
 						<td class="">
-							Percheses
+							<b>Percheses</b>
 						</td>
 						<td class="card-text">
-							sssssssssssssssssssss
+							<?php echo $reports['YearlyDataP'][0]['Count(id)'];?>
 						</td>
 					</tr>
 				</table>
@@ -90,20 +90,23 @@
 				<table class="table table-bordered c-table">
 					<tr>
 						<td class="">
-							Name
+						<b>Name</b>
 						</td>
 						<td class="card-text">
-							sssssssssss
+						<b>Expairy Date</b>
 						</td>
 					</tr>
+					<?php foreach ($reports['expairy'] as $key => $value) { ?>
 					<tr>
 						<td class="">
-							Expairy Date
+							
+							<?php echo $value['Product']['name'];?>
 						</td>
 						<td class="card-text">
-							sssssssssssssssssssss
+							<?php echo $value['Product']['expairy_date'];?>
 						</td>
 					</tr>
+					<?php } ?>
 				</table>
 			</div>
 			<a href="#" class="btn btn-primary">View Details</a>
