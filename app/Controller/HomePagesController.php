@@ -31,7 +31,7 @@ class HomePagesController extends AppController {
 	}
 
 	function deshBoard() {
-		$user_id = $this->_checkLogin();
+		//$user_id = $this->_checkLogin();
 		$userData = $this->Session->read('User');
 		$this->layout="default";
 	}

@@ -111,3 +111,73 @@
       </div>
   </div>
   <input type="hidden" id="tempLoginVar" value="0" /> 
+<script>
+
+    $(document).ready(function () {
+        ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";        
+        $("#loginForm").bootstrapValidator({
+            live: false,
+            trigger: 'blur',
+            fields: {
+                "email": {
+                    message: "Please Enter emailid",
+                   
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: 'Please enter an E-mail address'
+                        },
+                        emailAddress: {
+                            message: 'Please enter a valid E-mail address'
+                        },
+                        remote: {
+                            message: "This Email is not registered",
+                            url: ABSOLUTE_URL + "/desh_board/isRegistered",
+                            trigger: 'blur'
+                        }
+                    }
+                },
+                "password": {
+                    message: "Please enter a password with at least 7 chars",
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: 'Please enter your password'
+                        },
+                        password: {
+                            message: 'The password is not valid'
+                        },
+                        stringLength: {
+                            enabled: true,
+                            min: 7,
+                            max: 20,
+                            message: 'Password should be at least 7 characters'
+                        },
+                    }
+                }
+            }
+
+        })   .on('success.form.bv', function(e) {
+                    
+                    // Prevent form submission
+                    e.preventDefault();
+
+                    $.ajax({
+                        dataType: "JSON",
+                        url: ABSOLUTE_URL + "/desh_board/ajaxLogin",
+                        data: $('#loginForm').serialize(),
+                        type: "POST",
+                        success: function(res) {
+                            if (res.hasError === true) {
+                                $("#loginForm").html(res.messages).show().removeClass('hide');
+                            } else {
+                                window.location.href = res.redirect;
+                            }
+
+                        }
+                    });
+                });
+    });
+    
+   
+</script>
