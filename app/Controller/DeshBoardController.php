@@ -233,7 +233,7 @@ class DeshBoardController extends AppController {
                     $salseData['productId'][] = trim($value['id'.$i]) ;
                     $salseData['stok_id'][] = trim($value['stok_id'.$i]) ;
                     
-                    $prSalse[$key]['Salse']['actual_price'] = (trim($value['totel'.$i])/trim($value['quanity'.$i])) ;
+                    $salseData['actual_price'][] = trim($value['totel'.$i])/($value['quantity'.$i]);
                     $arr['TotleAm'] = $arr['servicetax'] + trim($value['totel'.$i]);
                     $prSalse[$key]['Salse']['quantity'] = trim($value['quantity'.$i]) ;
                     if($this->data['shoperId']){
@@ -248,6 +248,7 @@ class DeshBoardController extends AppController {
                     'conditions' => array('Stok.id'=>$salseData['stok_id'])));
             foreach ($salseData['productId'] as $key => $prId) {
                $prSalse[$key]['Salse']['product_id'] = $prId;
+               $prSalse[$key]['Salse']['actual_price'] = $salseData['actual_price'][$key];
                $prSalse[$key]['Stok']['id'] = $salseData['stok_id'][$key];
             }
             if(!empty($prSalse[0]['Salse']['product_id'])){

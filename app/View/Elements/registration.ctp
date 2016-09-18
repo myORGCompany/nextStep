@@ -42,9 +42,7 @@
 <script>
 
     $(document).ready(function () {
-        ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";
-
-        
+        ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";        
         $("#regForm").bootstrapValidator({
             live: false,
             trigger: 'blur',

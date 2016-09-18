@@ -1,4 +1,4 @@
- <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/jquery.min.js"></script>
+
  
   <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/moment.min.js"></script>
  <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/bootstrap-datetimepicker.min.js"></script>
@@ -202,6 +202,7 @@ $(document).ready(function () {
             $('div').removeClass('has-success');
         }
 function arrengeData(data1,id){
+
     for (var index in product) {
         if (Number(product[index].id) === Number(data1.id)) {
             alert("You can not select same product again");
@@ -209,15 +210,7 @@ function arrengeData(data1,id){
             return false;
         }
     }
-        
-    // for (var i = 0, len = product.length; i < len; i++) {
-    //     console.log(product);
-    //     // var j = i+1;
-    //     // if (product[j]['id'] === id) {
-    //     //     alert(product[j]['id']);
-    //     //     return false;
-    //     // }
-    // }
+    product[id] = data1;
     if (data1 == null) {
         alert("Please select product name");
         $("#" + id).val(null).removeClass('input-group-addon');

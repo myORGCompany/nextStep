@@ -25,8 +25,6 @@
 <script src="<?php echo ABSOLUTE_URL;?>/js/jquery.min.js"></script> <!-- or use local jquery -->
 <script src="<?php echo ABSOLUTE_URL;?>/js/jqBootstrapValidation.js"></script>
 <script src="<?php echo ABSOLUTE_URL;?>/js/bootstrap.min.js"  type="text/javascript"></script>
-
-
 <link href="<?php echo ABSOLUTE_URL;?>/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
