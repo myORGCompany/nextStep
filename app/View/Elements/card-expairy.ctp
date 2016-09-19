@@ -23,7 +23,7 @@
 					</tr>
 				</table>
 			</div>
-			<a href="#" class="btn btn-primary">View Details</a>
+			<a href="<?php echo ABSOLUTE_URL;?>/view.html" class="btn btn-primary">View Details</a>
 		</div>
 	</div>
 	<div class="clearfix margin-bottom-10"></div>
@@ -97,8 +97,8 @@
 						</td>
 					</tr>
 					<?php foreach ($reports['expairy'] as $key => $value) { ?>
-					<tr>
-						<td class="">
+					<tr id ="<?php echo $key;?>" class="hidden expaire">
+						<td class=""> 
 							
 							<?php echo $value['Product']['name'];?>
 						</td>
@@ -109,8 +109,26 @@
 					<?php } ?>
 				</table>
 			</div>
-			<a href="#" class="btn btn-primary">View Details</a>
+			<a href="#" id="expSubmit" class="btn btn-primary">View Details</a>
+			<a href="#" id="hideSubmit" class="class hidden btn btn-primary">Hide</a>
 		</div>
 	</div>
 </div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#0").removeClass('hidden');
+		$("#expSubmit").click(function(){
+			$(".expaire").removeClass('hidden');
+			$("#expSubmit").addClass('hidden');
+			$("#hideSubmit").removeClass('hidden');
+		});
+		$("#hideSubmit").click(function(){
+			$(".expaire").addClass('hidden');
+			$("#expSubmit").removeClass('hidden');
+			$("#hideSubmit").addClass('hidden');
+			$("#0").removeClass('hidden');
+		});
+		
+	});
+</script>

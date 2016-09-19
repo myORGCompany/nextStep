@@ -31,7 +31,7 @@
                         </div>
                         <div class="navbar-collapse collapse" id="templatemo-nav-bar">
                             
-                            <?php if ($this->params['controller'] == 'home_pages' && $this->action != 'deshBoard') { ?> 
+                            <?php if ($this->params['controller'] == 'home_pages' && $this->action != 'deshBoard' && $this->action != 'viewSalse') { ?> 
                               <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
                                 <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard">HOME</a></li>
                                 <li><a href="#templatemo-about">ABOUT</a></li>
@@ -46,9 +46,9 @@
                                   <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
 
                                <li class="active" ><a id="bank"  
-                                        href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard">Home</a></li>
+                                        href="<?php echo ABSOLUTE_URL;?>/deshBoard">Home</a></li>
                                         <li class="active">&nbsp;&nbsp;</li> 
-                                <li class="active margin-left-10"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/logout">Logout</a></li>
+                                <li class="active margin-left-10"><a href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>
                                 </ul>
 
                                <?php } ?>
@@ -67,7 +67,7 @@
           </div>
           <div class="modal-body">
               <div class="row">
-                  <div class="col-xs-6">
+                  <div class="col-xs-6" id="classdiv">
                       <div class="well">
                           <form id="loginForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
                               <div class="form-group control-group" id="emailid">
@@ -90,11 +90,20 @@
                                   <p class="help-block">(if this is a private computer)</p>
                               </div>
                               <button type="submit" class="btn btn-success btn-block">Login</button>
-                              <a href="/forgot/" class="btn btn-default btn-block">Help to login</a>
+                              <a href="javascript:openClose(this.id);" class="btn btn-default btn-block">Help to login</a>
+                          </form>
+                          <form id="forgotForm" class="hidden" method="POST" action="javascript:void(0);" data-toggle="validator" >
+                              <div class="form-group control-group" id="emailid">
+                                  <label for="email" class="control-label" >Please Enter Your Email Hare..</label>
+                                  <input type="text" class="form-control" id="email" name="email" title="Please enter a valid email" placeholder="example@gmail.com" required="">
+                                  
+                                  <span class="help-block"></span>
+                              </div>
+                              <button type="submit" class="btn btn-success btn-block">Submit</button>
                           </form>
                       </div>
                   </div>
-                  <div class="col-xs-6">
+                  <div class="col-xs-6" id="addDiv">
                       <p class="lead">Register now for <span class="text-success">FREE</span></p>
                       <ul class="list-unstyled" style="line-height: 2">
                           <li><span class="fa fa-check text-success"></span> See all your orders</li>
@@ -111,8 +120,14 @@
       </div>
   </div>
   <input type="hidden" id="tempLoginVar" value="0" /> 
+ 
 <script>
-
+    function openClose(){
+      $("#loginForm").addClass('hidden');
+      $("#addDiv").addClass('hidden');
+      $("#classdiv").removeClass('col-xs-6').addClass('col-xs-12')
+      $("#forgotForm").removeClass('hidden');
+    }
     $(document).ready(function () {
         ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";        
         $("#loginForm").bootstrapValidator({
@@ -176,6 +191,51 @@
 
                         }
                     });
+                });
+
+         $("#forgotForm").bootstrapValidator({
+            live: false,
+            trigger: 'blur',
+            fields: {
+                "email": {
+                    message: "Please Enter emailid",
+                   
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: 'Please enter an E-mail address'
+                        },
+                        emailAddress: {
+                            message: 'Please enter a valid E-mail address'
+                        },
+                        remote: {
+                            message: "This Email is not registered",
+                            url: ABSOLUTE_URL + "/desh_board/isRegistered",
+                            trigger: 'blur'
+                        }
+                    }
+                }
+            }
+
+        })   .on('success.form.bv', function(e) {
+                    // Prevent form submission
+                    e.preventDefault();
+                    // $.ajax({
+                    //     dataType: "JSON",
+                    //     url: ABSOLUTE_URL + "/desh_board/ajaxLogin",
+                    //     data: $('#loginForm').serialize(),
+                    //     type: "POST",
+                    //     success: function(res) {
+                    //         if (res.hasError === true) {
+                    //             $("#loginForm").html(res.messages).show().removeClass('hide');
+                    //         } else {
+                    //             window.location.href = res.redirect;
+                    //         }
+
+                    //     }
+                    // });
+                    alert("Password hase been send to your mail id");
+                    $("#login .close").click();
                 });
     });
     

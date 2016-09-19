@@ -4,12 +4,12 @@
 <div class="container">
 	<div class="row navbar-collapse collapse well" >
         <ul class="nav nav-tabs">
-          <li class="margin-bottom-10" ><a href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard" >HOME</a></li>
-          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/products">PRODUCTS</a></li>
-          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/salse">SALSE</a></li>
-          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/bulkSalse">BULK SALSE</a></li>
-          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/ManageProducts"">MANAGE DATA</a></li>
-          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/desh_board/viewList"">VIEW ALL</a></li>
+          <li class="margin-bottom-10" ><a href="<?php echo ABSOLUTE_URL;?>/deshBoard" >HOME</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/products">PRODUCTS</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/salse">SALSE</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/bulkSalse">BULK SALSE</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/ManageProducts"">MANAGE DATA</a></li>
+          <li class="margin-bottom-10" role="presentation"><a class="text-info" href="<?php echo ABSOLUTE_URL;?>/viewList"">VIEW ALL</a></li>
         </ul>
     </div>
     

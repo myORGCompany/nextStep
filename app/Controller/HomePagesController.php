@@ -114,19 +114,28 @@ class HomePagesController extends AppController {
         echo json_encode($array);
         exit();
 	}
-	// function loginSession(){
-	// 	if($this->request->data){
-	// 		$login_detail = $this->User->find('first', array( 'conditions' => array('email' => $this->data['email'],'status' =>1)));
-	// 		if(empty($login_detail)) {
-	// 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=2' ) );
-	// 			$this->Session->setFlash(__('This user is not exist Please provide a valid Email and password'));
-	// 		} else {
-	// 			$data['user_id'] = $login_detail['User']['id'];
-	// 			$data['email'] = $login_detail['User']['email'];
-	// 			$data['password'] = $login_detail['User']['password'];
-	// 			$this->session_cre
-	// 			$this->Session->write('User',$data);
-	// 		}
-	// 	}
-	// }
+	function viewSalse(){
+		//Configure::write('debug', 2);
+		if ($maxPageNumber > $temMax) {
+            $maxPageNumber = $temMax + 1;
+        }
+       
+        $this->set('maxPageNumber', $maxPageNumber);
+        $this->set('start', $tempSeq);
+        $this->set('linkdata', $data);
+        if( !empty($this->params['url']['page'] )) {
+            $filt = $this->params['url']['page'];
+        } 
+
+		 $option = array(array('table' => 'product_groups','alias'=> 'ProductGroup','type'=>'left','conditions'=>array( 'Product.product_group_id = ProductGroup.id')),
+            array('table' => 'master_categories','alias'=> 'MasterCategory','type'=>'left','conditions'=>array( 'Product.master_category_id = MasterCategory.id')),
+            array('table' => 'master_brands','alias'=> 'MasterBrand','type'=>'left','conditions'=>array( 'Product.brand = MasterBrand.id')),
+            array('table' => 'salses','alias'=> 'Salse','type'=>'inner','conditions'=>array( 'Product.id = Salse.product_id')),
+             array('table' => 'shopers','alias'=> 'Shoper','type'=>'left','conditions'=>array( 'Salse.shoper_id = Shoper.id')));
+
+        $result = $this->Product->find('all', array('fields' => array('Product.price','Product.name','Product.id','Product.packing','Product.unit','MasterCategory.name','MasterBrand.name','ProductGroup.name','Salse.quantity','Salse.actual_price','Shoper.name'),         
+                    'conditions' => array('Salse.created > DATE_SUB(CURDATE(), INTERVAL 1 year)','Product.name LIKE' =>"$filt%"),
+                    'joins' =>$option));
+        $this->set('NameArray',$result);
+	}
 }
