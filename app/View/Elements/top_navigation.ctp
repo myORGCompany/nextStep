@@ -33,7 +33,7 @@
                             
                             <?php if ($this->params['controller'] == 'home_pages' && $this->action != 'deshBoard' && $this->action != 'viewSalse') { ?> 
                               <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
-                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard">HOME</a></li>
+                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages">HOME</a></li>
                                 <li><a href="#templatemo-about">ABOUT</a></li>
                                 <li><a href="#templatemo-portfolio">PORTFOLIO</a></li>
                                 <li><a href="#templatemo-blog">BLOG</a></li>

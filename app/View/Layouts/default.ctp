@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Urbanic Free Website Template</title>
+        <title>Next-Step Solutions</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
 

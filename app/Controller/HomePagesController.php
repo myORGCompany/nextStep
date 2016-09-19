@@ -56,6 +56,7 @@ class HomePagesController extends AppController {
 			$data['mobile'] = $this->data['mobile'];
 			$data['remember'] = $this->data['remember'];
 			$this->Session->write('User',$data);
+			$this->setUserData();
 			$data1 = $this->User->save($data);
 			$data['UserId'] = $data1['User']['id'];
 			$this->Session->write('User',$data);

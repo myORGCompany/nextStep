@@ -168,6 +168,7 @@ class DeshBoardController extends AppController {
 					$data['email'] = $LoginData['User']['email'];
 					$data['password'] = $LoginData['User']['password'];
 					$this->Session->write('User',$data);
+                    $this->setUserData();
                 	$response = array('hasError' => false, 'messages' => null); 
                 	if(!empty($LoginData['User']['is_admin']) && $LoginData['User']['is_admin'] ==1) {
 						$response['redirect'] = Router::url('/adminLogin'); 

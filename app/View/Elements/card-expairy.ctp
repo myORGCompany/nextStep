@@ -50,7 +50,7 @@
 					</tr>
 				</table>
 			</div>
-			<a href="#" class="btn btn-primary">View Details</a>
+			<a href="<?php echo ABSOLUTE_URL;?>/view.html" class="btn btn-primary">View Details</a>
 		</div>
 	</div>
 </div>
@@ -79,7 +79,7 @@
 					</tr>
 				</table>
 			</div>
-			<a href="#" class="btn btn-primary">View Details</a>
+			<a href="<?php echo ABSOLUTE_URL;?>/view.html" class="btn btn-primary">View Details</a>
 		</div>
 	</div>
 	<div class="clearfix margin-bottom-10"></div>

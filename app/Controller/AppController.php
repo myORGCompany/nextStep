@@ -32,8 +32,15 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	//public $components = array('DebugKit.Toolbar');
-  var $isLogin = false;
+  var $isLogin = null;
 
+  function setUserData() {
+
+      $isLogintemp = $this->Session->read('User');
+      $this->isLogin = $isLogintemp;
+      $this->set('isLogin', $this->isLogin);
+      
+    }
 	function _import($model, $constructor = null) {
       try {
         if (!$this->loadModel($model)) {
@@ -52,15 +59,17 @@ class AppController extends Controller {
       }
     }
     function _checkLogin() {
-        if( $user = $this->Session->read('User')) {
-           $isLogin =1;
-           $this->Session->write('isLogin' , 1);
-           $user_id = $user['user_id'];
-          return $user_id;
+        if( $this->Session->read('User') ) {
+           $Login =1;
+           $this->Session->write('Login' , 1);
+           $user = $this->Session->read('User');
+           $user_id =$user['user_id'];
+           return $user_id;
         } else {
             $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=5' ) );
         }
     }
+   
     function setProductPrice(){
         $Product = $this->_import('Product');
         $productData = $Product->find('list', array(

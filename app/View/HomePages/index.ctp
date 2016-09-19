@@ -8,24 +8,23 @@
             <!-- Carousel -->
             <div id="templatemo-carousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
-                <ol class="carousel-indicators">
+                <!-- <ol class="carousel-indicators">
                     <li data-target="#templatemo-carousel" data-slide-to="0" class="active"></li>
                     <li data-target="#templatemo-carousel" data-slide-to="1"></li>
                     <li data-target="#templatemo-carousel" data-slide-to="2"></li>
-                </ol>
+                </ol> -->
                 <div class="carousel-inner">
                     <div class="item active">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>WELCOME TO URBANIC</h1>
+                                <h1>WELCOME TO NEXT-STEP</h1>
                                 <p>CHOOSE THE ONE SUITABLE FOR YOU</p>
-                                <p><a class="btn btn-lg btn-green" href="#" role="button" style="margin: 20px;">View Demo</a> 
-                                    <a class="btn btn-lg btn-orange" href="#" role="button">Free Download</a></p>
+                                
                             </div>
                         </div>
                     </div>
                     
-                    <div class="item">
+                <!--     <div class="item">
                         <div class="container">
                                 <div class="carousel-caption">
                                     <div class="col-sm-6 col-md-6">
@@ -47,18 +46,18 @@
                                     <p><a class="btn btn-lg btn-orange" href="#" role="button">Read More</a></p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                 </div>
-                <a class="left carousel-control" href="#templatemo-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                <a class="right carousel-control" href="#templatemo-carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                <!-- <a class="left carousel-control" href="#templatemo-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                <a class="right carousel-control" href="#templatemo-carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a> -->
             </div><!-- /#templatemo-carousel -->
         </div>
 
         <div class="templatemo-welcome" id="templatemo-welcome">
             <div class="container">
                 <div class="templatemo-slogan text-center">
-                    <span class="txt_darkgrey">Welcome to </span><span class="txt_orange">Urbanic Design</span>
-                    <p class="txt_slogan"><i>Lorem ipsum dolor sit amet, consect adipiscing elit. Etiam metus libero mauriec ignissim fermentum.</i></p>
+                    <span class="txt_darkgrey">Welcome to </span><span class="txt_orange">Next Step</span>
+                    <p class="txt_slogan"><i>One of the great responsibilities that I have is to manage my assets wisely, so that they create value.</i></p>
                 </div>  
             </div>
         </div>
@@ -70,9 +69,9 @@
                         <div class="templatemo-service-item">
                             <div>
                                 <img src="<?php echo ABSOLUTE_URL;?>/img/leaf.png" alt="icon" />
-                                <span class="templatemo-service-item-header">AWESOME ICONS</span>
+                                <span class="templatemo-service-item-header">AWESOME FUNCTIONALITY</span>
                             </div>
-                            <p>Nam porta adipiscing tortor, eget rutrum turpis bibendum ut. Donec eu lacus in diam euismod imperdiet eu ut turpis. Morbi felis orci, tincidunt pretium laoreet id, euismod et lacus. Praesent aliquet magna vitae mi elementum pharetra.</p>
+                            <p>Hare you can find your managment portle with innovated functionalities which provide you ease of work with data intigrity, isolization and automation applied to an inefficient operation which magnify the inefficiency which leads to save your asits and reduces the Risk. </p>
                             <div class="text-center">
                                 <a href="#" 
                                     class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
@@ -88,7 +87,7 @@
                                 <img src="<?php echo ABSOLUTE_URL;?>/img/mobile.png" alt="icon"/>
                                 <span class="templatemo-service-item-header">FULLY RESPONSIVE</span>
                             </div>
-                            <p>Urbanic is a Bootstrap template from templatemo that is available for free instant download. Credits go to <a rel="nofollow" href="http://getbootstrap.com" target="_parent">Bootstrap</a> and <a rel="nofollow" href="http://unsplash.com" target="_parent">Unsplash</a> for images used in this template. You do not need to provide a credit link to us. You may spread a word about templatemo. Thank you.</p>
+                            <p>Next-Step is a Bootstrap Website that is available for free instant download. Credits go to <a rel="nofollow" href="http://getbootstrap.com" target="_parent">Bootstrap</a> and <a rel="nofollow" href="http://unsplash.com" target="_parent">Unsplash</a> for images used in this template. You do not need to provide a credit link to us. You may spread a word about templatemo. Thank you.</p>
                             <div class="text-center">
                                 <a href="#" 
                                     class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
@@ -104,7 +103,7 @@
                                 <img src="<?php echo ABSOLUTE_URL;?>/img/battery.png" alt="icon"/>
                                 <span class="templatemo-service-item-header">HIGH EFFICIENCY</span>
                             </div>
-                            <p>Morbi imperdiet ipsum sit amet dui pharetra, vulputate porta neque tristique. Quisque id turpis tristique, venenatis erat sit amet, venenatis turpis. Ut tellus ipsum, posuere bibendum consectetur vel, egestas sit amet erat. Morbi rhoncus leo fermentum viverra.</p>
+                            <p>The first rule of any technology used in a business is that automation applied to an efficient operation will magnify the efficiency. The second is that automation applied to an inefficient operation will magnify the inefficiency which leads to save your asits .</p>
                             <div class="text-center">
                                 <a href="#" 
                                     class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
