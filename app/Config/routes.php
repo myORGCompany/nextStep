@@ -31,6 +31,7 @@
  * ...and connect the rest of 'Pages' controller's URLs.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+	Router::connect('/contact.html', array('controller' => 'home_pages', 'action' => 'contactUs'));
 	Router::connect('/deshBoard', array('controller' => 'home_pages', 'action' => 'deshBoard'));
 	Router::connect('/view.html', array('controller' => 'home_pages', 'action' => 'viewSalse'));
 	Router::connect('/adminLogin', array('controller' => 'desh_board', 'action' => 'adminLogin'));
@@ -38,7 +39,7 @@
 	Router::connect('/bulkSalse', array('controller' => 'desh_board', 'action' => 'bulkSalse'));
 	Router::connect('/ManageProducts', array('controller' => 'desh_board', 'action' => 'ManageProducts'));
 	Router::connect('/viewList', array('controller' => 'desh_board', 'action' => 'viewList'));
-	// Router::connect('/products', array('controller' => 'desh_board', 'action' => 'products'));
+	Router::connect('/products', array('controller' => 'desh_board', 'action' => 'products'));
 	Router::connect('/logout', array('controller' => 'home_pages', 'action' => 'logout'));
 	
 /**

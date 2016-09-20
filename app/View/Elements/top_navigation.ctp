@@ -31,22 +31,28 @@
                         </div>
                         <div class="navbar-collapse collapse" id="templatemo-nav-bar">
                             
-                            <?php if ($this->params['controller'] == 'home_pages' && $this->action != 'deshBoard' && $this->action != 'viewSalse') { ?> 
+                            <?php if(!$this->Session->read('User')){?> 
                               <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
                                 <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages">HOME</a></li>
                                 <li><a href="#templatemo-about">ABOUT</a></li>
                                 <li><a href="#templatemo-portfolio">PORTFOLIO</a></li>
                                 <li><a href="#templatemo-blog">BLOG</a></li>
-                                <li><a rel="nofollow" 
-                                        class="external-link" data-toggle="modal" data-target="#login">LOGIN</a></li>
+                                
+                                <li><a rel="nofollow" id="loginli"
+                                        class="external-link" data-toggle="modal" data-target="#login">LOGIN</a>
+                                </li>
+                               
                                         <li><a rel="nofollow" 
                                         class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
-                                <li><a href="#templatemo-contact">CONTACT</a></li></ul>
+                                          <li><a href="#templatemo-contact">CONTACT</a></li></ul>
                                 <?php } else {  ?>
+                                
                                   <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
 
                                <li class="active" ><a id="bank"  
                                         href="<?php echo ABSOLUTE_URL;?>/deshBoard">Home</a></li>
+                                        <li class="active">&nbsp;&nbsp;</li> 
+                                        <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li>
                                         <li class="active">&nbsp;&nbsp;</li> 
                                 <li class="active margin-left-10"><a href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>
                                 </ul>
@@ -62,8 +68,8 @@
   <div id="login"  class="modal fade" role="dialog">
       <div class="modal-content modal-dialog">
           <div class="modal-header">
-              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title" id="myModalLabel">Login to site.com</h4>
+              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">X</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Login to nextstep.com</h4>
           </div>
           <div class="modal-body">
               <div class="row">
@@ -113,7 +119,7 @@
                           <li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
                           <li><a href="/read-more/"><u>Read more</u></a></li>
                       </ul>
-                      <p><a id="reg" href="" class="btn btn-info btn-block">Yes please, register now!</a></p>
+                      <p><a id="reg" href="javascript:void(0);" class="btn btn-info btn-block">Yes please, register now!</a></p>
                   </div>
               </div>
           </div>
@@ -125,10 +131,18 @@
     function openClose(){
       $("#loginForm").addClass('hidden');
       $("#addDiv").addClass('hidden');
-      $("#classdiv").removeClass('col-xs-6').addClass('col-xs-12')
+      $("#classdiv").removeClass('col-xs-6').addClass('col-xs-12');
       $("#forgotForm").removeClass('hidden');
     }
     $(document).ready(function () {
+        $("#reg").click(function(){
+            $("#login .close").click();
+            $("#register").click();
+        });
+        $("#alreadyReg").click(function(){
+            $("#signUpForm .close").click();
+            $("#loginli").click();
+        });
         ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";        
         $("#loginForm").bootstrapValidator({
             live: false,
@@ -236,6 +250,12 @@
                     // });
                     alert("Password hase been send to your mail id");
                     $("#login .close").click();
+                    $('#forgotForm')[0].reset();
+                    $('#loginForm')[0].reset();
+                    $('#loginForm').removeClass('hidden');
+                    $('#forgotForm').addClass('hidden');
+                    $("#addDiv").removeClass('hidden');
+                    $("#classdiv").addClass('col-xs-6').removeClass('col-xs-12');
                 });
     });
     

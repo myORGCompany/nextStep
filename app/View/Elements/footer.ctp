@@ -32,7 +32,7 @@
                                 </li>
                             </ul>
                             <div class="height30"></div>
-                            <a class="btn btn-lg btn-orange" href="#" role="button" id="btn-back-to-top">Back To Top</a>
+                            <a class="btn btn-lg btn-orange" href="" role="button" id="btn-back-to-top">Back To Top</a>
                             <div class="height30"></div>
                         </div>
                         <div class="footer_bottom_content">

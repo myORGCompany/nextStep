@@ -78,4 +78,21 @@ class AppController extends Controller {
         ));
         $this->set('productsPrice' , $productData);
     }
+    function checkRegisterdGetId($emailid = null){
+        $this->autoRender = false;
+        $this->layout = null;
+        $isMember = false;
+        $User = $this->_import('User');
+        if (trim($emailid) == ''){
+            $emailid = $this->data['email'];
+        }
+        $loginData = $User->find('first', array(
+            'fields' => array("User.id"),
+            'conditions' => array('User.email' => $emailid)
+        ));
+        if (isset($loginData['User']['id']) && (int) $loginData['User']['id']) {
+            $isMember = (int) $loginData['User']['id'];
+        }
+        return $isMember;
+  }
 }

@@ -16,7 +16,7 @@ class HomePagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('User','Salse','Product','Stok');
+	public $uses = array('User','Salse','Product','Stok','Lead');
 
 /**
  * Displays a view
@@ -144,5 +144,38 @@ class HomePagesController extends AppController {
                     'conditions' => array('Salse.created > DATE_SUB(CURDATE(), INTERVAL 1 year)','Product.name LIKE' =>"$filt%",'Product.user_id' =>$user_id),
                     'joins' =>$option));
         $this->set('NameArray',$result);
+	}
+	function contactUs(){
+		$this->layout = "default";
+		$message = "";
+		$this->set('layout_var', 
+            array('static_heading' => 'Indias Best Invetory Managment Tool',
+                'title' => 'Indias Best Invetory Managment Tool | Secure Isolization and Globle access To Inventories'));
+	}
+	function submitLeads(){
+		$this->layout = "default";
+		$this->autoRender = false;
+		if(!empty($this->request->data)) {
+			$leads['name'] = $this->request->data['Name'];
+			$leads['email'] = $this->request->data['email'];
+			$leads['mobile'] = $this->request->data['mobile'];
+			$leads['comments'] = $this->request->data['comments'];
+			$user_id = $this->checkRegisterdGetId($leads['email']);
+			if(!empty($user_id)){
+				$leads['user_id'] = $user_id;
+				$leads['is_registered'] = $user_id;
+			} else{
+				$leads['user_id'] = 0;
+			}
+			if($this->Lead->save($leads)){
+				$message['message'] = "Thanks for contacting us we will shortly connect you";
+				$message['class'] = 'text-success';
+			} else{
+				$message['message'] = "Smothing went wrong please try again";
+				$message['class'] = 'text-danger';
+			}
+		}
+		echo json_encode($message);
+		exit;
 	}
 }

@@ -1,54 +1,92 @@
 <style type="text/css">
-  .text-bold{color:#000000 ;}
+  .drop-shadow {
+        -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+        box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+    }
+   .margin-top-30{margin-top:30px !important;} 
+   .margin-bottom-30{margin-bottom:30px !important;}
+   .widthmin{max-width: 99.8%; margin-left: -1px !important;}
 </style>
-<div id="signUpForm"  class="modal fade" role="dialog">
-      <div class="modal-content modal-dialog">
-          <div class="modal-header text-bold">
-              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true" ><b class="text-bold">X</b></span><span class="sr-only"><strong>Close</strong></span></button>
-              <strong><h4 class="modal-title" id="myModalLabel">Register hare........</h4></strong>
-          </div>
-          <div class="modal-body">
-              <div class="row">
-                  <div class="col-xs-12">
-                  <div class="well">
-                      <form id="regForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/home_pages/registration" data-toggle="validator" >
+<body>
+	<div class="container page-heading">
+		<div class="row col-xs-12 padding-xs-0">
+			<div class="col-xs-12 padding-top-10 margin-top-7">
+				<div class="margin-top-15 text-white well">
+					<p>Contact Us</p>
+				</div>
+				<div class="margin-top-15 text-center">
+					<h4>
+						<b>We'd like to hear from you. Drop in your comments & queries and the NextStep team will get back to you</b>
+					</h4>
+					<br>
+				</div>
+				
+				<div id="respoce" class="hidden col-md-6 col-md-offset-3 modal-body well margin-bottom-0">
+				 	<div id="responceDiv" class="card">
+				 		<h3><?php echo $message['message'];?></h3>
+				 	</div>
+				</div>
+				
+				<div id="contacts" class="row margin-top-15  text-white well widthmin">
+                  <div class="col-xs-10 col-md-offset-1 margin-bottom-30 margin-top-30 drop-shadow">
+                  <div class="margin-top-30 margin-bottom-30">
+
+
+
+                      <form id="contactUsForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
                               <div class="form-group control-group controls">
                                   <label for="Name" class="control-label">Name</label>
                                   <input type="text" class="form-control" id="Name" name="Name" value="" required="" title="Please enter your password">
                                   <span class="help-block"></span>
                               </div>
                               <div class="form-group control-group controls">
-                                  <label for="email" class="control-label" >Username</label>
+                                  <label for="email" class="control-label" >Email</label>
                                   <input type="text" class="form-control" id="email" name="email" title="Please enter you username" placeholder="example@gmail.com" required="">
                                   <span class="help-block"></span>
                               </div>
+                              
                               <div class="form-group control-group controls">
-                                  <label for="password" class="control-label">Password</label>
-                                  <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password">
-                                  <span class="help-block"></span>
-                              </div>
-                              <div class="form-group control-group controls">
-                                  <label for="mobile" class="control-label">mobile</label>
+                                  <label for="mobile" class="control-label">Mobile</label>
                                   <input type="integer" class="form-control" id="mobile" name="mobile" value="" required="" title="Please enter your mobile number">
                                   <span class="help-block"></span>
                               </div>
-                              <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
+                            <div class="form-group control-group controls">
+                                  <label for="comments" class="control-label">Comments or Inquiry</label>
+                                  <textarea type="integer" class="form-control" id="comments" name="comments" value="" required="" title="Please enter your Comments or Inquiry"></textarea>
+                                  <span class="help-block"></span>
+                              </div>
                              
-                              <button type="submit" class="btn btn-success btn-block">Register</button>
+                              <button type="submit" class="btn btn-success btn-block">Submit</button>
                           </form>
-                          <p class="margin-top-20"><a id="alreadyReg" href="javascript:void(0);" class="text-info btn-block">Already register! Click hare to login</a></p>
                       </div>
 
                   </div>
               </div>
-          </div>
-      </div>
-  </div>
-<script>
-
-    $(document).ready(function () {
+              <div class="clearfix"></div>
+           <div class="col-sm-12 text-center">
+                    <h3>NextStep Help Desk</h3>
+                    <div class="col-sm-12 padding-left-0 padding-top-7">
+                        <div class="margin-top-15">
+                            <i class="fa fa-phone-square"></i> &nbsp; Call @  +91 8109342601 ( Mon-Fri, 9:30 am - 6:30 pm)
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="margin-top-7">
+                            <i class="fa fa-envelope-square"></i> &nbsp; Email us - <a href="mailto:helpdesk@nextstep.com" >helpdesk@nextstep.com</a>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	 $(document).ready(function () {
+	 	<?php if(empty($message)) { ?>
+			$("#contacts").removeClass('hidden')
+		<?php } ?>
         ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";        
-        $("#regForm").bootstrapValidator({
+        $("#contactUsForm").bootstrapValidator({
             live: false,
             trigger: 'blur',
             fields: {
@@ -81,30 +119,7 @@
                         },
                         emailAddress: {
                             message: 'Please enter a valid E-mail address'
-                        },
-                        remote: {
-                            message: "This Email is already registered",
-                            url: ABSOLUTE_URL + "/desh_board/checkMemberShipByEmail",
-                            trigger: 'blur'
                         }
-                    }
-                },
-                "password": {
-                    message: "Please chose a password with at least 7 chars",
-                    validators: {
-                        notEmpty: {
-                            enabled: true,
-                            message: 'Please enter your password'
-                        },
-                        password: {
-                            message: 'The password is not valid'
-                        },
-                        stringLength: {
-                            enabled: true,
-                            min: 7,
-                            max: 20,
-                            message: 'Password should be at least 7 characters'
-                        },
                     }
                 },
                 "mobile": {
@@ -112,11 +127,6 @@
                     validators: {
                         notEmpty: {
                             message: 'Enter mobile number'
-                        },
-                        remote: {
-                            message: "This mobile number is already registered",
-                            url: ABSOLUTE_URL + "/desh_board/checkMemberShipByMobile",
-                            trigger: 'blur'
                         },
                         callback: {
                             message: 'Enter a valid mobile number',
@@ -147,8 +157,24 @@
                 }
             }
 
-        })
+        }).on('success.form.bv',function(e){
+        	e.preventDefault();
+        	$.ajax({
+        		type: "POST",
+        		url: "<?php echo ABSOLUTE_URL;?>/home_pages/submitLeads",
+        		data : $("#contactUsForm").serialize(true),
+        		success:function( data ){
+        			msg = JSON.parse(data);
+        				alert(msg['message']);
+        			$("#contacts").addClass('hidden');
+        			$("#respoce").removeClass('hidden');
+        			$("#respoce h3").html(msg['message']);
+        			$("#responceDiv").addClass(msg['class']);
+        		},
+        		error:function(request, status, error){
+        			alert("Something went wrong");
+        		}
+        	});
+        });
     });
-    
-   
 </script>
