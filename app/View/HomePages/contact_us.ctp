@@ -165,7 +165,6 @@
         		data : $("#contactUsForm").serialize(true),
         		success:function( data ){
         			msg = JSON.parse(data);
-        				alert(msg['message']);
         			$("#contacts").addClass('hidden');
         			$("#respoce").removeClass('hidden');
         			$("#respoce h3").html(msg['message']);
