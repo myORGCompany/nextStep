@@ -291,6 +291,9 @@ class DeshBoardController extends AppController {
     }
     function seachAutoComplete(){  
         $this->autoRender = false;
+        if($userData =$this->Session->read('User')) {
+            $user_id = $userData['user_id'];
+        }
         $value = $this->params['url']['term'];
         $paramCon = 0 ;
         if (empty($this->params['url']['productId'])){
@@ -313,7 +316,7 @@ class DeshBoardController extends AppController {
             array('table' => 'stoks','alias'=> 'Stok','type'=>'inner','conditions'=>array( 'Product.id = Stok.product_id')),
             array('table' => 'clients','alias'=> 'Client','type'=>'left','conditions'=>array( 'Product.client_id = Client.id')));
         $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.product_group_id','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','MasterBrand.id','Client.id','Client.name','ProductGroup.id','MasterCategory.id','Product.quantity','Product.bill_number','DATE(Stok.expairy_date)','Stok.id','Product.perchese_date','Product.unit','Product.packing'),         
-                    'conditions' => array('Product.is_expaire' =>0, $paramCon ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
+                    'conditions' => array('Product.is_expaire' =>0, $paramCon,'Product.user_id' => $user_id ,'Product.is_saled' =>0,'Product.status' =>1, 'AND' => $cond),
                     'joins' =>$option,
                     'group' => 'Stok.id'));
             $send = array();
