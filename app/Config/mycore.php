@@ -1,5 +1,5 @@
 <?php  
 
- define('DOCUMENT_ROOT','/var/www/html/nextStep');
+ define('DOCUMENT_ROOT','/var/www/html/nextstep');
 
 ?>

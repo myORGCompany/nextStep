@@ -397,7 +397,7 @@ Cache::config('_cake_model_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
-$fullurl=FULL_BASE_URL.'/nextStep';
+$fullurl=FULL_BASE_URL.'/nextstep';
 
 define('ABSOLUTE_URL',$fullurl);
 define('STATIC_PATH',$fullurl);

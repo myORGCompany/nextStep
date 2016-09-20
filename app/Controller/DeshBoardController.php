@@ -507,7 +507,10 @@ class DeshBoardController extends AppController {
         if ($maxPageNumber > $temMax) {
             $maxPageNumber = $temMax + 1;
         }
-        
+        Configure::write('debug', 0);
+        if($userData =$this->Session->read('User')) {
+            $user_id = $userData['user_id'];
+        }
         $this->set('maxPageNumber', $maxPageNumber);
         $this->set('start', $tempSeq);
         $this->set('linkdata', $data);
@@ -520,7 +523,7 @@ class DeshBoardController extends AppController {
             array('table' => 'stoks','alias'=> 'Stok','type'=>'inner','conditions'=>array( 'Product.id = Stok.product_id')),
             array('table' => 'clients','alias'=> 'Client','type'=>'left','conditions'=>array( 'Product.client_id = Client.id')));
         $result = $this->Product->find('all', array('fields' => array('Product.master_category_id','Product.max_discount','Product.price','Product.id', 'Product.name', 'Product.brand','MasterCategory.name','MasterBrand.name','Client.name','Product.quantity','DATE(Stok.expairy_date)','Product.packing','Product.unit','ProductGroup.name'),         
-            'conditions' => array('Product.is_expaire' =>0,'Product.is_saled' =>0,'Product.status' =>1 ,'Product.name LIKE' =>"$filt%"),'joins' =>$option));
+            'conditions' => array('Product.is_expaire' =>0,'Product.is_saled' =>0,'Product.status' =>1 ,'Product.name LIKE' =>"$filt%",'Product.user_id'=>$user_id),'joins' =>$option));
         foreach ($result as $rel) {
                 if(!empty($paramCon)){
                     $exp = 'Going to expaire on - '.$rel['0']['DATE(`Stok`.`expairy_date`)'];
@@ -543,10 +546,10 @@ class DeshBoardController extends AppController {
             }
            // print_r($array);die;
         $this->set('NameArray', $array);
-        $data['category'] = $this->MasterCategory->find('all',array('fields' => array('id','name') ));
-        $data['group'] = $this->ProductGroup->find('all', array('fields' => array('id','name') ));
-        $data['brand'] = $this->MasterBrand->find('all', array('fields' => array('id','name') ));
-        $data['client'] = $this->Client->find('all', array('fields' => array('id','name') ));
+        $data['category'] = $this->MasterCategory->find('all',array('fields' => array('id','name'),'conditions' =>array('user_id'=>$user_id) ));
+        $data['group'] = $this->ProductGroup->find('all', array('fields' => array('id','name'),'conditions' =>array('user_id'=>$user_id) ));
+        $data['brand'] = $this->MasterBrand->find('all', array('fields' => array('id','name'),'conditions' =>array('user_id'=>$user_id) ));
+        $data['client'] = $this->Client->find('all', array('fields' => array('id','name'),'conditions' =>array('user_id'=>$user_id) ));
         $this->set('data',$data);
     }
     function editSave(){

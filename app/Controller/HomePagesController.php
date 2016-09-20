@@ -27,19 +27,25 @@ class HomePagesController extends AppController {
  */
 	function index() {
 		$this->layout="default";
+		$userData = $this->Session->read('User');
+		$user_id = $userData['user_id'];
+		if(!empty($user_id)){
+			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+		}
 	}
 	function deshBoard() {
 		$user_id = $this->_checkLogin();
 		$userData = $this->Session->read('User');
 		$this->layout="default";
+
 		//$Salse = $this->_import('Salse');
-		$report['dailyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('DATE(created)' =>date('y-m-d'))));
-		$report['monthlyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 month)')));
-		$report['YearlyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 year)')));
-		$report['dailyDataP'] = $this->Stok->find('first', array( 'fields' =>'Count(id)','conditions' => array('DATE(created)' =>date('y-m-d'))));
-		$report['monthlyDataP'] = $this->Stok->find('first', array( 'fields' =>'Count(id)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 month)')));
-		$report['YearlyDataP'] = $this->Stok->find('first', array( 'fields' =>'Count(id)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 year)')));
-		$report['expairy'] = $this->Product->find('all', array( 'fields' =>array('name','expairy_date'),'conditions' => array('expairy_date <= ' =>'date_add(CURDATE(),interval 1 day)')));
+		$report['dailyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('DATE(created)' =>date('y-m-d'),'user_id' =>$user_id)));
+		$report['monthlyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 month)','user_id' =>$user_id)));
+		$report['YearlyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 year)','user_id' =>$user_id)));
+		$report['dailyDataP'] = $this->Stok->find('first', array( 'fields' =>'Count(id)','conditions' => array('DATE(created)' =>date('y-m-d'),'user_id' =>$user_id)));
+		$report['monthlyDataP'] = $this->Stok->find('first', array( 'fields' =>'Count(id)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 month)','user_id' =>$user_id)));
+		$report['YearlyDataP'] = $this->Stok->find('first', array( 'fields' =>'Count(id)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 year)','user_id' =>$user_id)));
+		$report['expairy'] = $this->Product->find('all', array( 'fields' =>array('name','expairy_date'),'conditions' => array('expairy_date <= ' =>'date_add(CURDATE(),interval 1 day)','user_id' =>$user_id)));
 		//print_r($report);die
 		$this->set('reports',$report);
 	}
@@ -90,7 +96,7 @@ class HomePagesController extends AppController {
 	function logout(){
 		$this->Session->delete('User');
 		$this->Session->destroy();
-		$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index' ) );
+		$this->redirect( '/' );
 	}
 	function seachAutoComplete(){
 		$this->autoRender = false;
@@ -135,7 +141,7 @@ class HomePagesController extends AppController {
              array('table' => 'shopers','alias'=> 'Shoper','type'=>'left','conditions'=>array( 'Salse.shoper_id = Shoper.id')));
 
         $result = $this->Product->find('all', array('fields' => array('Product.price','Product.name','Product.id','Product.packing','Product.unit','MasterCategory.name','MasterBrand.name','ProductGroup.name','Salse.quantity','Salse.actual_price','Shoper.name'),         
-                    'conditions' => array('Salse.created > DATE_SUB(CURDATE(), INTERVAL 1 year)','Product.name LIKE' =>"$filt%"),
+                    'conditions' => array('Salse.created > DATE_SUB(CURDATE(), INTERVAL 1 year)','Product.name LIKE' =>"$filt%",'Product.user_id' =>$user_id),
                     'joins' =>$option));
         $this->set('NameArray',$result);
 	}
