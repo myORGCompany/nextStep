@@ -44,7 +44,7 @@
                                
                                         <li><a rel="nofollow" 
                                         class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
-                                          <li><a href="#templatemo-contact">CONTACT</a></li></ul>
+                                          <li><a href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li></ul>
                                 <?php } else {  ?>
                                 
                                   <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
