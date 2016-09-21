@@ -5,7 +5,7 @@
         <div class="col-md-offset-1 padding-left-0 margin-bottom-minus-25 col-md-2 pull-left margin-bottom-0">
          <button class="btn btn-lg  btn-primary" onClick="window.print()"> Print </button>
          </div>
-         <div class="col-md-offset-1 padding-left-0 margin-bottom-minus-25 col-md-2 pull-right margin-bottom-0">
+         <div class="col-md-offset-1  margin-bottom-minus-25 col-md-2 pull-right margin-bottom-0">
          <a href="<?php echo ABSOLUTE_URL;?>/desh_board/salse"class="btn btn-lg  btn-primary"> Back </a>
          </div>
          <div class="clearfix"></div>
