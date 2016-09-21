@@ -26,7 +26,6 @@ $(function() {
         }
     });
 });
-
 </script>
 <body>
 	<div class="container col-lg-12 well">
@@ -144,7 +143,7 @@ $(document).ready(function () {
 	product = [];
 	discount = [];
 	quant = [];
-	});
+});
         function saleList(){
         	$.ajax({
                     type: "POST",
@@ -178,7 +177,7 @@ $(document).ready(function () {
         		alert("Discount not possible maximum discount per piece is =" + product[id]['max_discount']);
                 newVal = product[id]['price']*quant[id];
         	}
-            $( "#totel" + id).attr('value',newVal);
+            $( "#totel" + id).val(newVal);
         }
         function quantity(val,id){
             if(Number(val) > Number(product[id].quantity)){
@@ -191,7 +190,7 @@ $(document).ready(function () {
         	}
         	if(val){
 				var totle = (val*product[id]['price'])-discount[id];
-				$( "#totel" + id).attr('value',totle);
+				$( "#totel" + id).val(totle);
 				quant[id] = val;
 			}
         }
@@ -202,15 +201,6 @@ $(document).ready(function () {
             $('div').removeClass('has-success');
         }
 function arrengeData(data1,id){
-
-    for (var index in product) {
-        if (Number(product[index].id) === Number(data1.id)) {
-            alert("You can not select same product again");
-            $("#" +id).val(null);
-            return false;
-        }
-    }
-    product[id] = data1;
     if (data1 == null) {
         alert("Please select product name");
         $("#" + id).val(null).removeClass('input-group-addon');
@@ -223,36 +213,44 @@ function arrengeData(data1,id){
         $( "#div" + id +'price').removeClass('has-success').addClass('has-error');
         $( "#div" + id +'name').removeClass('has-success').addClass('has-error');
         $( "#div" + id +'totel').removeClass('has-success').addClass('has-error');
-    } else {
-        $("#" + id).val(data1.label).addClass('input-group-addon'); 
-        product[id] = data1;
-        $( "#brand" + id).attr('value',data1.brand);
-        $( "#price" + id).attr('value',data1.price);
-        $( "#totel" + id).attr('value',data1.price);
-        $( "#quantity" + id).attr('value',1);
-        $( "#id" + id).attr('value',data1.id);
-        $( "#stok_id" + id).attr('value',data1.stok_id);
-        $( "#div" + id +'brand').removeClass('has-error').addClass('has-success');
-        $( "#div" + id +'price').removeClass('has-error').addClass('has-success');
-        $( "#div" + id +'name').removeClass('has-error').addClass('has-success');
-        $( "#div" + id +'totel').removeClass('has-error').addClass('has-success');
-        if($("#div"+id+"quantity").val()){
-            var totle = ($("#div"+id+"quantity").val())*data1.price;
-            $( "#totel" + id).attr('value',totle);
-        } else {
-            $( "#totel" + id).attr('value',data1.price);
-        }  
-        $.ajax({
-            type: "POST",
-            url: "<?php echo ABSOLUTE_URL;?>/desh_board/createRow",
-            data: {newrow : id},
-            success: function(data){
-                $('#formDiv').append(data);
-            }, error: function (request, status, error) {
-                alert("Something went wrong");
-            }
-        });
+        return false;
     }
+    for (var index in product) {
+        if (Number(product[index].id) === Number(data1.id)) {
+            alert("You can not select same product again");
+            $("#" +id).val(null);
+            return false;
+        }
+    }
+    product[id] = data1;
+    $("#" + id).val(data1.label).addClass('input-group-addon'); 
+    $( "#brand" + id).val(data1.brand);
+    $( "#price" + id).val(data1.price);
+    $( "#totel" + id).val(data1.price);
+    $( "#quantity" + id).val(1);
+    $( "#id" + id).val(data1.id);
+    $( "#stok_id" + id).val(data1.stok_id);
+    $( "#div" + id +'brand').removeClass('has-error').addClass('has-success');
+    $( "#div" + id +'price').removeClass('has-error').addClass('has-success');
+    $( "#div" + id +'name').removeClass('has-error').addClass('has-success');
+    $( "#div" + id +'totel').removeClass('has-error').addClass('has-success');
+    if($("#div"+id+"quantity").val()){
+        var totle = ($("#div"+id+"quantity").val())*data1.price;
+        $( "#totel" + id).val(totle);
+    } else {
+        $( "#totel" + id).val(data1.price);
+    }  
+    $.ajax({
+        type: "POST",
+        url: "<?php echo ABSOLUTE_URL;?>/desh_board/createRow",
+        data: {newrow : id},
+        success: function(data){
+            $('#formDiv').append(data);
+        }, error: function (request, status, error) {
+            alert("Something went wrong");
+        }
+    });
+    
 }
 $(document).ready(function () {
             $('#shoperForm').validate({

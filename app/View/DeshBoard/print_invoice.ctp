@@ -19,14 +19,14 @@
                         <td class="text-center">Discount</td>
                         <td class="text-center">Ammount</td>
                     </tr>
-                    <?php foreach ($salse as $key => $value) { $i = $key+1;
-                        if(!empty($value['name'.$i])) { ?>
+                    <?php foreach ($salse as $key => $value) { 
+                        if(!empty($value['name'.$key])) { ?>
                     <tr>
-                        <td class="text-center"><?php echo $i;?></td>
-                        <td class="text-center"><?php echo $value['name'.$i];?></td>
-                        <td class="text-center"><?php echo $value['quantity'.$i];?></td>
-                        <td class="text-center"><?php echo $value['discount'.$i];?></td>
-                        <td class="text-center"><?php echo $value['totel'.$i];?></td>
+                        <td class="text-center"><?php echo $key;?></td>
+                        <td class="text-center"><?php echo $value['name'.$key];?></td>
+                        <td class="text-center"><?php echo $value['quantity'.$key];?></td>
+                        <td class="text-center"><?php echo $value['discount'.$key];?></td>
+                        <td class="text-center"><?php echo $value['totel'.$key];?></td>
                     </tr>
                     <?php } } ?>
                     </table>
@@ -67,14 +67,13 @@
     .margin-bottom-minus-25{margin-bottom:-25px !important;}
     .border-radious{border-radius: 4px !important;  border: 1px solid rgba(0, 0, 0, 0.125);}
 </style>
-<!-- <script type="text/javascript">
+<?php  $this->data = array(); ?>
+<script type="text/javascript">
 
-function printDiv(divName) {
-
- var printContents = document.getElementById(divName).innerHTML;
- w=window.open();
- w.document.write(printContents);
- w.print();
- w.close();
+window.onbeforeunload = function() { 
+    window.setTimeout(function () { 
+        window.location = "<?php echo ABSOLUTE_URL.'/home_pages';?>";
+    }, 0); 
+    window.onbeforeunload = null; // necessary to prevent infinite loop, that kills your browser 
 }
-</script> -->
+</script>

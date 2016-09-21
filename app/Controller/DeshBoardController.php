@@ -276,17 +276,35 @@ class DeshBoardController extends AppController {
                 $txt['invoice_number'] = 'TxS-'.$txt['salse_ids'].'-'.ceil(microtime()*1000);
                 $this->Transaction->create();
                 $this->Transaction->save($txt);
-                $arr['servicetax'] = $arr['TotleAm'] * 0.15;
-                $arr['vattax'] = $arr['TotleAm'] * 0.045;
-                $arr['otherTax'] = $arr['TotleAm'] * 0.005;
-                $this->set('salse',$arr);
-                return "Successfully";
+                $this->redirect(ABSOLUTE_URL.'/desh_board/printInvoice/'.$txt['salse_ids']);
+                //return "Successfully";
             } else {
                 return false;
             }
         } else{
             echo ("Nothing saled");
             return false;
+        }
+    }
+    function printInvoice($salseId){
+        if(!empty($salseId)){
+           $arrayId =  explode(",", $salseId);
+           $arr['TotleAm'] =0;
+            $result = $this->Salse->find('all', array('fields' => array('Product.price','Product.name','Salse.id','Salse.quantity','Salse.actual_price'),'conditions' => array('Salse.id'=>$arrayId),
+                'joins' => array(array('table' => 'products','alias'=> 'Product','type'=>'inner','conditions'=>array( 'Salse.product_id = Product.id')))));
+            foreach ($result as $key => $value) {
+                $arr[$key]['name'.$key] = $value['Product']['name'];
+                $arr[$key]['quantity'.$key] = $value['Salse']['quantity'];
+                $arr[$key]['discount'.$key] = ($value['Product']['price'] - $value['Salse']['actual_price'])*$value['Salse']['quantity'];
+                $arr[$key]['totel'.$key] = $value['Salse']['actual_price']*$value['Salse']['quantity'];
+                $arr['TotleAm'] = $arr['TotleAm'] + $arr[$key]['totel'.$key];
+            }
+            $arr['servicetax'] = $arr['TotleAm'] * 0.15;
+            $arr['vattax'] = $arr['TotleAm'] * 0.045;
+            $arr['otherTax'] = $arr['TotleAm'] * 0.005;
+            $this->set('salse',$arr);
+        } else{
+            die("FFFFFFF");
         }
     }
     function seachAutoComplete(){  
@@ -296,7 +314,7 @@ class DeshBoardController extends AppController {
         }
         $value = $this->params['url']['term'];
         $paramCon = 0 ;
-        if (empty($this->params['url']['productId'])){
+        if (empty($this->params['url']['SalseId'])){
             $cond = array('OR' => array(
                 'Product.name LIKE' => '%' . $value . '%',
                 'Product.brand LIKE' => '%' . $value . '%',
