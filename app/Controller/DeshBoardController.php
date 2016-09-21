@@ -329,7 +329,7 @@ class DeshBoardController extends AppController {
                 }
                 $rel['Product']['perchese_date'] =  str_replace('00:00:00','', $rel['Product']['perchese_date']) ;
                 $array[] = array (
-                    'label' => $rel['Product']['name'].$exp,
+                    'label' => $rel['Product']['name'],
                     'id' => $rel['Product']['id'],
                     'category' => $rel['MasterCategory']['name'],
                     'group' => $rel['ProductGroup']['name'],
