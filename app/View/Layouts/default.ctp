@@ -55,12 +55,7 @@
 			<?php echo $this->fetch('content'); ?>
 
 		</div>
-		<div id="footer">
-			
-			<p>
-				
-			</p>
-		</div>
+		
 	</div>
     <?php echo $this->element('footer'); ?>
 

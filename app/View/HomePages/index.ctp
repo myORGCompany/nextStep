@@ -195,7 +195,7 @@
                     </ul>
             </div>
         </div><!-- /.templatemo-team -->
-
+<?php /*
         <div id="templatemo-portfolio" >
             <div class="container">
                 <div class="row">
@@ -459,11 +459,11 @@
                 </div>
             </div>
         </div>
-
+*/ ?>
 
         <div class="templatemo-tweets">
             <div class="container">
-                <div class="row" style="margin-top:20px;">
+                <div class="row">
                         <div class="col-md-2">
                         </div>
                         <div class="col-md-1">
@@ -479,7 +479,7 @@
                  </div><!-- /.row -->
             </div><!-- /.container -->
         </div>
-
+<?php /*
         <div class="templatemo-partners" >
             <div class="container">
                 <div class="row">
@@ -524,6 +524,7 @@
                 </div>
             </div>
         </div>
+       */ ?>
 <?php  
     if (!empty($this->params['url']['status'])) {
         if($this->params['url']['status'] == 2){ 

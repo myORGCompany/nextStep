@@ -27,7 +27,9 @@
                                 <span class="icon-bar"></span>
                                 </button>
 
-                                <a href="#" class="navbar-brand"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px;" alt="Urbanic Template" title="Urbanic Template" /></a>
+                                <a href="#" class="navbar-brand visible-lg visible-md visible-sm"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px; " alt="Urbanic Template" title="Urbanic Template" /></a>
+
+                                <a href="#" class=" visible-xs"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px; margin-bottom:20px; margin-top: 10px;" alt="Urbanic Template" title="Urbanic Template" /></a>
                         </div>
                         <div class="navbar-collapse collapse" id="templatemo-nav-bar">
                             
@@ -73,7 +75,7 @@
           </div>
           <div class="modal-body">
               <div class="row">
-                  <div class="col-xs-6" id="classdiv">
+                  <div class="col-xs-12 col-md-6 " id="classdiv">
                       <div class="well">
                           <form id="loginForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
                               <div class="form-group control-group" id="emailid">
@@ -107,9 +109,10 @@
                               </div>
                               <button type="submit" class="btn btn-success btn-block">Submit</button>
                           </form>
+                          <p><a id="reg" href="javascript:void(0);" class="visible-xs margin-top-10 btn btn-info btn-block">Or please, register now!</a></p>
                       </div>
                   </div>
-                  <div class="col-xs-6" id="addDiv">
+                  <div class="col-md-6 vvisible-md visible-lg" id="addDiv">
                       <p class="lead">Register now for <span class="text-success">FREE</span></p>
                       <ul class="list-unstyled" style="line-height: 2">
                           <li><span class="fa fa-check text-success"></span> See all your orders</li>

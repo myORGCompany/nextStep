@@ -20,6 +20,14 @@ $(function() {
         }
     });
 });
+$( document ).ready(function() {  
+var isMobile = window.matchMedia("only screen and (max-width: 760px)");
+    if (isMobile.matches) {
+    	$("#lab2").attr('style','max-width:100%');
+        $("#lab13").removeClass('pull-left');
+        $("#lab3").removeClass('pull-left');
+        $("#lab31").removeClass('pull-left');
+    }});
 </script>
 <body>
 	<div class="container well">
@@ -39,16 +47,16 @@ $(function() {
 						</div>
 						<div class="form-group control-group controls " >
 							<label for="input2" class="col-sm-2 control-label margin-right-100">Quantity</label>
-							<div class="col-sm-2" style="max-width:13%;">
+							<div id="lab2" class="col-sm-2" style="max-width:13%;">
 								<input type="text" class="form-control required col-sm-6" title="Please mention the quantity" name="quantity" id="input2"  >
 							</div> 
-							<label for="input13" class="control-label pull-left "><span class="glyphicon glyphicon-scale " >&nbsp;Packing</span></label>
+							<label id="lab13" for="input13" class="control-label pull-left "><span class="glyphicon glyphicon-scale " >&nbsp;Packing</span></label>
 							<div class="col-sm-2 ">
 								<input type="text" class="form-control required col-sm-6" title="Please mention the packing" name="packing" id="input13"  >
 							</div>
-							<label for="input2" class="control-label pull-left padding-right-0 padding-left-0"><span class="glyphicon glyphicon-scale " >&nbsp;Unit</span></label>
+							<label id="lab31" for="input2" class="control-label pull-left padding-right-0 padding-left-0"><span class="glyphicon glyphicon-scale " >&nbsp;Unit</span></label>
 							
-							<div class="col-sm-2 pull-left ">
+							<div id="lab3" class="col-sm-2 pull-left ">
 								<select class="form-control required" title="Please select product packing unit" name="unit" id="input3">
 									<option value='0'>Select Unit</option>
 								    <option value='number'>Number</option>

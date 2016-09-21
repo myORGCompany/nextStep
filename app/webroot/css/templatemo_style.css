@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 
 @media (max-width: 1024px) {
     #templatemo-carousel {
-        background: url('../images/templatemo_carousel_bg_s.jpg') no-repeat center center; 
+        background: url('../images/home.jpg') no-repeat center center; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -462,7 +462,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 
 .templatemo-footer {
 	border-top: 2px solid #cccccc; 
-	margin-top: 100px;
+	margin-top: 0px;
 }
 
 .footer_container {
@@ -577,7 +577,7 @@ ul.templatemo-project-gallery  li  a img:hover {
     font-family:  'Open Sans', sans-serif;
     font-size:20px;
     color:#ffffff;
-    margin-top:100px;
+    margin-top:0px;
 }
 
 .form-control {
