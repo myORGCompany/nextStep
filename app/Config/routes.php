@@ -41,7 +41,7 @@
 	Router::connect('/viewList', array('controller' => 'desh_board', 'action' => 'viewList'));
 	Router::connect('/products', array('controller' => 'desh_board', 'action' => 'products'));
 	Router::connect('/logout', array('controller' => 'home_pages', 'action' => 'logout'));
-	
+	Router::connect('/help.html', array('controller' => 'desh_board', 'action' => 'help'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

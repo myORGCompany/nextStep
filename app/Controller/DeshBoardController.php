@@ -584,4 +584,7 @@ class DeshBoardController extends AppController {
             }
         }
     }
+    function help(){
+        
+    }
 }
