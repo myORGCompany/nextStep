@@ -6,7 +6,8 @@
    .margin-top-30{margin-top:30px !important;} 
    .margin-bottom-30{margin-bottom:30px !important;}
    .widthmin{max-width: 99.8%; margin-left: -1px !important;}
-   .col-xs-12{width: 103%;}
+   .mobile{padding-top: 1px !important;
+        padding-bottom: 1px !important;}
 </style>
 <body>
 	<div class="container page-heading">
@@ -31,8 +32,8 @@
 				 	</div>
 				</div>
 				
-				<div id="contacts" class="row margin-top-15 visible-md visible-lg visible-sm text-white well widthmin">
-                  <div class="col-md-10  col-md-offset-1 margin-bottom-30 margin-top-30 drop-shadow">
+				<div id="contacts" class="row margin-top-15 text-white well widthmin">
+                  <div class="col-md-10  col-md-offset-1 margin-bottom-30 margin-top-30 mobile drop-shadow">
                   <div class="margin-top-30 margin-bottom-30">
 
 
@@ -40,39 +41,7 @@
                       <form id="contactUsForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
                               <div class="form-group control-group controls">
                                   <label for="Name" class="control-label">Name</label>
-                                  <input type="text" class="form-control" id="Name" name="Name" value="" required="" title="Please enter your password">
-                                  <span class="help-block"></span>
-                              </div>
-                              <div class="form-group control-group controls">
-                                  <label for="email" class="control-label" >Email</label>
-                                  <input type="text" class="form-control" id="email" name="email" title="Please enter you username" placeholder="example@gmail.com" required="">
-                                  <span class="help-block"></span>
-                              </div>
-                              
-                              <div class="form-group control-group controls">
-                                  <label for="mobile" class="control-label">Mobile</label>
-                                  <input type="integer" class="form-control" id="mobile" name="mobile" value="" required="" title="Please enter your mobile number">
-                                  <span class="help-block"></span>
-                              </div>
-                            <div class="form-group control-group controls">
-                                  <label for="comments" class="control-label">Comments or Inquiry</label>
-                                  <textarea type="integer" class="form-control" id="comments" name="comments" value="" required="" title="Please enter your Comments or Inquiry"></textarea>
-                                  <span class="help-block"></span>
-                              </div>
-                             
-                              <button type="submit" class="btn btn-success btn-block">Submit</button>
-                          </form>
-                      </div>
-
-                  </div>
-        </div>
-        <div id="contacts" class="contaier visible-xs row">
-                  <div class="col-xs-12 margin-bottom-30 margin-top-30 drop-shadow">
-                  <div class="margin-top-30 margin-bottom-30">
-                      <form id="contactUsForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
-                              <div class="form-group control-group controls">
-                                  <label for="Name" class="control-label">Name</label>
-                                  <input type="text" class="form-control" id="Name" name="Name" value="" required="" title="Please enter your password">
+                                  <input type="text" class="form-control" id="Name" name="Name" required="" title="Please enter your password">
                                   <span class="help-block"></span>
                               </div>
                               <div class="form-group control-group controls">
@@ -127,7 +96,6 @@
             trigger: 'blur',
             fields: {
                 "Name": {
-                    selector: "#Name",
                     validators: {
                         notEmpty: {
                             enabled: true,
