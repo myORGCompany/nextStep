@@ -41,7 +41,7 @@
                       <form id="contactUsForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
                               <div class="form-group control-group controls">
                                   <label for="Name" class="control-label">Name</label>
-                                  <input type="text" class="form-control" id="Name" name="Name" value="" required="" title="Please enter your password">
+                                  <input type="text" class="form-control" id="Name" name="Name" required="" title="Please enter your password">
                                   <span class="help-block"></span>
                               </div>
                               <div class="form-group control-group controls">
@@ -96,7 +96,6 @@
             trigger: 'blur',
             fields: {
                 "Name": {
-                    selector: "#Name",
                     validators: {
                         notEmpty: {
                             enabled: true,
