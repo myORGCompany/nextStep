@@ -9,7 +9,7 @@
                     </div>
                     <div id="email" class="pull-right">
                             <img src="<?php echo ABSOLUTE_URL;?>/img/email.png" alt="email"/>
-                            help@agrawalbeejbhandar.com
+                            helpdesk@nextstep.co.in
                     </div>
                 </div>
             </div>
