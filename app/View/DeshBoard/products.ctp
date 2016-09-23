@@ -30,8 +30,8 @@ var isMobile = window.matchMedia("only screen and (max-width: 760px)");
     }});
 </script>
 <body>
-	<div class="container well">
-		<div class="row">
+	<div class="container  ">
+		<div class="row  padding-md-0 well">
 		<div class="clearfix"></div> 
 		<div class="col-md-3 col-md-offset-5 margin-bottom-20"><h3 class="text-info" ><strong>Add New Product</strong></h3></div>
 		<div class="clearfix"></div> 

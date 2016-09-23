@@ -9,7 +9,7 @@
                     </div>
                     <div id="email" class="pull-right">
                             <img src="<?php echo ABSOLUTE_URL;?>/img/email.png" alt="email"/>
-                            help@agrawalbeejbhandar.com
+                            helpdesk@nextstep.co.in
                     </div>
                 </div>
             </div>
@@ -47,16 +47,19 @@
                                         <li><a rel="nofollow" 
                                         class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
                                           <li><a href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li></ul>
-                                <?php } else {  ?>
-                                
-                                  <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
-
+                                <?php } else {  if($this->action == 'help') {?>
+                                  <ul class="nav navbar-nav navbar-right" style="margin-top: 40px; margin-left: -40px !important; margin-right:30px;">
+                                  <?php } else { ?>
+                                    <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
+                                    <?php } ?>
                                <li class="active" ><a id="bank"  
                                         href="<?php echo ABSOLUTE_URL;?>/deshBoard">Home</a></li>
                                         <li class="active">&nbsp;&nbsp;</li> 
-                                        <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li>
-                                        <li class="active">&nbsp;&nbsp;</li> 
-                                <li class="active margin-left-10"><a href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>
+                                        <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/contact.html">Contact-Us</a></li>
+                                <li class="active">&nbsp;&nbsp;</li> 
+                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>
+                                 <li class="active">&nbsp;&nbsp;</li> 
+                                <li class="active margin-left-10"><a href="<?php echo ABSOLUTE_URL;?>/help.html">Help</a></li>
                                 </ul>
 
                                <?php } ?>
