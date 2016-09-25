@@ -124,7 +124,7 @@
                           <li><span class="fa fa-check text-success"></span> Fast checkout</li>
                           <li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
                       </ul>
-                      <p><a id="reg" href="javascript:void(0);" class="btn btn-info btn-block">Yes please, register now!</a></p>
+                      <p><a id="reg" href="javascript:openreg();" class="btn btn-info btn-block">Yes please, register now!</a></p>
                   </div>
               </div>
           </div>
@@ -139,11 +139,13 @@
       $("#classdiv").removeClass('col-xs-6').addClass('col-xs-12');
       $("#forgotForm").removeClass('hidden');
     }
-    $(document).ready(function () {
-        $("#reg").click(function(){
+    function openreg(){
+     // $("#reg").click(function(){
             $("#login .close").click();
             $("#register").click();
-        });
+       // });
+    }
+    $(document).ready(function () {
         $("#alreadyReg").click(function(){
             $("#signUpForm .close").click();
             $("#loginli").click();
