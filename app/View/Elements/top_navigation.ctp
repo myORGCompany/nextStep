@@ -123,7 +123,6 @@
                           <li><span class="fa fa-check text-success"></span> Save your favorites</li>
                           <li><span class="fa fa-check text-success"></span> Fast checkout</li>
                           <li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
-                          <li><a href="/read-more/"><u>Read more</u></a></li>
                       </ul>
                       <p><a id="reg" href="javascript:void(0);" class="btn btn-info btn-block">Yes please, register now!</a></p>
                   </div>
