@@ -87,6 +87,7 @@
 </body>
 <script type="text/javascript">
 	 $(document).ready(function () {
+     $(".navbar-right").attr("style","margin-top: 40px; margin-right: 30px !important;");
 	 	<?php if(empty($message)) { ?>
 			$("#contacts").removeClass('hidden')
 		<?php } ?>

@@ -19,7 +19,7 @@
                 <!-- Static navbar -->
                 <div class="navbar navbar-default row" role="navigation">
                     <div class="container">
-                        <div class="navbar-header">
+                        <div class="navbar-header col-md-1">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
@@ -27,14 +27,14 @@
                                 <span class="icon-bar"></span>
                                 </button>
 
-                                <a href="#" class="navbar-brand visible-lg visible-md visible-sm"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px; " alt="Urbanic Template" title="Urbanic Template" /></a>
+                                <a href="#" class="navbar-brand visible-lg visible-md visible-sm"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px; " alt="NextStep Solutions" title="NextStep Solutions" /></a>
 
-                                <a href="#" class=" visible-xs"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px; margin-bottom:20px; margin-top: 10px;" alt="Urbanic Template" title="Urbanic Template" /></a>
+                                <a href="#" class=" visible-xs"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px; margin-bottom:20px; margin-top: 10px;" alt="NextStep Solutions" title="NextStep Solutions" /></a>
                         </div>
                         <div class="navbar-collapse collapse" id="templatemo-nav-bar">
                             
                             <?php if(!$this->Session->read('User')){?> 
-                              <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
+                              <ul class="nav navbar-nav navbar-right" style="margin-top:40px;">
                                 <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages">HOME</a></li>
                                 <li><a href="#templatemo-about">ABOUT</a></li>
                                 <li><a href="#templatemo-portfolio">PORTFOLIO</a></li>
@@ -48,18 +48,31 @@
                                         class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
                                           <li><a href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li></ul>
                                 <?php } else {  if($this->action == 'help') {?>
-                                  <ul class="nav navbar-nav navbar-right" style="margin-top: 40px; margin-left: -40px !important; margin-right:30px;">
+                                  <ul class="nav navbar-nav navbar-right" style="margin-top:40px; margin-right: 32px !important;">
                                   <?php } else { ?>
-                                    <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
+                                    <ul class="nav navbar-nav navbar-right" style="margin-top:40px; ">
                                     <?php } ?>
                                <li class="active" ><a id="bank"  
                                         href="<?php echo ABSOLUTE_URL;?>/deshBoard">Home</a></li>
                                         <li class="active">&nbsp;&nbsp;</li> 
+                                        <li class="active hidden-xs"><a href="<?php echo ABSOLUTE_URL;?>/salse">SALSE</a></li><li class="active">&nbsp;&nbsp;</li> 
+                                        <li class="active visible-xs"><a href="<?php echo ABSOLUTE_URL;?>/desh_board/salseM">SALSE</a></li>
+                                        <li class="active visible-xs"><a href="<?php echo ABSOLUTE_URL;?>/desh_board/bulkSalseM">BULK SALSE</a></li>
+                                        <li class="active hidden-xs"><a href="<?php echo ABSOLUTE_URL;?>/bulkSalse">BULK SALSE</a></li><li class="active">&nbsp;&nbsp;</li> 
+                                        <li class="dropdown active">
+                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MANAGE STORE<span class="caret"></span></a>
+                                         <ul class="dropdown-menu">
+                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/ManageProducts"">Manage Master</a>
+                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/products">Add Product</a></li> 
+                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/viewList"">View all products</a></li>
+                                        </ul>
+                                        </li>
+                                                <li class="active">&nbsp;&nbsp;</li> 
                                         <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/contact.html">Contact-Us</a></li>
                                 <li class="active">&nbsp;&nbsp;</li> 
                                 <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>
                                  <li class="active">&nbsp;&nbsp;</li> 
-                                <li class="active margin-left-10"><a href="<?php echo ABSOLUTE_URL;?>/help.html">Help</a></li>
+                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/help.html">Help</a></li>
                                 </ul>
 
                                <?php } ?>
@@ -146,6 +159,11 @@
        // });
     }
     $(document).ready(function () {
+      $('ul.nav li.dropdown').hover(function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeIn(150);
+      }, function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeOut(150);
+      });
         $("#alreadyReg").click(function(){
             $("#signUpForm .close").click();
             $("#loginli").click();

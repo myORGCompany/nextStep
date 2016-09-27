@@ -30,7 +30,7 @@ var isMobile = window.matchMedia("only screen and (max-width: 760px)");
     }});
 </script>
 <body>
-	<div class="container  ">
+	<div class="container  margin-top-30">
 		<div class="row  padding-md-0 well">
 		<div class="clearfix"></div> 
 		<div class="col-md-3 col-md-offset-5 margin-bottom-20"><h3 class="text-info" ><strong>Add New Product</strong></h3></div>
@@ -185,6 +185,7 @@ var isMobile = window.matchMedia("only screen and (max-width: 760px)");
     });
 
 $(document).ready(function () {
+ $(".navbar-right").attr("style","margin-top: 40px; margin-right: -29px !important;");
 			$(document).on('change', 'input:radio', function (event) {
 			    var redio = $( "input:checked" ).val();
 			    if (redio == 'weight') {

@@ -28,7 +28,7 @@ $(function() {
 });
 </script>
 <body>
-	<div class="container well">
+	<div class="container col-lg-12 well">
 		<div class="row">
 		<div class="clearfix"></div> 
 		<div class="col-md-3 col-md-offset-5 margin-bottom-20"><h3 class="text-info" ><strong>sales</strong></h3></div>
@@ -36,51 +36,29 @@ $(function() {
 			<div class=" border-2">
 				<div class="">
 					<form class="form-inline" method="post" action="<?php echo ABSOLUTE_URL;?>/desh_board/saleList" id="productForm">
-					<div class="row" id="formDiv">
-					<div class="form-group control-group controls col-sm-12 col-md-12 padding-right-15" id="productRow">
-							<div class="col-sm-2 col-md-2">
-								<label for="input1" class="control-label">Name of product</label>
-							</div>
-							<div class="col-sm-2 col-md-2">
-						      	<label for="input1" class="control-label">Quantity</label>
-						    </div>
-						    <div class="col-sm-2 col-md-2">
-						      	<label for="input1" class="control-label">Brand</label>
-						    </div>
-						    
-						    <div class="col-sm-2 col-md-2">
-						      	<label for="input1" class="control-label">Price</label>
-						    </div>
-						    <div class="col-sm-2 col-md-2">
-						      	<label for="input1" class="control-label">Discount</label>
-						    </div>
-						    <div class="col-sm-2 col-md-2">
-						      	<label for="input1" class="control-label">Totel</label>
-						    </div>
-					    </div>
-					    <div class="clearfix"></div> 
-						<div class="form-group control-group  col-sm-12 col-md-12 padding-right-40" id="productRow">
+					<div class="row" id="formDiv"> 
+						<div class="form-group control-group  col-sm-12 col-md-12 " id="productRow">
 						    <div class="col-sm-2 controls" id="div<?php echo $newRow;?>name">
-						        <input  type="text" class="form-control  selector required padding-right-0" title="Please Enter the name of product" value="" name="name<?php echo $newRow;?>" id="<?php echo $newRow;?>" >
+						        <input  type="text" placeholder="Product Name" class="form-control  selector required padding-right-0" title="Please Enter the name of product"  name="name<?php echo $newRow;?>" id="<?php echo $newRow;?>" >
                                 <input  type="text" class="form-control hidden padding-right-0" value="" name="id<?php echo $newRow;?>" id="id<?php echo $newRow;?>" >
                                 <input  type="text" class="form-control hidden padding-right-0" value="" name="stok_id<?php echo $newRow;?>" id="stok_id<?php echo $newRow;?>" >
 
 						    </div>
 						    <div class="col-sm-2 controls" id="div<?php echo $newRow;?>quantity">
-						        <input name="quantity<?php echo $newRow;?>"  class="form-control quantity   padding-right-0" id="quantity<?php echo $newRow;?>" onchange="quantity(this.value,$('#<?php echo $newRow;?>').attr('id'));">
+						        <input placeholder="Quantity" name="quantity<?php echo $newRow;?>"   class="form-control quantity   padding-right-0" id="quantity<?php echo $newRow;?>" onchange="quantity(this.value,$('#<?php echo $newRow;?>').attr('id'));">
 						    </div>
 						    <div class="col-sm-2" id="div<?php echo $newRow;?>brand">
-						        <input name="brand<?php echo $newRow;?>" readonly class=" form-control input-group-addon padding-right-0" id="brand<?php echo $newRow;?>">
+						        <input type="text" readonly placeholder="Brand" name="brand<?php echo $newRow;?>"  class=" form-control  padding-right-0" id="brand<?php echo $newRow;?>">
 						    </div>
 						    
 						    <div class="col-sm-2" id="div<?php echo $newRow;?>price">
-						        <input name="price<?php echo $newRow;?>" readonly class=" form-control input-group-addon padding-right-0" id="price<?php echo $newRow;?>">
+						        <input type="text" readonly placeholder="Price" name="price<?php echo $newRow;?>"  class=" form-control  padding-right-0" id="price<?php echo $newRow;?>">
 						    </div>
 						    <div class="col-sm-2" id="div<?php echo $newRow;?>discount">
-						        <input name="discount<?php echo $newRow;?>" class=" form-control  padding-right-0" id="discount<?php echo $newRow;?>" onchange="getDiscount(this.value,$('#<?php echo $newRow;?>').attr('id'));">
+						        <input type="text"  placeholder="Discount" name="discount<?php echo $newRow;?>" class=" form-control  padding-right-0" id="discount<?php echo $newRow;?>" onchange="getDiscount(this.value,$('#<?php echo $newRow;?>').attr('id'));">
 						    </div>
 						    <div class="col-sm-2" id="div<?php echo $newRow;?>totel">
-						        <input name="totel<?php echo $newRow;?>" readonly class=" form-control input-group-addon padding-right-0" id="totel<?php echo $newRow;?>">
+						        <input type="text" readonly placeholder="Total" name="totel<?php echo $newRow;?>"  class=" form-control  padding-right-0" id="totel<?php echo $newRow;?>">
 						    </div>
 						</div>
 					    <div class="clearfix"></div> 
@@ -140,7 +118,6 @@ $(function() {
 <script type="text/javascript">
 var row =0;
 $(document).ready(function () {
-    $(".navbar-right").attr("style","margin-top: 40px; margin-right: -29px !important;");
 	product = [];
 	discount = [];
 	quant = [];
@@ -224,7 +201,7 @@ function arrengeData(data1,id){
         }
     }
     product[id] = data1;
-    $("#" + id).val(data1.label).addClass('input-group-addon'); 
+    $("#" + id).val(data1.label); 
     $( "#brand" + id).val(data1.brand);
     $( "#price" + id).val(data1.price);
     $( "#totel" + id).val(data1.price);
@@ -243,7 +220,7 @@ function arrengeData(data1,id){
     }  
     $.ajax({
         type: "POST",
-        url: "<?php echo ABSOLUTE_URL;?>/desh_board/createRow",
+        url: "<?php echo ABSOLUTE_URL;?>/desh_board/createRowM",
         data: {newrow : id},
         success: function(data){
             $('#formDiv').append(data);

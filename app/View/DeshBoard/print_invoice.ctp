@@ -11,7 +11,7 @@
          <div class="clearfix"></div>
             <div class="col-md-10 col-md-offset-1 white-bg border-radious margin-top-40">
             <h1 class="text-center margin-bottom-20"> Invoice </h1>
-                <table class="table table-bordered ">
+                <table class="table hidden-xs table-responsive table-bordered ">
                     <tr>
                         <td class="text-center">Sr No.</td>
                         <td class="text-center">Perticular</td>
@@ -29,9 +29,29 @@
                         <td class="text-center"><?php echo $value['totel'.$key];?></td>
                     </tr>
                     <?php } } ?>
-                    </table>
+                </table>
+                 <table class="visible-xs table-responsive table-bordered ">
+                    <tr>
+                        <td class="text-center">Sr No.</td>
+                        <td class="text-center">Perticular</td>
+                        <td class="text-center">Quantity</td>
+                        <td class="text-center">Discount</td>
+                        <td class="text-center">Ammount</td>
+                    </tr>
+                    <?php foreach ($salse as $key => $value) { 
+                        if(!empty($value['name'.$key])) { ?>
+                    <tr>
+                        <td class="text-center"><?php echo $key;?></td>
+                        <td class="text-center"><?php echo $value['name'.$key];?></td>
+                        <td class="text-center"><?php echo $value['quantity'.$key];?></td>
+                        <td class="text-center"><?php echo $value['discount'.$key];?></td>
+                        <td class="text-center"><?php echo $value['totel'.$key];?></td>
+                    </tr>
+
+                    <?php } } ?>
+                </table>
                    
-                   <table class="table table-bordered margin-top-0 white-bg">
+                <table class="table table-responsive table-bordered margin-top-0 white-bg">
                     <tr>
                         <td>Service Tax @ 15%</td>
                         <td><?php  echo $salse['servicetax'];?></td>
@@ -44,8 +64,16 @@
                         <td>Other @ 0.5%</td>
                         <td><?php  echo $salse['otherTax'];?></td>
                     </tr>
+                    <tr>
+                        <td>Discount</td>
+                        <td><?php  echo $salse['totalDiscount']?></td>
+                    </tr>
+                    <tr>
+                        <td>Grand Total</td>
+                        <td><?php  echo $salse['TotleAm'] * 1.20;?></td>
+                    </tr>
                 </table>
-                 <table class="">
+                 <table class="table-responsive">
                     <tr><td>
                         <strong>Note :</strong> This is system generated invoice hence it does not require signature.<br />
                         <small>*All prices quoted include taxes</small>

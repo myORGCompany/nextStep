@@ -18,7 +18,7 @@
   <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/moment.min.js"></script>
  <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/jquery.validate.js"></script>
 <body>	
-<div class="container">
+<div class="container margin-top-30">
 <div class="row well">
 <div class="col-md-6 pull-left">
 	<div class=" cards ">
@@ -183,6 +183,7 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+	$(".navbar-right").attr("style","margin-top: 40px; margin-right: -29px !important;");
 	$('.cntclass').addClass('hidden');
 	$('.shopclass').addClass('hidden');
 	

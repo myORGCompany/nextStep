@@ -187,6 +187,12 @@ class DeshBoardController extends AppController {
     	$this->set('newRow',1);
     	$this->Session->write('billFormRow','');
     }
+    function salseM(){
+        $user_id = $this->_checkLogin();
+        $this->setProductPrice();
+        $this->set('newRow',1);
+        $this->Session->write('billFormRow','');
+    }
     function getProductDetails(){
     	$this->layout = null;
         $this->autoRender = false;
@@ -218,6 +224,23 @@ class DeshBoardController extends AppController {
     	//$this->set('preId',$this->data['newrow']);
     	$this->set('newRow',$newRow);
     	$this->render('/Elements/form_row');
+    }
+    function createRowM(){
+        $this->layout = null;
+        $this->autoRender = false;
+        $newRow = $this->data['newrow'] +1;
+        $row = $this->Session->read('billFormRow');
+        if (in_array($this->data['newrow'], $row['id'])){
+            exit;
+        } else {
+            $row['id'][] = $this->data['newrow'];
+            $this->Session->write('billFormRow',$row);
+        }
+        $invoice = array();
+        $this->Session->write('billFormRow',$row);
+        //$this->set('preId',$this->data['newrow']);
+        $this->set('newRow',$newRow);
+        $this->render('/Elements/form_row_m');
     }
     function saleList() {
     	$this->layout = 'blank';
@@ -290,6 +313,7 @@ class DeshBoardController extends AppController {
         if(!empty($salseId)){
            $arrayId =  explode(",", $salseId);
            $arr['TotleAm'] =0;
+           $arr['totalDiscount'] =0;
             $result = $this->Salse->find('all', array('fields' => array('Product.price','Product.name','Salse.id','Salse.quantity','Salse.actual_price'),'conditions' => array('Salse.id'=>$arrayId),
                 'joins' => array(array('table' => 'products','alias'=> 'Product','type'=>'inner','conditions'=>array( 'Salse.product_id = Product.id')))));
             foreach ($result as $key => $value) {
@@ -298,13 +322,14 @@ class DeshBoardController extends AppController {
                 $arr[$key]['discount'.$key] = ($value['Product']['price'] - $value['Salse']['actual_price'])*$value['Salse']['quantity'];
                 $arr[$key]['totel'.$key] = $value['Salse']['actual_price']*$value['Salse']['quantity'];
                 $arr['TotleAm'] = $arr['TotleAm'] + $arr[$key]['totel'.$key];
+                $arr['totalDiscount'] = $arr['totalDiscount'] + $arr[$key]['discount'.$key];
             }
             $arr['servicetax'] = $arr['TotleAm'] * 0.15;
             $arr['vattax'] = $arr['TotleAm'] * 0.045;
             $arr['otherTax'] = $arr['TotleAm'] * 0.005;
             $this->set('salse',$arr);
         } else{
-            die("FFFFFFF");
+            exit;
         }
     }
     function seachAutoComplete(){  
@@ -511,6 +536,15 @@ class DeshBoardController extends AppController {
         $this->Session->write('billFormRow','');
         $this->set('bulkSalse',1);
         $this->render('salse');
+    }
+    function bulkSalseM(){
+        $user_id = $this->_checkLogin();
+        $this->autoRender = false;
+        $this->setProductPrice();
+        $this->set('newRow',1);
+        $this->Session->write('billFormRow','');
+        $this->set('bulkSalse',1);
+        $this->render('salse_m');
     }
     function printPdf(){
         $this->autoRender = false;

@@ -1,11 +1,12 @@
 <style type="text/css">
 	.margin-left-100{margin-left: 10% !important;}
+  .margin-top-30{margin-top: 30px !important;}
 	.form-group{margin-bottom: 5px !important;}
 	.control-label{text-align: left !important;}
 </style>
 
 <body>
-	<div class="container">
+	<div class="container margin-top-30">
 		<div class="row col-lg-12 well">
 			 <div class="padding-left-15">
 <nav>
@@ -66,6 +67,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+   $(".navbar-right").attr("style","margin-top: 40px; margin-right: 0px !important;");
 var cnt = <?php echo $cnt;?>;
  for (var i = 0; i < 25; i++) {
     $("#list"+i).show();
