@@ -26,6 +26,7 @@ class HomePagesController extends AppController {
  *	or MissingViewException in debug mode.
  */
 	function index() {
+		// $m = $this->sendMail('vikrant.agrawal@headhonchos.com', "test", "Your NextStep Membership", 'success', 'mailer_template');
 		$this->layout="default";
 		$userData = $this->Session->read('User');
 		$user_id = $userData['user_id'];

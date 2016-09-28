@@ -87,5 +87,44 @@ class EmailConfig {
 		//'charset' => 'utf-8',
 		//'headerCharset' => 'utf-8',
 	);
+	public $ses = array(
+        'transport' => 'Smtp',
+        'from' => array('admin@nextsteptech.in' => 'NextStep'),
+        'host' => 'email-smtp.us-east-1.amazonaws.com',
+        'port' => 587,
+        'timeout' => 60,
+        'username' => 'AKIAJCPUKLPWGIPIA64A',
+        'password' => 'Aj4KONWAvsR0OzrBhuLAQd7nbHmaJjuacXQh259WphA3',
+        'client' => null,
+        'log' => false,
+        'tls' => true,
+        //'charset' => 'utf-8',
+        //'headerCharset' => 'utf-8',
+    );
+    public $ses2 = array(
+        'transport' => 'Smtp',
+        'from' => array('admin@nextsteptech.in' => 'NextStep'),
+        'host' => 'email-smtp.us-east-1.amazonaws.com',
+        'port' => 587,
+        'timeout' => 60,
+        'username' => 'AKIAJXEI6ZAD4YDZH2DA',
+        'password' => 'AlfkfYwG870A6q2GFuG+KtxMQ+FvUC8uc/iH0pGUWrQ0',
+        'client' => null,
+        'log' => false,
+        'tls' => true,
+        //'charset' => 'utf-8',
+        //'headerCharset' => 'utf-8',
+    );
+    public $elastic = array(
+        'transport' => 'Smtp',
+        'from' => array('sendhh@hhdevmail.com' => 'HeadHonchos'),
+        'host' => 'smtp.elasticemail.com',
+        'port' => 2525,
+        'timeout' => 30,
+        'username' => 'devr96@gmail.com',
+        'password' => '68b74635-d2ee-416a-a1bb-6b0f156056',
+        'client' => null,
+        'log' => false
+    );
 
 }
