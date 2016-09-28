@@ -37,7 +37,7 @@
                                     <table style="width:100%;border-spacing:0;font-family:Arial, sans-serif;color:#607D8B;">
                                         <tr>
                                             <td style="text-align:center;width:100%;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;">
-                                                <img src="http://localhost/nextstep/img/logo/nextstep.png" alt="NextStep" style="border-width:0;" />
+                                                <img src="<?php echo STATIC_PATH;?>/img/logo/nextstep.png" alt="NextStep" style="border-width:0;" />
                                                 <br />
                                                 <span align="center" style="border-top-width:1px;border-top-style:solid;border-top-color:#9EB5D7;width:130px;margin-top:13px;display:inline-block;margin-left:-5px; height:13px;    ">&nbsp;</span>
                                             </td>

@@ -400,4 +400,4 @@ Cache::config('_cake_model_', array(
 $fullurl=FULL_BASE_URL;
 define('MAIL_SMTP_EMAILID',"admin@nextsteptech.in");
 define('ABSOLUTE_URL',$fullurl);
-define('STATIC_PATH',$fullurl);
+define('STATIC_PATH','http://www.nextsteptech.in');
