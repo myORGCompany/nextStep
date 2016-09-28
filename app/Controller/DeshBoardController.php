@@ -152,7 +152,7 @@ class DeshBoardController extends AppController {
         $this->autoRender = false;
         $response = array(
             'hasError' => true,
-            'messages' => "Either email or password is incorrect!",
+            'messages' => "Either email or password is incorrect !",
             'redirect' => false
         );
         if ($this->data) {
@@ -160,13 +160,23 @@ class DeshBoardController extends AppController {
                 $returnUrl=false;
                 $conditions = array(
                     "User.email" => $this->data['email'],
-                    'User.password' => md5($this->data['password'])
+                    'User.password' => md5($this->data['password']),
                 );
+
                 $LoginData = $this->User->find('first', array('conditions' => $conditions));
-                if ($LoginData) {
+                //print_r($LoginData);
+                if(isset($LoginData['User']['status']) && $LoginData['User']['status'] != 1){
+                    $response = array(
+                        'hasError' => true,
+                        'messages' => 'Your Email is not varified! <br /><p>If Alredy Registered get confirmation mail to login</p><br /><a class="btn btn-default" href="'.ABSOLUTE_URL.'/desh_board/resendVarificationMail/'.$LoginData['User']['email'].'" > Get It Now </a>',
+                        'redirect' => false
+                    );
+                }
+                if ($LoginData && $LoginData['User']['status'] ==1) {
                 	$data['user_id'] = $LoginData['User']['id'];
 					$data['email'] = $LoginData['User']['email'];
 					$data['password'] = $LoginData['User']['password'];
+                    $data['status'] = $LoginData['User']['status'];
 					$this->Session->write('User',$data);
                     $this->setUserData();
                 	$response = array('hasError' => false, 'messages' => null); 
@@ -178,7 +188,27 @@ class DeshBoardController extends AppController {
             }
         }
         echo json_encode($response);
-
+        exit;
+    }
+    function resendVarificationMail($email){
+        $this->layout = null;
+        $this->autoRender = false;
+        if($detail = $this->User->find('first', array( 'conditions' => array('email' => $email),'fields' => array(
+                    'substring(MD5(User.created),5,5) as key1','OLD_PASSWORD(User.id) as key2','User.name','User.id'
+                    )))){
+            $k1 = $detail[0]['key1'].''.$detail[0]['key2'];
+            $message['name'] = $detail['User']['name'];
+            $message['email'] = $email;
+            $message['approveUrl'] = ABSOLUTE_URL.'/emailConfirmation/'.$detail['User']['id'].'/'.$k1;
+            if($this->sendMail($email, $message, "Your NextStep Membership", 'success', 'registration')){
+                $this->Session->setFlash('<h3 class="text-success">Email has been send on your registered Email Id</h3>');
+            }
+            
+        } else {
+            $this->Session->setFlash('<h3 class="text-danger">Something went wrong try again latter</h3>');
+        }
+        
+        $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index' ) );
         exit;
     }
     function salse(){

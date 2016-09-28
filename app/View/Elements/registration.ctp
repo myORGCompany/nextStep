@@ -11,7 +11,7 @@
               <div class="row">
                   <div class="col-xs-12">
                   <div class="well">
-                      <form id="regForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/home_pages/registration" data-toggle="validator" >
+                      <form id="regForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
                               <div class="form-group control-group controls">
                                   <label for="Name" class="control-label">Name</label>
                                   <input type="text" class="form-control" id="Name" name="Name" value="" required="" title="Please enter your password">
@@ -36,7 +36,10 @@
                              
                               <button type="submit" class="btn btn-success btn-block">Register</button>
                           </form>
-                          <p class="margin-top-20"><a id="alreadyReg" href="javascript:void(0);" class="text-info btn-block">Already register! Click hare to login</a></p>
+                          <div class="form-group hidden control-group" id="feedback">
+                                  <p id=feedbackblok class="control-label" ></p>
+                          </div>
+                          <p id="already" class="margin-top-20"><a id="alreadyReg" href="javascript:void(0);" class="text-info btn-block">Already register! Click hare to login</a></p>
                       </div>
 
                   </div>
@@ -147,8 +150,35 @@
                 }
             }
 
-        })
+        }).on('success.form.bv', function(e) {
+                    
+                    // Prevent form submission
+                    e.preventDefault();
+
+                    $.ajax({
+                        dataType: "JSON",
+                        url: ABSOLUTE_URL + "/home_pages/registration",
+                        data: $('#regForm').serialize(),
+                        type: "POST",
+                        success: function(res) {
+                            if (res.hasError === true) {
+                                $("#regForm").html(res.messages).show().removeClass('hide');
+                            } else {
+                                $("#feedbackblok").append('Thank You Your registration completed An Approval mail sended to your registered emailid kindly Confirm your email id to login');
+                                $("#regForm").addClass('hidden');
+                                $("#already").addClass('hidden');
+                                $("#feedback").removeClass('hidden');
+                            }
+
+                        }
+                    });
+                });
     });
-    
+    // function openClose(){
+    //   $("#regForm").addClass('hidden');
+    //   $("#already").addClass('hidden');
+    //   //$("#classdiv").removeClass('col-xs-6').addClass('col-xs-12');
+    //   $("#feedback").removeClass('hidden');
+    // }
    
 </script>

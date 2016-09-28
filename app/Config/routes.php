@@ -30,6 +30,7 @@
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
+	Router::connect('/emailConfirmation/*', array('controller' => 'home_pages', 'action' => 'emailConfirmation'));
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 	Router::connect('/contact.html', array('controller' => 'home_pages', 'action' => 'contactUs'));
 	Router::connect('/deshBoard', array('controller' => 'home_pages', 'action' => 'deshBoard'));

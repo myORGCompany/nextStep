@@ -537,6 +537,8 @@
             $alert = "you have registered successfully please proceed for login";
         } else if ($this->params['url']['status'] == 5) {
             $alert = "Session Out Please Login Again";
+        }else if ($this->params['url']['status'] == 6) {
+            $alert = "Please Varifie your email id first";
         }
         ?>
         <script> alert("<?php echo $alert;?>");

@@ -83,6 +83,10 @@
             </div> <!-- /container -->
         </div>
        
+
+        <div id="flashMessage" class="message text-center">
+            <?php echo $this->Session->flash(); ?>
+        </div>
   <div id="login"  class="modal fade" role="dialog">
       <div class="modal-content modal-dialog">
           <div class="modal-header">
@@ -283,6 +287,21 @@
                     $("#classdiv").addClass('col-xs-6').removeClass('col-xs-12');
                 });
     });
-    
+    function resendMail(email){
+       $.ajax({
+            dataType: "JSON",
+            url: "<?php echo ABSOLUTE_URL;?>/desh_board/resendVarificationMail",
+            data: {emailid : email},
+            type: "POST",
+            success: function(res) {
+                if (res.hasError === true) {
+                    $("#loginForm").html(res.messages).show().removeClass('hide');
+                } else {
+                    alert("Somthing gatting wrong");
+                }
+
+            }
+        });
+    }
    
 </script>

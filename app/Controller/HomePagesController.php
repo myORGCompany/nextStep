@@ -26,10 +26,8 @@ class HomePagesController extends AppController {
  *	or MissingViewException in debug mode.
  */
 	function index() {
-		// $m = $this->sendMail('vikrant.agrawal@headhonchos.com', "test", "Your NextStep Membership", 'success', 'mailer_template');
 		$this->layout="default";
 		$userData = $this->Session->read('User');
-		$user_id = $userData['user_id'];
 		if(!empty($user_id)){
 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
 		}
@@ -53,6 +51,11 @@ class HomePagesController extends AppController {
 	function registration() {
 		$this->autoRender = false;
 	    $this->layout = "";
+	    $response = array(
+            'hasError' => true,
+            'messages' => "Either email or password is incorrect!",
+            'redirect' => false
+        );
 		$login_detail = $this->User->find('first', array( 'conditions' => array('email' => $this->data['email'])));
 		if(!empty($login_detail)) {
 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=1' ) );
@@ -62,12 +65,51 @@ class HomePagesController extends AppController {
 			$data['name'] = $this->data['Name'];
 			$data['mobile'] = $this->data['mobile'];
 			$data['remember'] = $this->data['remember'];
-			$this->Session->write('User',$data);
-			$this->setUserData();
+			
+			//$user_id = $userData['user_id'];
+			//$this->Session->write('User',$data);
+			//$this->setUserData();
 			$data1 = $this->User->save($data);
-			$data['UserId'] = $data1['User']['id'];
-			$this->Session->write('User',$data);
-			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+			$id = $this->User->getLastInsertID();
+			$detail = $this->User->find('first', array( 'conditions' => array('id' => $id),'fields' => array(
+                    'substring(MD5(User.created),5,5) as key1','OLD_PASSWORD(User.id) as key2'
+                    )));
+			$k1 = $detail[0]['key1'].''.$detail[0]['key2'];
+			$message['name'] = $data['name'];
+			$message['email'] = $data['email'];
+			$message['approveUrl'] = ABSOLUTE_URL.'/emailConfirmation/'.$id.'/'.$k1;
+			 $m = $this->sendMail($data['email'], $message, "Your NextStep Membership", 'success', 'registration');
+			$response = array('hasError' => false, 'messages' => null); 
+			echo json_encode($response);
+			// $data['UserId'] = $data1['User']['id'];
+			// $this->Session->write('User',$data);
+			// $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+		}
+	}
+	function emailConfirmation($user_id,$authCode){
+		Configure::write('debug', 0);
+		$this->autoRender = false;
+	    $this->layout = "";
+		if(!empty($authCode) && !empty($user_id)){
+			$detail = $this->User->find('first', array( 'conditions' => array('id' => $user_id),'fields' => array(
+                    'substring(MD5(User.created),5,5) as key1','OLD_PASSWORD(User.id) as key2','User.id', 'User.email','User.created','User.name'
+                    )));
+			$k1 = $detail[0]['key1'].''.$detail[0]['key2'];
+			if($authCode == $k1){
+				try{
+					$this->User->save(array('status' => 1,'autologin' => $authCode ,'id' => $user_id));
+					$data['user_id'] = $user_id;
+					$data['name'] = $detail['User']['name'];
+					$data['mobile'] = $detail['User']['mobile'];
+					$data['email'] =  $detail['User']['email'];
+					$data['status'] =  1;
+					$this->Session->write('User',$data);
+				}catch(Exception $e){
+                    echo $e->getMessage(); die("not saved");
+                }
+				$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+			}
+			
 		}
 	}
 

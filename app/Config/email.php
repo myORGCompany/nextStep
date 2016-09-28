@@ -37,10 +37,15 @@
 class EmailConfig {
 
 	public $default = array(
-		'transport' => 'Mail',
-		'from' => 'you@localhost',
-		//'charset' => 'utf-8',
-		//'headerCharset' => 'utf-8',
+		'transport' => 'Smtp',
+        'from' => array('sendhh@hhdevmail.com' => 'HeadHonchos'),
+        'host' => 'smtp.elasticemail.com',
+        'port' => 2525,
+        'timeout' => 30,
+        'username' => 'devr96@gmail.com',
+        'password' => '68b74635-d2ee-416a-a1bb-6b0f15605650',
+        'client' => null,
+        'log' => false
 	);
 
 	public $smtp = array(
@@ -117,12 +122,12 @@ class EmailConfig {
     );
     public $elastic = array(
         'transport' => 'Smtp',
-        'from' => array('sendhh@hhdevmail.com' => 'HeadHonchos'),
+        'from' => array('admin@nextsteptech.in' => 'NextStep'),
         'host' => 'smtp.elasticemail.com',
         'port' => 2525,
         'timeout' => 30,
         'username' => 'devr96@gmail.com',
-        'password' => '68b74635-d2ee-416a-a1bb-6b0f156056',
+        'password' => '68b74635-d2ee-416a-a1bb-6b0f15605650',
         'client' => null,
         'log' => false
     );

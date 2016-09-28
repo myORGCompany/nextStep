@@ -64,8 +64,14 @@ class AppController extends Controller {
            $Login =1;
            $this->Session->write('Login' , 1);
            $user = $this->Session->read('User');
-           $user_id =$user['user_id'];
-           return $user_id;
+           if($user['status'] == 1){
+                $user_id =$user['user_id'];
+                return $user_id;
+           } else {
+                $this->Session->delete('User');
+                $this->Session->destroy();
+                $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=6' ) );
+           }
         } else {
             $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=5' ) );
         }
@@ -95,7 +101,7 @@ class AppController extends Controller {
         }
         return $isMember;
     }
-      function sendMail($emailid, $message, $subject, $success_message, $view, $attachment = null, $cc = null, $bcc = '', $semailid = MAIL_SMTP_EMAILID, $sname = "HeadHonchos", $replyTo = "") {
+      function sendMail($emailid, $message, $subject, $success_message, $view, $attachment = null, $cc = null, $bcc = '', $semailid = MAIL_SMTP_EMAILID, $sname = "NextStep", $replyTo = "") {
         $sta_email = Configure::read('emailid');
         #Added by Ankush on 1st Aug, 2016
         if (isset($sta_email) && $sta_email != ''){
