@@ -25,7 +25,7 @@
 </div>
 
 <div class="col-md-12">
-<table class="table table-striped">
+<table class="table table-striped table-responsive">
 	<tr>
 		<td><strong>#</strong></td>
    		<td><strong>Perticular</strong></td>

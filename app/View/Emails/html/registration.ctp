@@ -1,4 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--[if !mso]><!-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--<![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <!--[if (gte mso 9)|(IE)]>
+    <style type="text/css">
+        table {border-collapse: collapse !important;}
+    </style>
+    <![endif]-->
+    <style>
+    @media screen and (max-width: 400px) {
+        .two-column .column,
+        .three-column .column {
+            max-width: 100% !important;
+        }
+        .two-column img {
+            max-width: 100% !important;
+        }
+        .three-column img {
+            max-width: 50% !important;
+        }
+    }
+    
+    @media screen and (min-width: 401px) and (max-width: 620px) {
+        .three-column .column {
+            max-width: 33% !important;
+        }
+        .two-column .column {
+            max-width: 50% !important;
+        }
+    }
+    </style>
+</head>
 
 <body style="background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;margin-top:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-family:Arial, sans-serif;font-size:16px;line-height:21px;color:#607D8B;">
 <script type="application/ld+json">

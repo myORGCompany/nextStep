@@ -7,13 +7,40 @@
     margin-bottom: 0.75rem;
     position: relative;
 }
-.c-table{
-    max-width: 97%;
-    padding: 10px!important;
-    margin-left: 4px!important;
-}
 </style>
-<script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/jquery.min.js"></script>
+<style>
+    @media screen and (max-width: 400px) {
+        .two-column .column,
+        .three-column .column {
+            max-width: 100% !important;
+        }
+        .two-column img {
+            max-width: 100% !important;
+        }
+        .three-column img {
+            max-width: 50% !important;
+        }
+        .c-table{
+		    max-width: 94%;
+		    padding: 10px!important;
+		    margin-left: 4px!important;
+		}
+    }
+    
+    @media screen and (min-width: 401px) and (max-width: 620px) {
+        .three-column .column {
+            max-width: 33% !important;
+        }
+        .two-column .column {
+            max-width: 50% !important;
+        }
+        .c-table{
+		    max-width: 97%;
+		    padding: 10px!important;
+		    margin-left: 4px!important;
+		}
+    }
+    </style>
  
   <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/moment.min.js"></script>
  <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/jquery.validate.js"></script>

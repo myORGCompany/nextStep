@@ -26,8 +26,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 </button>
-
-                                <a href="#" class="navbar-brand visible-lg visible-md visible-sm"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px; " alt="NextStep Solutions" title="NextStep Solutions" /></a>
+                                <a href="#" class="navbar-brand visible-lg visible-md visible-sm"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo_mailer.gif" class="img-responsive" style="margin-top: -7px !important;" alt="NextStep Solutions" title="NextStep Solutions" /></a>
 
                                 <a href="#" class=" visible-xs"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px; margin-bottom:20px; margin-top: 10px;" alt="NextStep Solutions" title="NextStep Solutions" /></a>
                         </div>
@@ -39,14 +38,12 @@
                                 <li><a href="#templatemo-about">ABOUT</a></li>
                                 <li><a href="#templatemo-portfolio">PORTFOLIO</a></li>
                                 <li><a href="#templatemo-blog">BLOG</a></li>
-                                
-                                <li><a rel="nofollow" id="loginli"
-                                        class="external-link" data-toggle="modal" data-target="#login">LOGIN</a>
+                                <li><a rel="nofollow" id="loginli" class="external-link" data-toggle="modal" data-target="#login">LOGIN</a>
                                 </li>
-                               
-                                        <li><a rel="nofollow" 
-                                        class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
-                                          <li><a href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li></ul>
+                                <li><a rel="nofollow" 
+                                class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
+                                <li><a href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li>
+                              </ul>
                                 <?php } else {  if($this->action == 'help') {?>
                                   <ul class="nav navbar-nav navbar-right" style="margin-top:40px; margin-right: 32px !important;">
                                   <?php } else { ?>
@@ -54,25 +51,25 @@
                                     <?php } ?>
                                <li class="active" ><a id="bank"  
                                         href="<?php echo ABSOLUTE_URL;?>/deshBoard">Home</a></li>
-                                        <li class="active">&nbsp;&nbsp;</li> 
-                                        <li class="active hidden-xs"><a href="<?php echo ABSOLUTE_URL;?>/salse">SALSE</a></li><li class="active">&nbsp;&nbsp;</li> 
-                                        <li class="active visible-xs"><a href="<?php echo ABSOLUTE_URL;?>/desh_board/salseM">SALSE</a></li>
-                                        <li class="active visible-xs"><a href="<?php echo ABSOLUTE_URL;?>/desh_board/bulkSalseM">BULK SALSE</a></li>
-                                        <li class="active hidden-xs"><a href="<?php echo ABSOLUTE_URL;?>/bulkSalse">BULK SALSE</a></li><li class="active">&nbsp;&nbsp;</li> 
-                                        <li class="dropdown active">
-                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MANAGE STORE<span class="caret"></span></a>
+                                         
+                                        <li class=" hidden-xs"><a href="<?php echo ABSOLUTE_URL;?>/salse">Salse</a></li> 
+                                        <li class=" visible-xs"><a href="<?php echo ABSOLUTE_URL;?>/desh_board/salseM">Salse</a></li>
+                                        <li class=" visible-xs"><a href="<?php echo ABSOLUTE_URL;?>/desh_board/bulkSalseM">Bulk Salse</a></li>
+                                        <li class=" hidden-xs"><a href="<?php echo ABSOLUTE_URL;?>/bulkSalse">Bulk Salse</a></li> 
+                                        <li class="dropdown ">
+                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Store<span class="caret"></span></a>
                                          <ul class="dropdown-menu">
                                         <li class=""><a href="<?php echo ABSOLUTE_URL;?>/ManageProducts"">Manage Master</a>
                                         <li class=""><a href="<?php echo ABSOLUTE_URL;?>/products">Add Product</a></li> 
                                         <li class=""><a href="<?php echo ABSOLUTE_URL;?>/viewList"">View all products</a></li>
                                         </ul>
                                         </li>
-                                                <li class="active">&nbsp;&nbsp;</li> 
-                                        <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/contact.html">Contact-Us</a></li>
-                                <li class="active">&nbsp;&nbsp;</li> 
-                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>
-                                 <li class="active">&nbsp;&nbsp;</li> 
-                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/help.html">Help</a></li>
+                                                 
+                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/contact.html">Contact-Us</a></li>
+                                 
+                                <li class=""><a href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>
+                                  
+                                <li class=""><a href="<?php echo ABSOLUTE_URL;?>/help.html">Help</a></li>
                                 </ul>
 
                                <?php } ?>

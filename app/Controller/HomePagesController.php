@@ -36,8 +36,6 @@ class HomePagesController extends AppController {
 		$user_id = $this->_checkLogin();
 		$userData = $this->Session->read('User');
 		$this->layout="default";
-
-		//$Salse = $this->_import('Salse');
 		$report['dailyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('DATE(created)' =>date('y-m-d'),'user_id' =>$user_id)));
 		$report['monthlyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 month)','user_id' =>$user_id)));
 		$report['YearlyData'] = $this->Salse->find('first', array( 'fields' =>'SUM(actual_price)','conditions' => array('created >' =>'DATE_SUB(CURDATE(), INTERVAL 1 year)','user_id' =>$user_id)));
