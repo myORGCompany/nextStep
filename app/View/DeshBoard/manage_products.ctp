@@ -21,7 +21,7 @@
             max-width: 50% !important;
         }
         .c-table{
-		    max-width: 94%;
+		    max-width: 95%;
 		    padding: 10px!important;
 		    margin-left: 4px!important;
 		}
@@ -47,7 +47,7 @@
 <body>	
 <div class="container margin-top-30">
 <div class="row well">
-<div class="col-md-6 pull-left">
+<div class="col-md-6 col-xs-12 col-sm-6 pull-left">
 	<div class=" cards ">
 		<div class=" padding-left-10 card card-block margin-bottom-10">
 			<h3 class="card-title">Add Product Category</h3>
@@ -91,7 +91,7 @@
 	</div>
 </div>
 
-<div class="col-sm-6 pull-right">
+<div class="col-md-6 col-xs-12 col-sm-6 pull-right">
 	<div class=" cards ">
 		<div class="padding-left-10 card card-block margin-bottom-10">
 			<h3 class="card-title">Add Product Brand</h3>
@@ -158,7 +158,7 @@
 		</div>
 	</div>
 </div>
-<div class="col-sm-6 pull-left">
+<div class="col-md-6 col-xs-12 col-sm-6 pull-left">
 	<div class="clearfix margin-bottom-10"></div>
 	<div class="cards ">
 		<div class=" padding-left-10 card card-block margin-bottom-10">
