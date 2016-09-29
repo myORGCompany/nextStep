@@ -106,13 +106,13 @@ var isMobile = window.matchMedia("only screen and (max-width: 760px)");
 						<div class="form-group control-group controls">
 							<label for="input7" class="col-sm-2 control-label margin-right-100">Salse Price/peice</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control required" title="Please Enter the price of each unit" name="price" id="input7" >
+								<input type="text" class="form-control required" title="Please Enter the salse price of each unit" name="price" id="input7" >
 							</div>
 						</div>
 						<div class="form-group control-group controls">
 							<label for="input14" class="col-sm-2 control-label margin-right-100">Parchese Price/peice</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control required" title="Please Enter the price of each unit" name="parchese_price" id="input14" >
+								<input type="text" class="form-control required" title="Please Enter the parchese price of each unit" name="parchese_price" id="input14" >
 							</div>
 						</div>
 						<div class="form-group control-group controls">
