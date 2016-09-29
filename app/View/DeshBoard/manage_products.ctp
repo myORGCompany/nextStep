@@ -21,7 +21,7 @@
             max-width: 50% !important;
         }
         .c-table{
-		    max-width: 95%;
+		    max-width: 94%;
 		    padding: 10px!important;
 		    margin-left: 4px!important;
 		}
