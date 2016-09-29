@@ -48,13 +48,17 @@
                             </div>
                         </div> -->
                 </div>
-                <!-- <a class="left carousel-control" href="#templatemo-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                <!-- <a class="left carousel-control" href="#templatemo-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"> </span></a>
                 <a class="right carousel-control" href="#templatemo-carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a> -->
             </div><!-- /#templatemo-carousel -->
         </div>
 
         <div class="templatemo-welcome" id="templatemo-welcome">
             <div class="container">
+            <div align="center" class="margin-top-10" style="margin-bottom:-70px;"">
+                <img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo_mailer.gif" class="img-responsive"  alt="NextStep Solutions" title="NextStep Solutions" />
+            </div>
+            <div class="clearfix"></div>
                 <div class="templatemo-slogan text-center">
                     <span class="txt_darkgrey">Welcome to </span><span class="txt_orange">Next Step</span>
                     <p class="txt_slogan"><i>One of the great responsibilities that I have is to manage my assets wisely, so that they create value.</i></p>

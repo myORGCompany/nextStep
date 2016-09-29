@@ -1,89 +1,73 @@
 <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/jquery.validate.js"></script>
 <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/bootstrapValidator.min.js"></script>
-<div class="templatemo-top-bar" id="templatemo-top">
+<style type="text/css">
+.icon-bar{background-color: #000000!important;}
+.font-14{font-size: 14px; font-weight: bold; color:#ffffff !important;}
+.navbar-fixed-top{background-color: #5e001b !important;}
+</style>
+<div class="templatemo-top-bar" id="templatemo-top"  >
+        <div id="flashMessage" class="message text-center">
+            <?php echo $this->Session->flash(); ?>
+        </div>*/?>
+<div class="navbar  navbar-default navbar-fixed-top transparent-nav" role="navigation" id="siteNavigation">
+    <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+             <a href="" class="navbar-brand "><img src="<?php echo ABSOLUTE_URL;?>/img/logo/nav-logo.png" class="img-responsive" style="margin-top: -9px; " alt="NextStep Solutions" title="NextStep Solutions" /></a>
+    </div>
             <div class="container">
                 <div class="subheader">
-                    <div id="phone" class="pull-left">
-                            <img src="<?php echo ABSOLUTE_URL;?>/img/phone.png" alt="phone"/>
-                            090-080-0110
-                    </div>
-                    <div id="email" class="pull-right">
-                            <img src="<?php echo ABSOLUTE_URL;?>/img/email.png" alt="email"/>
-                            helpdesk@nextstep.co.in
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="templatemo-top-menu">
-            <div class="container">
-                <!-- Static navbar -->
-                <div class="navbar navbar-default row" role="navigation">
-                    <div class="container">
-                        <div class="navbar-header col-md-1">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                </button>
-                                <a href="#" class="navbar-brand visible-lg visible-md visible-sm"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo_mailer.gif" class="img-responsive" style="margin-top: -7px !important;" alt="NextStep Solutions" title="NextStep Solutions" /></a>
-
-                                <a href="#" class=" visible-xs"><img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo1.jpg" class="img-responsive" style="max-width: 35%; padding-left:10px; margin-bottom:20px; margin-top: 10px;" alt="NextStep Solutions" title="NextStep Solutions" /></a>
-                        </div>
-                        <div class="navbar-collapse collapse" id="templatemo-nav-bar">
+                    <div class="navbar-collapse col-xs-12 row pull-right collapse subheader" id="templatemo-nav-bar" style="margin-top:-5px;">
                             
                             <?php if(!$this->Session->read('User')){?> 
-                              <ul class="nav navbar-nav navbar-right" style="margin-top:40px;">
-                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages">HOME</a></li>
-                                <li><a href="#templatemo-about">ABOUT</a></li>
-                                <li><a href="#templatemo-portfolio">PORTFOLIO</a></li>
-                                <li><a href="#templatemo-blog">BLOG</a></li>
-                                <li><a rel="nofollow" id="loginli" class="external-link" data-toggle="modal" data-target="#login">LOGIN</a>
+                              <ul class="nav navbar-nav navbar-right font-14" style="">
+                                <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages">HOME</a></li>
+                                <li><a class="font-14" href="">ABOUT</a></li>
+                                <li><a class="font-14" href="">PORTFOLIO</a></li>
+                                <li><a class="font-14" rel="nofollow" id="loginli" class="external-link" data-toggle="modal" data-target="#login">LOGIN</a>
                                 </li>
-                                <li><a rel="nofollow" 
+                                <li><a class="font-14" rel="nofollow" 
                                 class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
-                                <li><a href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li>
+                                <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li>
                               </ul>
                                 <?php } else {  if($this->action == 'help') {?>
-                                  <ul class="nav navbar-nav navbar-right" style="margin-top:40px; margin-right: 32px !important;">
+                                  <ul class="nav navbar-nav navbar-right" style=" margin-right: 32px !important;">
                                   <?php } else { ?>
-                                    <ul class="nav navbar-nav navbar-right" style="margin-top:40px; ">
+                                    <ul class="nav navbar-nav navbar-right" style=" ">
                                     <?php } ?>
-                               <li class="active" ><a id="bank"  
-                                        href="<?php echo ABSOLUTE_URL;?>/deshBoard">Home</a></li>
+                               <li ><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/deshBoard">Home</a></li>
                                          
-                                        <li class=" hidden-xs"><a href="<?php echo ABSOLUTE_URL;?>/salse">Salse</a></li> 
-                                        <li class=" visible-xs"><a href="<?php echo ABSOLUTE_URL;?>/desh_board/salseM">Salse</a></li>
-                                        <li class=" visible-xs"><a href="<?php echo ABSOLUTE_URL;?>/desh_board/bulkSalseM">Bulk Salse</a></li>
-                                        <li class=" hidden-xs"><a href="<?php echo ABSOLUTE_URL;?>/bulkSalse">Bulk Salse</a></li> 
+                                        <li class=" hidden-xs"><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/salse">Salse</a></li> 
+                                        <li class=" visible-xs"><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/desh_board/salseM">Salse</a></li>
+                                        <li class=" visible-xs"><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/desh_board/bulkSalseM">Bulk Salse</a></li>
+                                        <li class=" hidden-xs"><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/bulkSalse">Bulk Salse</a></li> 
                                         <li class="dropdown ">
-                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Store<span class="caret"></span></a>
+                                         <a href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Store<span class="caret"></span></a>
                                          <ul class="dropdown-menu">
-                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/ManageProducts"">Manage Master</a>
-                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/products">Add Product</a></li> 
-                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/viewList"">View all products</a></li>
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/ManageProducts"">Manage Master</a>
+                                        <li><a href="<?php echo ABSOLUTE_URL;?>/products">Add Product</a></li> 
+                                        <li><a href="<?php echo ABSOLUTE_URL;?>/viewList"">View all products</a></li>
                                         </ul>
                                         </li>
                                                  
-                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/contact.html">Contact-Us</a></li>
+                                        <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/contact.html">Contact-Us</a></li>
                                  
-                                <li class=""><a href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>
+                                <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>
                                   
-                                <li class=""><a href="<?php echo ABSOLUTE_URL;?>/help.html">Help</a></li>
+                                <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/help.html">Help</a></li>
                                 </ul>
 
                                <?php } ?>
-                            
-                        </div><!--/.nav-collapse -->
-                    </div><!--/.container-fluid -->
-                </div><!--/.navbar -->
-            </div> <!-- /container -->
+                    </div>
+                    
+                </div>
+            </div>
+            </div>
         </div>
-       
-
-        <div id="flashMessage" class="message text-center">
-            <?php echo $this->Session->flash(); ?>
-        </div>
+</div>
+</div>
+              
+              <!-- user setting and profile tab -->
+        
   <div id="login"  class="modal fade" role="dialog">
       <div class="modal-content modal-dialog">
           <div class="modal-header">

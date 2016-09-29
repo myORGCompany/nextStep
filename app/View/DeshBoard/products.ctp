@@ -191,7 +191,6 @@ var isMobile = window.matchMedia("only screen and (max-width: 760px)");
     });
 
 $(document).ready(function () {
- $(".navbar-right").attr("style","margin-top: 40px; margin-right: -29px !important;");
 			$(document).on('change', 'input:radio', function (event) {
 			    var redio = $( "input:checked" ).val();
 			    if (redio == 'weight') {

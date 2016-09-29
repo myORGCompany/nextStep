@@ -28,7 +28,7 @@ $(function() {
 });
 </script>
 <body>
-	<div class="container well">
+	<div class="container well margin-top-40">
 		<div class="row">
 		<div class="clearfix"></div> 
 		<div class="col-md-3 col-md-offset-5 margin-bottom-20"><h3 class="text-info" ><strong>sales</strong></h3></div>
@@ -140,7 +140,7 @@ $(function() {
 <script type="text/javascript">
 var row =0;
 $(document).ready(function () {
-    $(".navbar-right").attr("style","margin-top: 40px; margin-right: -29px !important;");
+    
 	product = [];
 	discount = [];
 	quant = [];

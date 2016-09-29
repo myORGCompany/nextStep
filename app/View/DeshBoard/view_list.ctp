@@ -67,7 +67,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-   $(".navbar-right").attr("style","margin-top: 40px; margin-right: 0px !important;");
 var cnt = <?php echo $cnt;?>;
  for (var i = 0; i < 25; i++) {
     $("#list"+i).show();
