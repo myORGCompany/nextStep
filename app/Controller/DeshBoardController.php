@@ -63,6 +63,9 @@ class DeshBoardController extends AppController {
 	    	$stock['Stok']['expairy_date'] = $stock['Product']['expairy_date'];
             $stock['Stok']['perchese_date'] = $stock['Product']['perchese_date'];
             $stock['Stok']['quantity_added'] = $stock['Product']['quantity'];
+            $stock['Stok']['price'] = $stock['Product']['price'];
+            $stock['Stok']['parchese_price'] = $stock['Product']['parchese_price'];
+
 	    	$out = $this->Stok->save($stock);
 	    	return "saved Successfully";
 	    } else {

@@ -104,9 +104,15 @@ var isMobile = window.matchMedia("only screen and (max-width: 760px)");
 							<a  rel="nofollow" onclick="getForm('groupTag' , 'Add Product Group');" class="external-link" data-toggle="modal" data-target="#element"> Add New Product Group</a>
 						</div>
 						<div class="form-group control-group controls">
-							<label for="input7" class="col-sm-2 control-label margin-right-100">Price per peice</label>
+							<label for="input7" class="col-sm-2 control-label margin-right-100">Salse Price/peice</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control required" title="Please Enter the price of each unit" name="price" id="input7" >
+							</div>
+						</div>
+						<div class="form-group control-group controls">
+							<label for="input14" class="col-sm-2 control-label margin-right-100">Parchese Price/peice</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control required" title="Please Enter the price of each unit" name="parchese_price" id="input14" >
 							</div>
 						</div>
 						<div class="form-group control-group controls">
@@ -254,7 +260,11 @@ $(document).ready(function () {
 			                }
 			            }
                     },
-                     price: {
+                    price: {
+                        required: true,
+                        number : true
+                    },
+                     parchese_price: {
                         required: true,
                         number : true
                     },
