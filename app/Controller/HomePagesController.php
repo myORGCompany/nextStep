@@ -28,6 +28,7 @@ class HomePagesController extends AppController {
 	function index() {
 		$this->layout="default";
 		$userData = $this->Session->read('User');
+		$user_id = $this->_checkLogin();
 		if(!empty($user_id)){
 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
 		}

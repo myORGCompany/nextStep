@@ -55,7 +55,7 @@
 
         <div class="templatemo-welcome" id="templatemo-welcome">
             <div class="container">
-            <div align="center" class="margin-top-10" style="margin-bottom:-70px;"">
+            <div align="center" class="margin-top-10" style="margin-bottom:-70px;">
                 <img src="<?php echo ABSOLUTE_URL;?>/img/logo/logo_mailer.gif" class="img-responsive"  alt="NextStep Solutions" title="NextStep Solutions" />
             </div>
             <div class="clearfix"></div>
