@@ -17,7 +17,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('User','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse','Transaction','Shoper','Stok');
+	public $uses = array('User','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse','Transaction','Shoper','Stok','UserFirm');
 
 /**
  * Displays a view
@@ -176,11 +176,8 @@ class DeshBoardController extends AppController {
                     );
                 }
                 if ($LoginData && $LoginData['User']['status'] ==1) {
-                	$data['user_id'] = $LoginData['User']['id'];
-					$data['email'] = $LoginData['User']['email'];
-					$data['password'] = $LoginData['User']['password'];
-                    $data['status'] = $LoginData['User']['status'];
-					$this->Session->write('User',$data);
+                    $LoginData['User']['user_id'] = $LoginData['User']['id']; 
+					$this->Session->write('User',$LoginData['User']);
                     $this->setUserData();
                 	$response = array('hasError' => false, 'messages' => null); 
                 	if(!empty($LoginData['User']['is_admin']) && $LoginData['User']['is_admin'] ==1) {
@@ -343,6 +340,9 @@ class DeshBoardController extends AppController {
         }
     }
     function printInvoice($salseId){
+        $user = $this->Session->read('User');
+        $user_id = $user['user_id'];
+        $firm = $this->UserFirm->find('first', array('conditions' => array('user_id' => $user_id)));
         if(!empty($salseId)){
            $arrayId =  explode(",", $salseId);
            $arr['TotleAm'] =0;
@@ -360,7 +360,9 @@ class DeshBoardController extends AppController {
             $arr['servicetax'] = $arr['TotleAm'] * 0.15;
             $arr['vattax'] = $arr['TotleAm'] * 0.045;
             $arr['otherTax'] = $arr['TotleAm'] * 0.005;
+            $this->set('firm',$firm['UserFirm']);
             $this->set('salse',$arr);
+
         } else{
             exit;
         }
@@ -589,12 +591,9 @@ class DeshBoardController extends AppController {
         $dompdf->stream();
     }
     function viewList(){
+        $user_id = $this->_checkLogin();
         if ($maxPageNumber > $temMax) {
             $maxPageNumber = $temMax + 1;
-        }
-        Configure::write('debug', 0);
-        if($userData =$this->Session->read('User')) {
-            $user_id = $userData['user_id'];
         }
         $this->set('maxPageNumber', $maxPageNumber);
         $this->set('start', $tempSeq);

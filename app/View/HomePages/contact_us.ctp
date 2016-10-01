@@ -8,9 +8,10 @@
    .widthmin{max-width: 99.8%; margin-left: -1px !important;}
    .mobile{padding-top: 1px !important;
         padding-bottom: 1px !important;}
+   #templatemo-nav-bar{ margin-top: -42px !important; }
 </style>
 <body>
-	<div class="container page-heading">
+	<div class="container page-heading margin-top-30">
 		<div class="row col-md-12 col-xs-12 padding-xs-0">
 			<div class="col-xs-12 col-md-12 padding-top-10 margin-top-7">
 				<div class="visible-md visible-lg visible-sm margin-top-15 text-white well">

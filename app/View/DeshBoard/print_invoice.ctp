@@ -82,9 +82,9 @@
             
             </div>
             <div class="col-md-10 col-md-offset-1 " style="background-color:#e0e4ea;font-family:Arial, sans-serif;color:#607D8B; font-size:13px; line-height:20px; margin:0px! important padding:0; " >
-                <p height="80" align="center"  ><strong>Agrawal Beej Bhandar</strong><br />
-                    Registered Office:2 Super Market, New Sabji Mandi, Jhansi &ndash; 284 001, India Tel: +91 33 2210 1487 / 1543 <br />
-                    CIN: U65110WB1973PTC028870</p>
+                <p height="80" align="center"  ><strong><?php echo $firm['name'];?></strong><br />
+                    Registered Office:<?php echo $firm['adderess'];?>, <?php echo $firm['city'];?> &ndash; <?php echo $firm['pin'];?>, India Tel: +91 <?php echo $firm['phone'];?> <br />
+                    CIN: <?php echo $firm['tin'];?></p>
             </div>
         </div>
     </div>
