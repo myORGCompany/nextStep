@@ -43,12 +43,19 @@
                                         <li class="dropdown ">
                                          <a href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Store<span class="caret"></span></a>
                                          <ul class="dropdown-menu">
-                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/ManageProducts"">Manage Master</a>
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/ManageProducts">Manage Master</a>
                                         <li><a href="<?php echo ABSOLUTE_URL;?>/products">Add Product</a></li> 
-                                        <li><a href="<?php echo ABSOLUTE_URL;?>/viewList"">View all products</a></li>
+                                        <li><a href="<?php echo ABSOLUTE_URL;?>/viewList">View all products</a></li>
                                         </ul>
                                         </li>
-                                                 
+                                        <li class="dropdown ">
+                                         <a href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Payments Outstandings<span class="caret"></span></a>
+                                         <ul class="dropdown-menu">
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/home_pages/clientOutstanding">Client Outstandings</a>
+                                      <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/ShoperOutstanding">Shopers Outstandings</a></li> 
+                                        <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/viewAllOutstanding">View all</a></li>
+                                        </ul>
+                                        </li> 
                                         <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/contact.html">Contact-Us</a></li>
                                  
                                 <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/logout">Logout</a></li>

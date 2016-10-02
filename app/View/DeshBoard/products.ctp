@@ -129,7 +129,15 @@ var isMobile = window.matchMedia("only screen and (max-width: 760px)");
 							<div class="col-sm-7">
 								<input type="text" class="form-control required" title="Please Enter the Bll number" name="bill_number" id="input9" >
 							</div>
+							<!-- <label class="radio-inline">
+						      <input type="radio" name="paid" id="paid">Paid
+						    </label>
+						    <label class="radio-inline">
+						      <input type="radio" name="unpaid" id="unpaid">Unpaid
+						    </label> -->
+							   
 						</div>
+						
 						<div class="form-group control-group controls">
 							<label for="input10" class="col-sm-2 control-label margin-right-100">Client</label>
 							<div class="col-sm-7">
@@ -191,20 +199,15 @@ var isMobile = window.matchMedia("only screen and (max-width: 760px)");
     });
 
 $(document).ready(function () {
-			$(document).on('change', 'input:radio', function (event) {
-			    var redio = $( "input:checked" ).val();
-			    if (redio == 'weight') {
-			    	$('#quantity').addClass('hidden');
-			    	$('#liter').addClass('hidden');
-			    }else if (redio == 'quantity') {
-			    	$('#weight').addClass('hidden');
-			    	$('#liter').addClass('hidden');
-			    }else if (redio == 'liter') {
-			    	$('#weight').addClass('hidden');
-			    	$('#quantity').addClass('hidden');
-			    }
-			    $('#'+redio).removeClass('hidden'); 
-			});
+			// $(document).on('change', 'input:radio', function (event) {
+			//     var redio = $( "input:checked" ).val();
+			//     if (redio == 'paid') {
+			//     	$('#unpaid').addClass('hidden');
+			//     }else if (redio == 'unpaid') {
+			//     	$('#paid').addClass('hidden');
+			//     }
+			//     $('#'+redio).removeClass('hidden'); 
+			// });
             $('#productForm').validate({
                 rules: {
                      name: {

@@ -17,7 +17,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('User','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse','Transaction','Shoper','Stok','UserFirm');
+	public $uses = array('User','Product','MasterProduct','MasterCategory','ProductGroup','Client','MasterBrand','Salse','Transaction','Shoper','Stok','UserFirm','ShoperOutstanding','ClientOutstanding');
 
 /**
  * Displays a view
@@ -65,8 +65,24 @@ class DeshBoardController extends AppController {
             $stock['Stok']['quantity_added'] = $stock['Product']['quantity'];
             $stock['Stok']['price'] = $stock['Product']['price'];
             $stock['Stok']['parchese_price'] = $stock['Product']['parchese_price'];
-
 	    	$out = $this->Stok->save($stock);
+            $clOut['stock_id'] =$this->Stok->getLastInsertID();
+            $txt['parchage_ids'] = $clOut['stock_id'];
+            $txt['product_ids'] = $stock['Stok']['product_id'];
+            $txt['is_parchage'] = 1;
+            $txt['user_id'] = $user_id;
+            $txt['invoice_number'] = 'TxS-'.$txt['parchage_ids'].'-'.ceil(microtime()*1000);
+            $this->Transaction->create();
+            $this->Transaction->save($txt);
+            $clOut['txt_number'] = $this->Transaction->getLastInsertID();
+            $clOut['ammount_unpaid'] = $stock['Stok']['parchese_price']*$stock['Stok']['quantity_added'];
+            $clOut['ammount_total'] = $stock['Stok']['parchese_price']*$stock['Stok']['quantity_added'];
+            $clOut['user_id'] =$user_id;
+            $clOut['product_id'] = $stock['Stok']['product_id'];
+            $clOut['client_id'] = $stock['Product']['client_id'];
+            $clOut['bill_number'] = $this->data['bill_number'];
+            $this->ClientOutstanding->create();
+            $this->ClientOutstanding->save($clOut);
 	    	return "saved Successfully";
 	    } else {
 	    	//echo "Something went wrong";

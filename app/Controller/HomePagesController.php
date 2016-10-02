@@ -16,7 +16,7 @@ class HomePagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('User','Salse','Product','Stok','Lead','UserFirm');
+	public $uses = array('User','Salse','Product','Stok','Lead','UserFirm','Client','ShoperOutstanding','ClientOutstanding');
 
 /**
  * Displays a view
@@ -231,6 +231,54 @@ class HomePagesController extends AppController {
 				$this->User->updateALL(array('r1' => 1),array('id' => $user['user_id']));
 				$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
 			}
+		}
+	}
+	function clientOutstanding(){
+		//Configure::write('debug', 02);
+		$id = $this->_checkLogin();
+		if ($maxPageNumber > $temMax) {
+            $maxPageNumber = $temMax + 1;
+        }
+        $this->set('maxPageNumber', $maxPageNumber);
+        $this->set('start', $tempSeq);
+        $this->set('linkdata', $data);
+        if( !empty($this->params['url']['page'] )) {
+            $filt = $this->params['url']['page'];
+        } 
+		$client = $this->Client->find('all', array('fields' => array('Client.name','Client.id','ClientOutstanding.ammount_unpaid','Product.id','Product.name','ClientOutstanding.id','ClientOutstanding.ammount_total','ClientOutstanding.ammount_paid','date(ClientOutstanding.created)'),'conditions' => array('ClientOutstanding.user_id'=> $id,'ClientOutstanding.status' =>0),
+                'joins' => array(array('table' => 'products','alias'=> 'Product','type'=>'inner','conditions'=>array( 'Client.id = Product.client_id')),array('table' => 'client_outstandings','alias'=> 'ClientOutstanding','type'=>'inner','conditions'=>array( 'Product.id = ClientOutstanding.product_id'))),'group' => 'ClientOutstanding.id'));
+		
+		foreach ($client as $key => $value) {
+			$array[] = array (
+                'name' => $value['Client']['name'],
+                'id' => $value['Client']['id'],
+                'ammount' => $value['ClientOutstanding']['ammount_unpaid'],
+                'product' => $value['Product']['name'],
+                'date' => $value['0']['date(`ClientOutstanding`.`created`)'],
+                'SId' => $value['ClientOutstanding']['id'],
+                'paid' => $value['ClientOutstanding']['ammount_paid'],
+                'total' => $value['ClientOutstanding']['ammount_total']
+            );
+		}
+		//echo '<pre>';print_r($client );die;
+		$this->set('NameArray',$array);
+		
+	}
+	function submitAmmount(){
+		$this->autoRender = false;
+		if($this->data){
+			$tot = $this->data['total'] - $this->data['paid'];
+			$paid = $this->data['prepaid'] + $this->data['paid'];
+			if(($this->data['total'] - $this->data['paid']) == 0){
+				$data['status'] = 1;
+				$this->ClientOutstanding->updateALL(array('ammount_paid' => $paid,'ammount_unpaid' => $tot,'status' => 1),array('id' => $this->data['Id']));
+				return true;
+			} else {
+				$this->ClientOutstanding->updateALL(array('ammount_paid' => $paid,'ammount_unpaid' => $tot),array('id' => $this->data['Id']));
+				return true;
+			}
+		} else {
+			return false;
 		}
 	}
 }
