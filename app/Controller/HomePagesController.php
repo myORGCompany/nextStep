@@ -163,6 +163,7 @@ class HomePagesController extends AppController {
 	}
 	function viewSalse(){
 		//Configure::write('debug', 2);
+		$user_id = $this->_checkLogin();
 		if ($maxPageNumber > $temMax) {
             $maxPageNumber = $temMax + 1;
         }
@@ -246,7 +247,7 @@ class HomePagesController extends AppController {
             $filt = $this->params['url']['page'];
         } 
 		$client = $this->Client->find('all', array('fields' => array('Client.name','Client.id','ClientOutstanding.ammount_unpaid','Product.id','Product.name','ClientOutstanding.id','ClientOutstanding.ammount_total','ClientOutstanding.ammount_paid','date(ClientOutstanding.created)'),'conditions' => array('ClientOutstanding.user_id'=> $id,'ClientOutstanding.status' =>0),
-                'joins' => array(array('table' => 'products','alias'=> 'Product','type'=>'inner','conditions'=>array( 'Client.id = Product.client_id')),array('table' => 'client_outstandings','alias'=> 'ClientOutstanding','type'=>'inner','conditions'=>array( 'Product.id = ClientOutstanding.product_id'))),'group' => 'ClientOutstanding.id'));
+                'joins' => array(array('table' => 'products','alias'=> 'Product','type'=>'inner','conditions'=>array( 'Client.id = Product.client_id')),array('table' => 'client_outstandings','alias'=> 'ClientOutstanding','type'=>'inner','conditions'=>array( 'Product.id = ClientOutstanding.product_id','Client.name LIKE' =>"$filt%"))),'group' => 'ClientOutstanding.id'));
 		
 		foreach ($client as $key => $value) {
 			$array[] = array (
@@ -307,7 +308,7 @@ class HomePagesController extends AppController {
         } 
 		try {
 			$client = $this->Shoper->find('all', array('fields' => array('Shoper.name','Shoper.id','ShoperOutstanding.ammount_unpaid','Product.id','Product.name','ShoperOutstanding.id','ShoperOutstanding.ammount_total','ShoperOutstanding.ammount_paid','date(ShoperOutstanding.created)'),'conditions' => array('ShoperOutstanding.user_id'=> $id,'ShoperOutstanding.status' =>0),
-                'joins' => array(array('table' => 'salses','alias'=> 'Salse','type'=>'inner','conditions'=>array( 'Shoper.id = Salse.shoper_id')),array('table' => 'products','alias'=> 'Product','type'=>'inner','conditions'=>array( 'Salse.product_id = Product.id')),array('table' => 'shoper_outstandings','alias'=> 'ShoperOutstanding','type'=>'inner','conditions'=>array( 'Product.id = ShoperOutstanding.product_id'))),'group' => 'ShoperOutstanding.id'));
+                'joins' => array(array('table' => 'salses','alias'=> 'Salse','type'=>'inner','conditions'=>array( 'Shoper.id = Salse.shoper_id')),array('table' => 'products','alias'=> 'Product','type'=>'inner','conditions'=>array( 'Salse.product_id = Product.id')),array('table' => 'shoper_outstandings','alias'=> 'ShoperOutstanding','type'=>'inner','conditions'=>array( 'Product.id = ShoperOutstanding.product_id','Shoper.name LIKE' =>"$filt%"))),'group' => 'ShoperOutstanding.id'));
 		
 		foreach ($client as $key => $value) {
 			$array[] = array (

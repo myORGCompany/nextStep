@@ -71,33 +71,33 @@ $(function() {
                     <div class="clearfix"></div>
                     <?php if(isset($bulkSalse) && $bulkSalse ==1){ ?>
                     <div class="row">
-                        <div class="col-md-2 text-center">
-                            <button type="submit" class="btn btn-default btn-lg margin-right-74" onclick="javascript:resetForm();" >Reset</button>
-                        </div>
-                        <form id="shoperForm" action="javascript: saleList();">
+                        
+                        <form class="form-inline " id="shoperForm" action="javascript: saleList();">
+                        <div class="control-group  col-sm-12 col-md-12 ">
                             <div class="col-md-2 controls ">
-                                <label for="input1" class="control-label">Shoper Name</label>
-                                <input type="text" class="form-control shoper required padding-right-0" name="shoperName" id="shoperName">
+                                <input type="text" placeholder="shoper Name" class="form-control shoperName required padding-right-0" name="shoperName" id="shoperName">
                                 <input type="text" class="form-control hidden required padding-right-0" name="shoperId" id="shoperId">
                             </div>
                             <div class="col-md-2 controls ">
-                                <label for="input1" class="control-label">Ammount Paid</label>
-                                <input type="text" class="form-control required padding-right-0" onchange="calAmm(this.value);" name="paidAmmount" id="paidAmmount">
+                                <input type="text" placeholder="Ammount Paid" class="form-control required padding-right-0" onchange="calAmm(this.value);" name="paidAmmount" id="paidAmmount">
                             </div>
                             <div class="col-md-2 controls ">
-                                <label for="input1" class="control-label">Ammount Remaining</label>
-                                <input type="text" class="form-control required padding-right-0" name="creaditAmmount" id="creaditAmmount">
+                                <input type="text" placeholder="Ammount Remaining" class="form-control required padding-right-0" name="creaditAmmount" id="creaditAmmount">
                             </div>
                             <div class="col-md-2 controls">
-                                <label for="input1" class="control-label">Bill Number</label>
-                                <input type="text" class="form-control" name="billNo" id="billNo">
+                                <input type="text" placeholder="Bill Number" class="form-control" name="billNo" id="billNo">
                             </div>
-                        
-                        <div class="col-md-2 controls text-center form-group control-group">
-                                <button type="submit" class="btn btn-default btn-lg margin-left-62" >Submit</button>
+                            <div class="clearfix"></div>
+                        <div class="col-md-2 col-xs-6 text-center pull-left">
+                            <button type="submit" class="btn btn-default btn-lg margin-right-40" onclick="javascript:resetForm();" >Reset</button>
+                        </div>
+                        <div class="col-md-2 col-xs-6 text-center pull-right ">
+                                <button type="submit" class="btn btn-default btn-lg " style="margin-left:25px;" >Submit</button>
+                        </div>
                         </div>
                         </form> 
                     </div>
+                    
                 <?php } else {?>
                     <div class="row">
                         <div class="pull-left team_hr_right">

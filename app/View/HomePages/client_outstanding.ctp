@@ -5,7 +5,11 @@
 	.form-group{margin-bottom: 5px !important;}
 	.control-label{text-align: left !important;}
 </style>
-
+<?php if($this->action == 'clientOutstanding') {  
+      $action = 'clientOutstanding';
+     } else if($this->action == 'shoperOutstanding'){ 
+         $action = 'shoperOutstanding';
+     } ?>
 <body>
 	<div class="container margin-top-30">
 		<div class="row col-lg-12 well">
@@ -15,7 +19,7 @@
   <ul class="pagination col-md-10 margin-left-50">
     <?php $alphas = range('A', 'Z');
     foreach ($alphas as $key => $value) {?>
-    <li><a href="<?php echo ABSOLUTE_URL;?>/desh_board/viewList?page=<?php echo $value;?>"><?php echo $value;?></a></li><?php }
+    <li><a href="<?php echo ABSOLUTE_URL.'/home_pages/'.$action;?>?page=<?php echo $value;?>"><?php echo $value;?></a></li><?php }
     ?>
     <div class="clearfix"></div>
     <ul class="pager">
@@ -64,7 +68,7 @@
           ?>
 </table>
 <ul class="pager">
-    <li><a href="<?php echo ABSOLUTE_URL;?>/desh_board/viewList" id ="prevRes" >View All</a></li>
+    <li><a href="<?php echo ABSOLUTE_URL.'/home_pages/'.$action; ?>" id ="prevRes" >View All</a></li>
   </ul>
 </div>
 <?php echo $this->element('edit_popup'); ?>

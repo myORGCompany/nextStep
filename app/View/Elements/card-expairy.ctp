@@ -3,7 +3,10 @@
     .table {
         width:94%;
     }
+    
 }
+.margin-left-10{margin-left: 10px!important;}
+.margin-right-20{margin-right: 20px!important;}
 </style>
 <div class="row ">
 <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 pull-left">
@@ -30,7 +33,10 @@
 					</tr>
 				</table>
 			</div>
-			<a href="<?php echo ABSOLUTE_URL;?>/view.html" class="btn btn-primary">View Details</a>
+			<div class="row">
+				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=salse" class="btn btn-primary pull-left margin-left-10">View Salse</a>
+				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=parchese" class="btn btn-primary pull-right margin-right-20" >View Parchese</a>
+			</div>
 		</div>
 	</div>
 	<div class="clearfix margin-bottom-10"></div>
@@ -57,7 +63,10 @@
 					</tr>
 				</table>
 			</div>
-			<a href="<?php echo ABSOLUTE_URL;?>/view.html" class="btn btn-primary">View Details</a>
+			<div class="row">
+				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=salse" class="btn btn-primary pull-left margin-left-10">View Salse</a>
+				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=parchese" class="btn btn-primary pull-right margin-right-20" >View Parchese</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -86,7 +95,10 @@
 					</tr>
 				</table>
 			</div>
-			<a href="<?php echo ABSOLUTE_URL;?>/view.html" class="btn btn-primary">View Details</a>
+			<div class="row">
+				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=salse" class="btn btn-primary pull-left margin-left-10">View Salse</a>
+				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=parchese" class="btn btn-primary pull-right margin-right-20" >View Parchese</a>
+			</div>
 		</div>
 	</div>
 	<div class="clearfix margin-bottom-10"></div>
