@@ -16,7 +16,7 @@ class HomePagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('User','Salse','Product','Stok','Lead','UserFirm','Client','ShoperOutstanding','ClientOutstanding');
+	public $uses = array('User','Salse','Product','Stok','Lead','UserFirm','Client','ShoperOutstanding','ClientOutstanding','Shoper');
 
 /**
  * Displays a view
@@ -264,21 +264,69 @@ class HomePagesController extends AppController {
 		$this->set('NameArray',$array);
 		
 	}
-	function submitAmmount(){
+	function submitAmmount($type){
 		$this->autoRender = false;
 		if($this->data){
 			$tot = $this->data['total'] - $this->data['paid'];
 			$paid = $this->data['prepaid'] + $this->data['paid'];
-			if(($this->data['total'] - $this->data['paid']) == 0){
-				$data['status'] = 1;
-				$this->ClientOutstanding->updateALL(array('ammount_paid' => $paid,'ammount_unpaid' => $tot,'status' => 1),array('id' => $this->data['Id']));
-				return true;
-			} else {
-				$this->ClientOutstanding->updateALL(array('ammount_paid' => $paid,'ammount_unpaid' => $tot),array('id' => $this->data['Id']));
-				return true;
+			try {
+				if(($this->data['total'] - $this->data['paid']) == 0){
+					$data['status'] = 1;
+					if($type == 1){
+						$this->ClientOutstanding->updateALL(array('ammount_paid' => $paid,'ammount_unpaid' => $tot,'status' => 1),array('id' => $this->data['Id']));
+					} else if($type == 2){
+						$this->ShoperOutstanding->updateALL(array('ammount_paid' => $paid,'ammount_unpaid' => $tot,'status' => 1),array('id' => $this->data['Id']));
+					}
+					return true;
+				} else {
+					if($type == 1){
+						$this->ClientOutstanding->updateALL(array('ammount_paid' => $paid,'ammount_unpaid' => $tot),array('id' => $this->data['Id']));
+					} else if($type == 2){
+						$this->ShoperOutstanding->updateALL(array('ammount_paid' => $paid,'ammount_unpaid' => $tot),array('id' => $this->data['Id']));
+					}
+					return true;
+				}
+			} catch (Exception $e) {
+				echo "Something went wrong please go back and try again";die;
 			}
 		} else {
 			return false;
 		}
+	}
+	function shoperOutstanding(){
+		//Configure::write('debug', 02);
+		$id = $this->_checkLogin();
+		if ($maxPageNumber > $temMax) {
+            $maxPageNumber = $temMax + 1;
+        }
+        $this->set('maxPageNumber', $maxPageNumber);
+        $this->set('start', $tempSeq);
+        $this->set('linkdata', $data);
+        if( !empty($this->params['url']['page'] )) {
+            $filt = $this->params['url']['page'];
+        } 
+		try {
+			$client = $this->Shoper->find('all', array('fields' => array('Shoper.name','Shoper.id','ShoperOutstanding.ammount_unpaid','Product.id','Product.name','ShoperOutstanding.id','ShoperOutstanding.ammount_total','ShoperOutstanding.ammount_paid','date(ShoperOutstanding.created)'),'conditions' => array('ShoperOutstanding.user_id'=> $id,'ShoperOutstanding.status' =>0),
+                'joins' => array(array('table' => 'salses','alias'=> 'Salse','type'=>'inner','conditions'=>array( 'Shoper.id = Salse.shoper_id')),array('table' => 'products','alias'=> 'Product','type'=>'inner','conditions'=>array( 'Salse.product_id = Product.id')),array('table' => 'shoper_outstandings','alias'=> 'ShoperOutstanding','type'=>'inner','conditions'=>array( 'Product.id = ShoperOutstanding.product_id'))),'group' => 'ShoperOutstanding.id'));
+		
+		foreach ($client as $key => $value) {
+			$array[] = array (
+                'name' => $value['Shoper']['name'],
+                'id' => $value['Shoper']['id'],
+                'ammount' => $value['ShoperOutstanding']['ammount_unpaid'],
+                'product' => $value['Product']['name'],
+                'date' => $value['0']['date(`ShoperOutstanding`.`created`)'],
+                'SId' => $value['ShoperOutstanding']['id'],
+                'paid' => $value['ShoperOutstanding']['ammount_paid'],
+                'total' => $value['ShoperOutstanding']['ammount_total']
+            );
+		}
+		} catch (Exception $e) {
+			echo "Something went wrong please go back and try again";die;
+		}
+		//echo '<pre>';print_r($client );die;
+		$this->set('NameArray',$array);
+		$this->render('client_outstanding');
+		
 	}
 }

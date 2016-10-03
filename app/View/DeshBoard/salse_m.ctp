@@ -37,7 +37,7 @@ $(function() {
 				<div class="">
 					<form class="form-inline" method="post" action="<?php echo ABSOLUTE_URL;?>/desh_board/saleList" id="productForm">
 					<div class="row" id="formDiv"> 
-						<div class="form-group control-group  col-sm-12 col-md-12 " id="productRow">
+						<div class="form-group control-group  col-sm-12 col-md-12 " id="productRow<?php echo $newRow;?>">
 						    <div class="col-sm-2 controls" id="div<?php echo $newRow;?>name">
 						        <input  type="text" placeholder="Product Name" class="form-control  selector required padding-right-0" title="Please Enter the name of product"  name="name<?php echo $newRow;?>" id="<?php echo $newRow;?>" >
                                 <input  type="text" class="form-control hidden padding-right-0" value="" name="id<?php echo $newRow;?>" id="id<?php echo $newRow;?>" >
@@ -75,25 +75,25 @@ $(function() {
                             <button type="submit" class="btn btn-default btn-lg margin-right-74" onclick="javascript:resetForm();" >Reset</button>
                         </div>
                         <form id="shoperForm" action="javascript: saleList();">
-                            <div class="col-md-2 ">
+                            <div class="col-md-2 controls ">
                                 <label for="input1" class="control-label">Shoper Name</label>
                                 <input type="text" class="form-control shoper required padding-right-0" name="shoperName" id="shoperName">
                                 <input type="text" class="form-control hidden required padding-right-0" name="shoperId" id="shoperId">
                             </div>
-                            <div class="col-md-2 ">
+                            <div class="col-md-2 controls ">
                                 <label for="input1" class="control-label">Ammount Paid</label>
-                                <input type="text" class="form-control requiredrequired padding-right-0" name="paidAmmount" id="paidAmmount">
+                                <input type="text" class="form-control required padding-right-0" onchange="calAmm(this.value);" name="paidAmmount" id="paidAmmount">
                             </div>
-                            <div class="col-md-2 ">
+                            <div class="col-md-2 controls ">
                                 <label for="input1" class="control-label">Ammount Remaining</label>
                                 <input type="text" class="form-control required padding-right-0" name="creaditAmmount" id="creaditAmmount">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 controls">
                                 <label for="input1" class="control-label">Bill Number</label>
                                 <input type="text" class="form-control" name="billNo" id="billNo">
                             </div>
                         
-                        <div class="col-md-2 text-center form-group control-group">
+                        <div class="col-md-2 controls text-center form-group control-group">
                                 <button type="submit" class="btn btn-default btn-lg margin-left-62" >Submit</button>
                         </div>
                         </form> 
@@ -118,6 +118,7 @@ $(function() {
 <script type="text/javascript">
 var row =0;
 $(document).ready(function () {
+    totalAm = [];
 	product = [];
 	discount = [];
 	quant = [];
@@ -156,8 +157,20 @@ $(document).ready(function () {
                 newVal = product[id]['price']*quant[id];
         	}
             $( "#totel" + id).val(newVal);
+            totalAm[id] = newVal;
+            calAmm($("#paidAmmount").val());
         }
         function quantity(val,id){
+            if( 0 >= Number(val)){
+                console.log(product[id]);
+                    delete product[id];
+                    delete quant[id];
+                    delete discount[id];
+                    delete totalAm[id];
+                    calAmm($("#paidAmmount").val());  
+                $('#productRow' + id).remove();
+                return true;
+            }
             if(Number(val) > Number(product[id].quantity)){
                 alert(val+' Product Units are not available in stock '+'Maximum ' + product[id].quantity + ' units could be sold');
                 $("#quantity" + id).val(1);
@@ -170,6 +183,8 @@ $(document).ready(function () {
 				var totle = (val*product[id]['price'])-discount[id];
 				$( "#totel" + id).val(totle);
 				quant[id] = val;
+                totalAm[id] = totle;
+                calAmm($("#paidAmmount").val());
 			}
         }
         function resetForm(){
@@ -205,6 +220,7 @@ function arrengeData(data1,id){
     $( "#brand" + id).val(data1.brand);
     $( "#price" + id).val(data1.price);
     $( "#totel" + id).val(data1.price);
+    totalAm[id] = data1.price;
     $( "#quantity" + id).val(1);
     $( "#id" + id).val(data1.id);
     $( "#stok_id" + id).val(data1.stok_id);
@@ -218,6 +234,7 @@ function arrengeData(data1,id){
     } else {
         $( "#totel" + id).val(data1.price);
     }  
+    calAmm(  0 ); 
     $.ajax({
         type: "POST",
         url: "<?php echo ABSOLUTE_URL;?>/desh_board/createRowM",
@@ -270,4 +287,17 @@ $(document).ready(function () {
                 }
             });
         });
+function calAmm( val ){
+    var tot = 0;
+    for (var index in totalAm) {
+        tot = tot + totalAm[index];
+    }
+    newam = tot - val;
+    if(0 > newam){
+        $("#creaditAmmount").val(null);
+        $("#paidAmmount").val(null);
+    } else {
+        $("#creaditAmmount").val(newam);
+    }
+}
 </script>

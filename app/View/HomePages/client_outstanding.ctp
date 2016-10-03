@@ -1,6 +1,7 @@
 <style type="text/css">
-	.margin-left-100{margin-left: 10% !important;}
+	.margin-left-50{margin-left: 5% !important;}
   .margin-top-30{margin-top: 30px !important;}
+  .margin-top-20{margin-top: 20px !important;}
 	.form-group{margin-bottom: 5px !important;}
 	.control-label{text-align: left !important;}
 </style>
@@ -8,9 +9,10 @@
 <body>
 	<div class="container margin-top-30">
 		<div class="row col-lg-12 well">
+       <button class="btn btn-default pull-left" style="margin-left:-20px; margin-top:-20px;" onclick="refreshPage();">Refresh</button>
 			 <div class="padding-left-15">
 <nav>
-  <ul class="pagination col-md-10 margin-left-100">
+  <ul class="pagination col-md-10 margin-left-50">
     <?php $alphas = range('A', 'Z');
     foreach ($alphas as $key => $value) {?>
     <li><a href="<?php echo ABSOLUTE_URL;?>/desh_board/viewList?page=<?php echo $value;?>"><?php echo $value;?></a></li><?php }
@@ -28,7 +30,11 @@
 <table class="table table-striped table-responsive">
 	<tr>
 		<td><strong>#</strong></td>
+    <?php if($this->action == 'clientOutstanding') { $type = 1; ?>
       <td><strong>Client Name</strong></td>
+      <?php } else if($this->action == 'shoperOutstanding'){ $type = 2; ?>
+        <td><strong>Shoper Name</strong></td>
+        <?php } ?>
    		<td><strong>Perticular</strong></td>
         <td><strong>Bill Date</strong></td>
    		<td><strong>Total Panding</strong></td>
@@ -131,7 +137,7 @@ function adjestPaid( id ){
 }
 function editPerticular(id,key){
     $.ajax({
-        url: "<?php echo ABSOLUTE_URL;?>/home_pages/submitAmmount",
+        url: "<?php echo ABSOLUTE_URL;?>/home_pages/submitAmmount/<?php echo $type;?>",
         data : {Id : id,paid: $("#" + id).val(),total:$("#ammount" + id).attr('value'),prepaid : $("#prepaid" +id).attr('value')},
         type: 'post',
         success: function(data){
@@ -143,6 +149,9 @@ function editPerticular(id,key){
             } 
         }
     });
+}
+function refreshPage(){
+  location.reload(true); 
 }
 </script>
 		</div>

@@ -305,12 +305,20 @@ class DeshBoardController extends AppController {
                     $salseData['actual_price'][] = trim($value['totel'.$i])/($value['quantity'.$i]);
                     $arr['TotleAm'] = $arr['servicetax'] + trim($value['totel'.$i]);
                     $prSalse[$key]['Salse']['quantity'] = trim($value['quantity'.$i]) ;
-                    if($this->data['shoperId']){
-                        $prSalse[$key]['Salse']['shoper_id'] = $this->data['shoperId'];
-                        $prSalse[$key]['Salse']['to_shoper'] = 1;
-                    }
                 }
             }
+            if($this->data['shoperId']){
+                $prSalse[$key]['Salse']['shoper_id'] = $this->data['shoperId'];
+                $prSalse[$key]['Salse']['to_shoper'] = 1;
+                $ShData['ammount_paid'] = $this->data['paidAmmount'];
+                $ShData['shoper_id'] = $this->data['shoperId'];
+                $ShData['bill_number'] = $this->data['billNo'];
+                $ShData['ammount_unpaid'] = $this->data['creaditAmmount'];
+                $ShData['ammount_total'] = $this->data['creaditAmmount'] + $this->data['paidAmmount'];
+                $ShData['status'] = 0;
+            }
+            $ShData['product_id'] = implode("," , $salseData['productId'] );
+            $ShData['stock_id'] = implode("," , $salseData['stok_id'] );
             $result = $this->Product->find('list', array('fields' => array('Product.id','Product.quantity'),
                     'conditions' => array('Product.id'=>$salseData['productId'])));
             $stokResult = $this->Stok->find('list', array('fields' => array('Stok.id','Stok.quantity_added'),
@@ -345,14 +353,20 @@ class DeshBoardController extends AppController {
                 $txt['invoice_number'] = 'TxS-'.$txt['salse_ids'].'-'.ceil(microtime()*1000);
                 $this->Transaction->create();
                 $this->Transaction->save($txt);
+                $ShData['txt_number'] = $this->Transaction->getLastInsertID();
+                $ShData['user_id'] = $user_id;
+                if($this->data['shoperId']){
+                    $this->ShoperOutstanding->create();
+                    $this->ShoperOutstanding->save($ShData);
+                }
                 $this->redirect(ABSOLUTE_URL.'/desh_board/printInvoice/'.$txt['salse_ids']);
                 //return "Successfully";
             } else {
-                return false;
+                $this->redirect(ABSOLUTE_URL.'/deshBoard');
             }
         } else{
             echo ("Nothing saled");
-            return false;
+            $this->redirect(ABSOLUTE_URL.'/deshBoard');
         }
     }
     function printInvoice($salseId){
