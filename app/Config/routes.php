@@ -40,6 +40,7 @@
 	Router::connect('/bulkSalse', array('controller' => 'desh_board', 'action' => 'bulkSalse'));
 	Router::connect('/ManageProducts', array('controller' => 'desh_board', 'action' => 'ManageProducts'));
 	Router::connect('/viewList', array('controller' => 'desh_board', 'action' => 'viewList'));
+	Router::connect('/viewParchese.html', array('controller' => 'home_pages', 'action' => 'viewParchese'));
 	Router::connect('/products', array('controller' => 'desh_board', 'action' => 'products'));
 	Router::connect('/logout', array('controller' => 'home_pages', 'action' => 'logout'));
 	Router::connect('/help.html', array('controller' => 'desh_board', 'action' => 'help'));

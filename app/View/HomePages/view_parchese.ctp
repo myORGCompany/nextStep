@@ -12,7 +12,7 @@
   <ul class="pagination col-md-10 margin-left-100">
     <?php $alphas = range('A', 'Z');
     foreach ($alphas as $key => $value) {?>
-    <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/viewSalse?page=<?php echo $value;?>"><?php echo $value;?></a></li><?php }
+    <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/viewParchese?page=<?php echo $value;?>"><?php echo $value;?></a></li><?php }
     ?>
     <div class="clearfix"></div>
     <ul class="pager">
@@ -33,9 +33,9 @@
       <td><strong>Catagory</strong></td>
       <td><strong>Group</strong></td>
       <td><strong>Quantity</strong></td>
-      <td><strong>Actual Price</strong></td>
-      <td><strong>To Shoper</strong></td>
-      <td><strong>Date</strong></td>
+      <td><strong>Parchase Price</strong></td>
+      <td><strong>Parchase Date</strong></td>
+     
    </tr>
   <?php foreach ( $NameArray as $key => $value) {
         if(!empty($value['Product']['name'])) { ?>
@@ -46,10 +46,9 @@
               <td><?php echo $value['MasterBrand']['name'];?></td>
               <td><?php echo $value['MasterCategory']['name'];?></td>
               <td><?php echo $value['ProductGroup']['name'];?></td>
-              <td><?php echo $value['Salse']['quantity'];?></td>
-              <td><?php echo $value['Salse']['actual_price'];?></td>
-              <td><?php echo $value['Shoper']['name'];?></td>
-               <td><?php echo $value['0']['date(`Salse`.`created`)'];?></td>
+              <td><?php echo $value['Stok']['quantity_added'];?></td>
+              <td><?php echo $value['Stok']['parchese_price'];?></td>
+              <td><?php echo $value['0']['date(`Stok`.`created`)'];?></td>
            </tr>
         <?php $nbr = $key+1;
         } }
@@ -58,7 +57,7 @@
           ?>
 </table>
 <ul class="pager">
-    <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/viewSalse">View All</a></li>
+    <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/viewParchese">View All</a></li>
   </ul>
 </div>
 <?php echo $this->element('edit_popup'); ?>
@@ -67,7 +66,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 var cnt = <?php echo $cnt;?>;
- for (var i = 0; i < 5; i++) {
+ for (var i = 0; i < 25; i++) {
     $("#list"+i).show();
   $("#list"+i).removeClass('hidden');
 }
@@ -75,7 +74,7 @@ var cnt = <?php echo $cnt;?>;
 var intpage = <?php echo $intpage;?>;
 $("#nextRes").click(function() { 
 if(intpage < cnt) {
-var res = intpage +5;
+var res = intpage +25;
 for (var i = intpage; i < res; i++) {
     $("#list"+i).show();
   $("#list"+i).removeClass('hidden');
@@ -84,22 +83,22 @@ for (var i = intpage; i < res; i++) {
             $("#list"+i).hide();
              $("#list"+i).addClass('hidden');
            }
-           intpage = intpage +5;
+           intpage = intpage +25;
 }
 else{
     alert("End of list please go to previous page");
 }
 });
 $("#prevRes").click(function() { 
-if(intpage >5) {
-var res = intpage -5;
-preres = res -5;
+if(intpage >25) {
+var res = intpage -25;
+preres = res -25;
 for (var i = res; i < intpage; i++) {
   $("#list"+i).hide();
   $("#list"+i).addClass('hidden');
 }
 var temp =res;
- for (var i = 0; i <= 5; i++) {
+ for (var i = 0; i <= 25; i++) {
     if(temp>=0){
   temp--;
   $("#list"+temp).show();
@@ -113,7 +112,7 @@ var temp =res;
 else{
     alert("End of list please go to next page");
 }
-intpage = intpage -5;
+intpage = intpage -25;
 });
 });
 

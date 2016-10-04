@@ -181,8 +181,30 @@ class HomePagesController extends AppController {
             array('table' => 'salses','alias'=> 'Salse','type'=>'inner','conditions'=>array( 'Product.id = Salse.product_id')),
              array('table' => 'shopers','alias'=> 'Shoper','type'=>'left','conditions'=>array( 'Salse.shoper_id = Shoper.id')));
 
-        $result = $this->Product->find('all', array('fields' => array('Product.price','Product.name','Product.id','Product.packing','Product.unit','MasterCategory.name','MasterBrand.name','ProductGroup.name','Salse.quantity','Salse.actual_price','Shoper.name'),         
+        $result = $this->Product->find('all', array('fields' => array('Product.price','Product.name','Product.id','Product.packing','Product.unit','MasterCategory.name','MasterBrand.name','ProductGroup.name','Salse.quantity','Salse.actual_price','Shoper.name','date(Salse.created)'),         
                     'conditions' => array('Salse.created > DATE_SUB(CURDATE(), INTERVAL 1 year)','Product.name LIKE' =>"$filt%",'Product.user_id' =>$user_id),
+                    'joins' =>$option));
+        $this->set('NameArray',$result);
+	}
+	function viewParchese(){
+		//Configure::write('debug', 2);
+		$user_id = $this->_checkLogin();
+		if ($maxPageNumber > $temMax) {
+            $maxPageNumber = $temMax + 1;
+        }
+        $this->set('maxPageNumber', $maxPageNumber);
+        $this->set('start', $tempSeq);
+        $this->set('linkdata', $data);
+        if( !empty($this->params['url']['page'] )) {
+            $filt = $this->params['url']['page'];
+        } 
+		$option = array(array('table' => 'product_groups','alias'=> 'ProductGroup','type'=>'left','conditions'=>array( 'Product.product_group_id = ProductGroup.id')),
+            array('table' => 'master_categories','alias'=> 'MasterCategory','type'=>'left','conditions'=>array( 'Product.master_category_id = MasterCategory.id')),
+            array('table' => 'master_brands','alias'=> 'MasterBrand','type'=>'left','conditions'=>array( 'Product.brand = MasterBrand.id')),
+            array('table' => 'stoks','alias'=> 'Stok','type'=>'inner','conditions'=>array( 'Product.id = Stok.product_id')));
+
+        $result = $this->Product->find('all', array('fields' => array('Product.price','Product.name','Product.id','Product.packing','Product.unit','MasterCategory.name','MasterBrand.name','ProductGroup.name','Stok.quantity_added','Stok.parchese_price','date(Stok.created)'),         
+                    'conditions' => array('Stok.created > DATE_SUB(CURDATE(), INTERVAL 1 year)','Product.name LIKE' =>"$filt%",'Product.user_id' =>$user_id),
                     'joins' =>$option));
         $this->set('NameArray',$result);
 	}

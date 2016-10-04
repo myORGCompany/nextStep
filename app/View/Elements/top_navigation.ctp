@@ -46,6 +46,8 @@
                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/ManageProducts">Manage Master</a>
                                         <li><a href="<?php echo ABSOLUTE_URL;?>/products">Add Product</a></li> 
                                         <li><a href="<?php echo ABSOLUTE_URL;?>/viewList">View all products</a></li>
+                                        <li><a href="<?php echo ABSOLUTE_URL;?>/view.html">View all salse</a></li>
+                                        <li><a href="<?php echo ABSOLUTE_URL;?>/viewParchese.html">View all parchase</a></li>
                                         </ul>
                                         </li>
                                         <li class="dropdown ">

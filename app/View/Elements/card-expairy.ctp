@@ -35,7 +35,7 @@
 			</div>
 			<div class="row">
 				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=salse" class="btn btn-primary pull-left margin-left-10">View Salse</a>
-				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=parchese" class="btn btn-primary pull-right margin-right-20" >View Parchese</a>
+				<a href="<?php echo ABSOLUTE_URL;?>/viewParchese.html" class="btn btn-primary pull-right margin-right-20" >View Parchese</a>
 			</div>
 		</div>
 	</div>
@@ -65,7 +65,7 @@
 			</div>
 			<div class="row">
 				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=salse" class="btn btn-primary pull-left margin-left-10">View Salse</a>
-				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=parchese" class="btn btn-primary pull-right margin-right-20" >View Parchese</a>
+				<a href="<?php echo ABSOLUTE_URL;?>/viewParchese.html" class="btn btn-primary pull-right margin-right-20" >View Parchese</a>
 			</div>
 		</div>
 	</div>
@@ -97,7 +97,7 @@
 			</div>
 			<div class="row">
 				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=salse" class="btn btn-primary pull-left margin-left-10">View Salse</a>
-				<a href="<?php echo ABSOLUTE_URL;?>/view.html?site=parchese" class="btn btn-primary pull-right margin-right-20" >View Parchese</a>
+				<a href="<?php echo ABSOLUTE_URL;?>/viewParchese.html" class="btn btn-primary pull-right margin-right-20" >View Parchese</a>
 			</div>
 		</div>
 	</div>
