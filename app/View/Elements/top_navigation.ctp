@@ -21,8 +21,6 @@
                             <?php if(!$this->Session->read('User')){?> 
                               <ul class="nav navbar-nav navbar-right font-14" style="">
                                 <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages">HOME</a></li>
-                                <li><a class="font-14" href="">ABOUT</a></li>
-                                <li><a class="font-14" href="">PORTFOLIO</a></li>
                                 <li><a class="font-14" rel="nofollow" id="loginli" class="external-link" data-toggle="modal" title="login" description="login action" data-target="#login">LOGIN</a>
                                 </li>
                                 <li><a class="font-14" rel="nofollow" 
