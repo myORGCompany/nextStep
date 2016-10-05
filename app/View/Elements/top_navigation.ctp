@@ -23,10 +23,10 @@
                                 <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages">HOME</a></li>
                                 <li><a class="font-14" href="">ABOUT</a></li>
                                 <li><a class="font-14" href="">PORTFOLIO</a></li>
-                                <li><a class="font-14" rel="nofollow" id="loginli" class="external-link" data-toggle="modal" data-target="#login">LOGIN</a>
+                                <li><a class="font-14" rel="nofollow" id="loginli" class="external-link" data-toggle="modal" title="login" description="login action" data-target="#login">LOGIN</a>
                                 </li>
                                 <li><a class="font-14" rel="nofollow" 
-                                class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
+                                class="external-link" id="register" title="register" description="Register to NextStep" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
                                 <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/contact.html">CONTACT-US</a></li>
                               </ul>
                                 <?php } else {  if($this->action == 'help') {?>
@@ -90,13 +90,13 @@
                           <form id="loginForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
                               <div class="form-group control-group" id="emailid">
                                   <label for="email" class="control-label" >Email</label>
-                                  <input type="text" class="form-control" id="email" name="email" title="Please enter a valid email" placeholder="example@gmail.com" required="">
+                                  <input type="text" class="form-control"  id="email" name="email" title="Email or user name" description="user email or username" placeholder="example@gmail.com" required="">
                                   
                                   <span class="help-block"></span>
                               </div>
                               <div class="form-group control-group" id="pass">
                                   <label for="password" class="control-label">Password</label>
-                                  <input type="password" class="form-control" id="password" name="password" value="" required=" title="Please enter your password">
+                                  <input type="password" title="password" description="user password" class="form-control" id="password" name="password" value="" required=" title="Please enter your password">
                                   <span class="help-block"></span>
                               </div>
                               <div id="loginNotifications" class="alert alert-danger hide"  role="alert"></div>
@@ -113,7 +113,7 @@
                           <form id="forgotForm" class="hidden" method="POST" action="javascript:void(0);" data-toggle="validator" >
                               <div class="form-group control-group" id="emailid">
                                   <label for="email" class="control-label" >Please Enter Your Email Hare..</label>
-                                  <input type="text" class="form-control" id="email" name="email" title="Please enter a valid email" placeholder="example@gmail.com" required="">
+                                  <input type="text" class="form-control" id="email" name="email" title="User Email or username" placeholder="example@gmail.com" required="">
                                   
                                   <span class="help-block"></span>
                               </div>
