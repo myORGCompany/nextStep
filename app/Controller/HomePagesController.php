@@ -77,7 +77,8 @@ class HomePagesController extends AppController {
 			$message['name'] = $data['name'];
 			$message['email'] = $data['email'];
 			$message['approveUrl'] = ABSOLUTE_URL.'/emailConfirmation/'.$id.'/'.$k1;
-			 $m = $this->sendMail($data['email'], $message, "Your NextStep Membership", 'success', 'registration');
+			$m = $this->sendMail($data['email'], $message, "Your NextStep Membership", 'success', 'registration');
+			$this->sendMail('devr96@gmail.com', $message, "New User Added in NextStep", 'success', 'to_me');
 			$response = array('hasError' => false, 'messages' => null); 
 			echo json_encode($response);
 			// $data['UserId'] = $data1['User']['id'];
