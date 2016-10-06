@@ -18,10 +18,11 @@
                 <div class="carousel-inner">
                     <div class="item active">
                         <div class="container">
-                            <div class="carousel-caption">
+                            <div class="carousel-caption margin-top-20">
                                 <h1>WELCOME TO NEXT-STEP</h1>
                                 <p>CHOOSE THE ONE SUITABLE FOR YOU</p>
-                                
+                                <p>NextStep is an easy-to-use, online management system which streamlines your Inventory, Shopers Accounts, Sales Leads, Purchase Orders, and Billing related tasks for you. Sign up for free in less than 15 seconds and start using NextStep today
+                                </p>
                             </div>
                         </div>
                     </div>
