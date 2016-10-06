@@ -20,6 +20,11 @@
     <head>
         <title>Next-Step Solutions</title>
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <?php
+        echo $this->Html->meta(
+                'favicon.ico', ABSOLUTE_URL . '/favicon.png', array('type' => 'icon')
+        );
+        ?>
 <meta name="description" content="NextStep is an easy-to-use, online management system which streamlines your Inventory, Shopers Accounts, Sales Leads, Purchase Orders, and Billing related tasks for you. Sign up for free in less than 15 seconds and start using NextStep today." />
 <meta name="keywords" content="online inventory management, web based management system, cloud based inventory management, stock control, saas, cloud crm, cloud business tool, sales leads, inventory management system, online invoicing, create custom estimates" />
 <meta name="copyright" content="2016, nextstep solutions pvt. ltd." />
