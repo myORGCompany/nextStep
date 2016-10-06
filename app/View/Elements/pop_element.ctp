@@ -90,6 +90,45 @@
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
             </form>
+             <form action="javascript: submitData('shoper');" class="hidden tags" id="shoperTag">
+            <div class="row">
+                <table class="table table-bordered c-table">
+                    <tr class="form-group control-group">
+                        <td class="">
+                            Name
+                        </td>
+                        <td class="card-text controls">
+                            <input type="text" class="form-control required" onchange="getFields('cntclass');" id="sName" name="sName">
+                        </td>
+                    </tr>
+                    <tr class="hidden cntclass form-group control-group">
+                        <td class="">
+                            Address
+                        </td>
+                        <td class="card-text controls">
+                            <input type="text" class="form-control required" id="shoperAdd" name="shoperAdd">
+                        </td>
+                    </tr>
+                    <tr class="hidden cntclass form-group control-group">
+                        <td class="">
+                            Phone No
+                        </td>
+                        <td class="card-text controls">
+                            <input type="text" class="form-control required" id="shoperPh" name="shoperPh">
+                        </td>
+                    </tr>
+                    <tr class="hidden cntclass form-group control-group">
+                        <td class="">
+                            Email
+                        </td>
+                        <td class="card-text controls">
+                            <input type="text" class="form-control required" id="shoperEmail" name="shoperEmail">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
           </div>
       </div>
   </div>
@@ -110,9 +149,15 @@ function submitData(id){
     var Add = $("#clientAdd").val();
     var Ph = $("#clientPh").val();
     var Email = $("#clientEmail").val();
+  } else if(id === 'shoper') {
+    var Name = $("#sName").val();
+    var Add = $("#shoperAdd").val();
+    var Ph = $("#shoperPh").val();
+    var Email = $("#shoperEmail").val();
   }  else {
     var Name = $("#" + id).val();
   }
+  alert(Name+'--'+Add+'--'+Ph+'--'+Email);
   $.ajax({
     type: "POST",
     url: "<?php echo ABSOLUTE_URL;?>/desh_board/addManageData",
@@ -158,6 +203,34 @@ $(document).ready(function () {
                         number:true
                     },
                     clientEmail: {
+                        required: true,
+                        email: true
+                    }
+                },
+                highlight: function (element) {
+                    $(element).closest('.controls').removeClass('success').addClass('text-danger');
+                },
+                success: function (element) {
+                    element.addClass('valid')
+                        .closest('.controls').removeClass('error').addClass('success');    
+                }
+            });
+            $('#ShoperTag').validate({
+                rules: {
+                     sName: {
+                        minlength: 3,
+                        required: true
+                    },
+                    shoperAdd: {
+                        minlength: 3,
+                        required: true
+                    },
+                    shoperPh: {
+                        minlength: 10,
+                        required: true,
+                        number:true
+                    },
+                    shoperEmail: {
                         required: true,
                         email: true
                     }

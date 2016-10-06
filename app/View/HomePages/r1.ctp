@@ -46,16 +46,16 @@
 								<input type="text" class="form-control required" title="Please Enter Your Nature Of Bussiness" name="nature" id="input7" >
 							</div>
 						</div>
-						<div class="form-group control-group controls">
+						<div class="form-group control-group ">
 							<label for="input6" class="col-sm-2 control-label margin-right-100">Phone Number</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control required" title="Please Enter Your Phone Number" name="phone" id="input7" >
+								<input type="text" class="form-control " title="Please Enter Your Phone Number" name="phone" id="input7" >
 							</div>
 						</div>
-						<div class="form-group control-group controls">
+						<div class="form-group control-group ">
 							<label for="input6" class="col-sm-2 control-label margin-right-100">TIN</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control required" title="Please Enter TIN Number" name="tin" id="input7" >
+								<input type="text" class="form-control " title="Please Enter TIN Number" name="tin" id="input7" >
 							</div>
 						</div>
 				       <div class="clearfix"></div> 
@@ -91,13 +91,7 @@ $(document).ready(function () {
                     },
 					nature: {
 			            required: true
-			        },
-			        phone: {
-			            required: true
-			        }, 
-			        tin: {
-			            required: true
-			        },  
+			        }
                 },
                 highlight: function (element) {
                     $(element).closest('.controls').removeClass('success').addClass('text-danger');

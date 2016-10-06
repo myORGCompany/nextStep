@@ -51,6 +51,7 @@
 
     </head> 
 <body>
+
 <?php echo $this->element('top_navigation'); ?>
 <?php echo $this->element('registration'); ?>
 

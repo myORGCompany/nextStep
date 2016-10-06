@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+  <style type="text/css">
+      .text-white{color:white !important;}
+  </style>
     <body>
 
         <div>
@@ -66,16 +68,16 @@
             </div>
         </div>
         
-        <div class="templatemo-service">
+        <div class="templatemo-team">
             <div class="container">
-                <div class="row">
+                <div class="row " style="margin-top:17%;">
                     <div class="col-md-4">
                         <div class="templatemo-service-item">
                             <div>
                                 <img src="<?php echo ABSOLUTE_URL;?>/img/leaf.png" alt="icon" />
                                 <span class="templatemo-service-item-header">AWESOME FUNCTIONALITY</span>
                             </div>
-                            <p>Hare you can find your managment portle with innovated functionalities which provide you ease of work with data intigrity, isolization and automation applied to an inefficient operation which magnify the inefficiency which leads to save your asits and reduces the Risk. </p>
+                            <p class="text-white">Hare you can find your managment portle with innovated functionalities which provide you ease of work with data intigrity, isolization and automation applied to an inefficient operation which magnify the inefficiency which leads to save your asits and reduces the Risk. </p>
                             <div class="text-center">
                                 <a href="#" 
                                     class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
@@ -91,7 +93,7 @@
                                 <img src="<?php echo ABSOLUTE_URL;?>/img/mobile.png" alt="icon"/>
                                 <span class="templatemo-service-item-header">FULLY RESPONSIVE</span>
                             </div>
-                            <p>Next-Step is a Bootstrap Website that is available for free instant download. Credits go to <a rel="nofollow" href="http://getbootstrap.com" target="_parent">Bootstrap</a> and <a rel="nofollow" href="http://unsplash.com" target="_parent">Unsplash</a> for images used in this template. You do not need to provide a credit link to us. You may spread a word about templatemo. Thank you.</p>
+                            <p class="text-white">Next-Step is a Bootstrap Website that is available for free instant download. Credits go to <a rel="nofollow" href="http://getbootstrap.com" target="_parent">Bootstrap</a> and <a rel="nofollow" href="http://unsplash.com" target="_parent">Unsplash</a> for images used in this template. You do not need to provide a credit link to us. You may spread a word about templatemo. Thank you.</p>
                             <div class="text-center">
                                 <a href="#" 
                                     class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
@@ -107,7 +109,7 @@
                                 <img src="<?php echo ABSOLUTE_URL;?>/img/battery.png" alt="icon"/>
                                 <span class="templatemo-service-item-header">HIGH EFFICIENCY</span>
                             </div>
-                            <p>The first rule of any technology used in a business is that automation applied to an efficient operation will magnify the efficiency. The second is that automation applied to an inefficient operation will magnify the inefficiency which leads to save your asits .</p>
+                            <p class="text-white">The first rule of any technology used in a business is that automation applied to an efficient operation will magnify the efficiency. The second is that automation applied to an inefficient operation will magnify the inefficiency which leads to save your asits .</p>
                             <div class="text-center">
                                 <a href="#" 
                                     class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
@@ -119,7 +121,7 @@
                 </div>
             </div>
         </div>
-
+<?php /*
         <div class="templatemo-team" id="templatemo-about">
             <div class="container">
                 <div class="row">
@@ -199,7 +201,7 @@
                     </ul>
             </div>
         </div><!-- /.templatemo-team -->
-<?php /*
+
         <div id="templatemo-portfolio" >
             <div class="container">
                 <div class="row">

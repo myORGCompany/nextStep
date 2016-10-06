@@ -72,7 +72,13 @@
         </div>
 </div>
 </div>
-              
+              <div class="container" id="containt">
+                <p>
+                    online inventory management, web based management system, cloud based inventory management, stock control, saas, cloud crm, cloud business tool, sales leads, inventory management system, online invoicing, create custom estimates
+                </p>
+                <p>NextStep is an easy-to-use, online management system which streamlines your Inventory, Shopers Accounts, Sales Leads, Purchase Orders, and Billing related tasks for you. Sign up for free in less than 15 seconds and start using NextStep today</p>
+
+            </div>
               <!-- user setting and profile tab -->
         
   <div id="login"  class="modal fade" role="dialog">

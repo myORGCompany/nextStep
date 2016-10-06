@@ -37,7 +37,7 @@
                             <div class="height30"></div>
                         </div>
                         <div class="footer_bottom_content">
-                            <span id="footer-line">Copyright © 2084 <a href="#">NextStep</a></span>
+                            <span id="footer-line">Copyright © 2016 <a href="#">NextStep</a></span>
                         </div>
                     </div>
                 </div>

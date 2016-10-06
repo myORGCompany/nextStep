@@ -101,6 +101,7 @@ $(function() {
                                 <label for="input1" class="control-label">Shoper Name</label>
                                 <input type="text" class="form-control shoper required padding-right-0" name="shoperName" id="shoperName">
                                 <input type="text" class="form-control hidden required padding-right-0" name="shoperId" id="shoperId">
+                                <a  rel="nofollow" onclick="getForm('shoperTag' ,'Add New Shoper');" class="external-link" data-toggle="modal" data-target="#element"> Add New Shoper</a>
                             </div>
                             <div class="col-md-2 controls ">
                                 <label for="input1" class="control-label">Ammount Paid</label>
@@ -137,6 +138,7 @@ $(function() {
 		</div>
 	</div>
 </body>
+<?php echo $this->element('pop_element'); ?>
 <script type="text/javascript">
 var row =0;
 $(document).ready(function () {
@@ -322,4 +324,9 @@ function calAmm( val ){
         $("#creaditAmmount").val(newam);
     }
 }
+function getForm( id ,string ){
+            $('.tags').addClass('hidden');
+            $("#" + id).removeClass('hidden').addClass('show');
+            $("#heading").replaceWith('<h4 class="modal-title" id="heading">'+string+'</h4>')
+        }
 </script>

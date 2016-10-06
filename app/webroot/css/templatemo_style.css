@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
 }
-
+#containt{display: none;}
 .templatemo_clear {
 	clear: both;
 }

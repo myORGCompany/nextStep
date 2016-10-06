@@ -583,6 +583,7 @@ class DeshBoardController extends AppController {
                     } else {
                         $ret['message'] = "Nothig saved please try again";
                         echo json_encode($ret);
+                        die("DDDDDDDDD");
                         exit();
                     }
                 }
