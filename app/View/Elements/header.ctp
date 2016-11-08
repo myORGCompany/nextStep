@@ -8,7 +8,7 @@
 
     <meta name="author" content="Team NextStep">
 
-    <title>Welcome to JMP</title>
+    <title>Welcome to Next-Step</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo ABSOLUTE_URL;?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
