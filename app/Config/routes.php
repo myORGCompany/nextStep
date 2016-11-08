@@ -26,7 +26,7 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 
-	Router::connect('/', array('controller' => 'home_pages', 'action' => 'index', 'home'));
+	Router::connect('/', array('controller' => 'my', 'action' => 'home'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
@@ -44,6 +44,7 @@
 	Router::connect('/products', array('controller' => 'desh_board', 'action' => 'products'));
 	Router::connect('/logout', array('controller' => 'home_pages', 'action' => 'logout'));
 	Router::connect('/help.html', array('controller' => 'desh_board', 'action' => 'help'));
+	Router::connect('/connect', array('controller' => 'my', 'action' => 'contactUs'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
