@@ -44,6 +44,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
+                        <a class="page-scroll" href="<?php echo ABSOLUTE_URL;?>/stockManagmentPortal">Stock Managment Portal</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="<?php echo ABSOLUTE_URL;?>#about">About</a>
                     </li>
                     <li>

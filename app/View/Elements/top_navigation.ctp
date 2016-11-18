@@ -12,7 +12,7 @@
 <div class="navbar  navbar-default navbar-fixed-top transparent-nav" role="navigation" id="siteNavigation">
     <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-             <a href="" class="navbar-brand "><img src="<?php echo ABSOLUTE_URL;?>/img/logo/nav-logo.png" class="img-responsive" style="margin-top: -9px; " alt="NextStep Solutions" title="NextStep Solutions" /></a>
+             <a href="<?php echo ABSOLUTE_URL;?>" class="navbar-brand "><img src="<?php echo ABSOLUTE_URL;?>/img/logo/nav-logo.png" class="img-responsive" style="margin-top: -9px; " alt="NextStep Solutions" title="NextStep Solutions" /></a>
     </div>
             <div class="container">
                 <div class="subheader">
