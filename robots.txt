@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow: /operations
+
+Sitemap: http://www.headhonchos.com/sitemap/sitemap-index.xml
