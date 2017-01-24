@@ -1,0 +1,5 @@
+{
+    "require": {
+        "bakkerij/notifier": "^1.2"
+    }
+}

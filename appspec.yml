@@ -1,0 +1,18 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/html/nextstep
+permissions:
+   - object: /var/www/html/nextstep
+     pattern: "*"
+     owner: deployprod
+     group: apache
+     mode: 755
+     type:
+      - file
+hooks:
+  BeforeInstall:
+    - location: pre_deploy.sh
+  AfterInstall:
+    - location: deploy.sh
