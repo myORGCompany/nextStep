@@ -19,7 +19,7 @@ ln -s  /var/www/html/nextstep/app/Config/email.php  /var/www/html/nextstep/app/C
 
 
 
-chown www:www -R /var/www/html/nextstep
+chown ec2-user:www -R /var/www/html/nextstep
 
 
 
