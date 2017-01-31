@@ -6,7 +6,7 @@ files:
 permissions:
    - object: /var/www/html/nextstep
      pattern: "*"
-     owner: wwww
+     owner: www
      group: www
      mode: 755
      type:
