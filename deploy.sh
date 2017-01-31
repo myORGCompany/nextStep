@@ -19,7 +19,7 @@ ln -s  /var/www/html/nextstep/app/Config/email.php  /var/www/html/nextstep/app/C
 
 
 
-chown deployprod:apache -R /var/www/html/nextstep
+chown www:www -R /var/www/html/nextstep
 
 
 
