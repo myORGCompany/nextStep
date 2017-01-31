@@ -6,8 +6,8 @@ files:
 permissions:
    - object: /var/www/html/nextstep
      pattern: "*"
-     owner: deployprod
-     group: apache
+     owner: wwww
+     group: www
      mode: 755
      type:
       - file
