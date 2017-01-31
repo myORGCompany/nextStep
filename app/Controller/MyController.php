@@ -46,7 +46,6 @@ class MyController extends AppController {
  */
 	function home(){
 		$this->layout = 'my';
-		die("SSSSSS");
 	}
 	function submitLead(){
 		$this->autoRender = false;

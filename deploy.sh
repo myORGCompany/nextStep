@@ -6,14 +6,14 @@ mkdir -p  /var/www/html/nextstep/app/tmp/cache/models
 mkdir -p  /var/www/html/nextstep/app/tmp/cache/masters
 mkdir -p  /var/www/html/nextstep/app/tmp/logs
 chmod -R 777  /var/www/html/nextstep/app/tmp
-rm -rf  /var/www/html/nextstep/app/Config/core.php
-ln -s  /var/www/html/nextstep/app/Config/core.php  /var/www/html/nextstep/app/Config/core.php
-rm -rf  /var/www/html/nextstep/app/Config/database.php
-ln -s  /var/www/html/nextstep/app/Config/database.php  /var/www/html/nextstep/app/Config/database.php
-rm -rf  /var/www/html/nextstep/app/Config/mycore.php
-ln -s  /var/www/html/nextstep/app/Config/mycore.php  /var/www/html/nextstep/app/Config/mycore.php
-rm -rf  /var/www/html/nextstep/app/Config/email.php
-ln -s  /var/www/html/nextstep/app/Config/email.php  /var/www/html/nextstep/app/Config/email.php
+# rm -rf  /var/www/html/nextstep/app/Config/core.php
+# ln -s  /var/www/html/nextstep/app/Config/core.php  /var/www/html/nextstep/app/Config/core.php
+# rm -rf  /var/www/html/nextstep/app/Config/database.php
+# ln -s  /var/www/html/nextstep/app/Config/database.php  /var/www/html/nextstep/app/Config/database.php
+# rm -rf  /var/www/html/nextstep/app/Config/mycore.php
+# ln -s  /var/www/html/nextstep/app/Config/mycore.php  /var/www/html/nextstep/app/Config/mycore.php
+# rm -rf  /var/www/html/nextstep/app/Config/email.php
+# ln -s  /var/www/html/nextstep/app/Config/email.php  /var/www/html/nextstep/app/Config/email.php
 
 
 
