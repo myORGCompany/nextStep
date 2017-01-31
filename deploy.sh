@@ -19,7 +19,7 @@ chmod -R 777  /var/www/html/nextstep/app/tmp
 
 
 
-chown deployprod:apache -R /var/www/html/nextstep
+chown ec2-user:www -R /var/www/html/nextstep
 
 
 
